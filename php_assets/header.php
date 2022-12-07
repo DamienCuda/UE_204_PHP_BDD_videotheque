@@ -19,7 +19,7 @@
         }else{
             $header .= '
                 <div class="site-logo col-3">
-                    <a href="index.php" class="navbar-brand"><img class="img-fluid" src="assets/Logo.png" alt="Vidéothèque Groupe 9"></a>
+                    <img class=" img_pages navbar-brand img-fluid" src="assets/Logo.png" alt="Vidéothèque Groupe 9">
                 </div>
             ';
         }
@@ -28,8 +28,8 @@
                 <div class="col-9">
                 <nav class="site-navigation text-right ml-auto" role="navigation">
                     <ul class="navbar-nav d-flex flex-row justify-content-around">
-                        <li class="nav-item h5"><a href="catalogue.php.php" class="nav-link">Gestion Films</a></li>
-                        <li class="nav-item h5"><a href="gestion_bdd.php" class="nav-link">Gestion Utilisateur</a></li>
+                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Gestion Films</a></li>
+                        <li class="nav-item h5"><a href="gestion_user.php" class="nav-link">Gestion Utilisateur</a></li>
                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link">Déconnexion</a></li>
             ';
         }else{
@@ -37,8 +37,8 @@
                 <div class="col-9">
                 <nav class="site-navigation text-right ml-auto" role="navigation">
                     <ul class="navbar-nav d-flex flex-row justify-content-around">
-                        <li class="nav-item h5"><a href="catalogue.php.php" class="nav-link">Catalogue</a></li>
-                        <li class="nav-item h5"><a href="gestion_bdd.php" class="nav-link">Espace Perso</a></li>
+                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Catalogue</a></li>
+                        <li class="nav-item h5"><a href="espace_perso_user.php" class="nav-link">Espace Perso</a></li>
                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link">Déconnexion</a></li>
             ';
         }
