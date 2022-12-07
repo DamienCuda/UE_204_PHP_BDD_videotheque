@@ -13,7 +13,7 @@
         if ($row['identifiant'] === $username && $row['motdepasse'] === $password) {
             $_SESSION['identifiant'] = $row['identifiant'];
             $_SESSION['id'] = $row['id'];
-            header("Location: ../index.php");
+            header("Location: ../catalogue.php");
         }
     }
 ?>
