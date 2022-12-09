@@ -47,23 +47,24 @@
         }
     }else {
 
-            if ($_POST["username"] == "") {
-                $response_array['status'] = 'usernameEmpty';
-                echo json_encode($response_array);
-                exit();
-            }
+        if ($_POST["username"] == "") {
+            $response_array['status'] = 'usernameEmpty';
+            echo json_encode($response_array);
+            exit();
+        }
 
-            if ($_POST["pass"] == "") {
-                $response_array['status'] = 'passEmpty';
-                echo json_encode($response_array);
-                exit();
-            }
+        if ($_POST["pass"] == "") {
+            $response_array['status'] = 'passEmpty';
+            echo json_encode($response_array);
+            exit();
+        }
 
-            if ($_POST["passconfirm"] == "") {
-                $response_array['status'] = 'passConfEmpty';
-                echo json_encode($response_array);
-                exit();
-            }
+        if ($_POST["passconfirm"] == "") {
+            $response_array['status'] = 'passConfEmpty';
+            echo json_encode($response_array);
+            exit();
+        }
+
     }
 
 ?>
