@@ -5,11 +5,11 @@
 
 <?php include 'php_assets/head.php'?>
 
-<body>
+<body id="portailWallpaper">
     <?php include 'php_assets/header.php'?>
     <main class="container">
         <div class="row mt-5 d-flex align-content-start">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="card">
                     <div class="card-header">
                         <h2>Inscription</h2>
@@ -21,6 +21,16 @@
                                 <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="username" id="username">
                                 <div id="validationUsernameFeedback" class="invalid-feedback">
                                     Veuillez renseigner un nom d'utilisateur.
+                                </div>
+                                <div class="valid-feedback">
+                                    Ce nom d'tilisateur est disponible.
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label for="email">Email : </label>
+                                <input type="email" class="form-control" placeholder="Votre adresse email" name="email" id="email">
+                                <div id="validationEmailFeedback" class="invalid-feedback">
+                                    Veuillez renseigner une adresse email.
                                 </div>
                             </div>
                             <div class="col-12 mt-3">
@@ -35,25 +45,41 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center mt-3">
-                                <button type="submit" class="btn btn-primary" id="registerBtn">S'INSCRIRE</button>
+                                <button type="submit" class="btn btn-warning" id="registerBtn">S'INSCRIRE</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-sm-3 mt-md-3 mt-xs-3 mt-3 mt-lg-0 mt-xl-0">
                 <div class="card">
                     <div class="card-header">
                         <h2>Déja un compte ? Connectez vous !</h2>
                     </div>
                     <div class="card-body">
-                        <form action="php_assets/login.php" method="POST">
-                            <label for="username">Nom d'utilisateur : </label>
-                            <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="username" required> </br>
-                            <label for="pass">Mot de passe : </label>
-                            <input type="password" class="form-control" placeholder="Votre mot de passe" name="pass" required> </br>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">SE CONNECTER</button>
+                        <form action="" method="POST" id="loginForm">
+                            <div class="col-12 mt-3">
+                                <label for="username">Nom d'utilisateur : </label>
+                                <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="username" id="usernameLogin">
+                                <div id="validationUsernameFeedbackLogin" class="invalid-feedback">
+                                    Le nom d'utilisateur doit être renseigner.
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label for="pass">Mot de passe : </label>
+                                <input type="password" class="form-control" placeholder="Votre mot de passe" name="pass" id="passLogin">
+                                <div id="validationPasswordFeedbackLogin" class="invalid-feedback">
+                                    Le mot de passe doit être renseigner.
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <input type="hidden" id="errorLogin" value="error">
+                                <div id="validationLoginFeedback" class="invalid-feedback">
+                                    Le nom d'utilisateur ou le mot de passe est inccorect.
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center mt-3">
+                                <button type="submit" class="btn btn-warning" id="loginBtn">SE CONNECTER</button>
                             </div>
                         </form>
                     </div>
@@ -84,5 +110,6 @@
     </main>
     <?php include 'php_assets/footer.php'?>
     <script src="js/register.js"></script>
+    <script src="js/login.js"></script>
 </body>
 </html>
