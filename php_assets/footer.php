@@ -1,3 +1,8 @@
+<!-- BEGIN: Utilitaire -->
+<script src="app-assets/jquery-3.6.1.min.js"></script>
+<script src="app-assets/bootstrap.min.js"></script>
+<!-- END: Utilitaire -->
+
 <footer class="bg-light fixed-bottom">
     <div class="container mt-auto">
         <div class="row text-center pt-3">
