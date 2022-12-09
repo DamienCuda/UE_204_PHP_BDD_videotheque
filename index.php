@@ -71,7 +71,7 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        <p>Merci beaucoup ! Votre inscription à été prise en compte.</p>
+                        <p>Merci beaucoup ! Votre inscription a été prise en compte.</p>
                         <p>Vous pouvez maintenant vous connecter !</p>
 
                     </div>
