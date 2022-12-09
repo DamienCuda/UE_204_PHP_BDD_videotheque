@@ -8,7 +8,6 @@
 <body id="portailWallpaper">
     <?php include 'php_assets/header.php'?>
     <main class="container">
-        <div class="tiket-stars mt-3"></div>
         <div class="row mt-5 d-flex align-content-start">
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="card">
@@ -108,7 +107,6 @@
                 </div>
             </div>
         </div>
-        <div class="tiket-stars footer-star mt-3"></div>
     </main>
     <?php include 'php_assets/footer.php'?>
     <script src="js/register.js"></script>

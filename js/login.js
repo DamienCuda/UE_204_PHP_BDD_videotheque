@@ -66,11 +66,13 @@ $(document).ready(function() {
                     if(reponse.status == "passNotCorrect"){
                         $("#errorLogin").addClass("is-invalid");
                         $("#errorLogin").removeClass("is-valid");
+                        $("#validationLoginFeedback").text("Le nom d'utilisateur ou le mot de passe est inccorect.");
                     }
 
                     if(reponse.status == "usernameNotCorrect"){
                         $("#errorLogin").addClass("is-invalid");
                         $("#errorLogin").removeClass("is-valid");
+                        $("#validationLoginFeedback").text("Le nom d'utilisateur ou le mot de passe est inccorect.");
                     }
 
                     if(reponse.status == "usernameEmpty"){
@@ -114,6 +116,7 @@ $(document).ready(function() {
         if(passwordInputLogin.val() != "" && regexPassword.test(passwordInputLogin.val())){
             passwordInputLogin.addClass("is-valid");
             passwordInputLogin.removeClass("is-invalid");
+            $("#validationLoginFeedback").text("");
         }else{
             passwordInputLogin.removeClass("is-valid");
             passwordInputLogin.addClass("is-invalid");

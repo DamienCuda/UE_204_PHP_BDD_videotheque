@@ -10,7 +10,7 @@
             $header .= '
                         <div class="site-logo col-12 text-center">
                             <img class="navbar-brand img-fluid img_index" src="assets/Logo.png" alt="Vidéothèque Groupe 9">
-                        </div>
+                        </div>               
                     </div>
                 </div>
             </header>';
