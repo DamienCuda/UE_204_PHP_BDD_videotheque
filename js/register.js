@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     // On initialise les variables.
-    let registerForm = $("#registerForm");
     let usernameInput = $("#username");
     let passwordInput = $("#pass");
     let passwordConfirmInput = $("#passconfirm");
