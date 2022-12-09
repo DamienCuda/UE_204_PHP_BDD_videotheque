@@ -5,11 +5,12 @@
 
 <?php include 'php_assets/head.php'?>
 
-<body>
+<body id="portailWallpaper">
     <?php include 'php_assets/header.php'?>
     <main class="container">
+        <div class="tiket-stars mt-3"></div>
         <div class="row mt-5 d-flex align-content-start">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="card">
                     <div class="card-header">
                         <h2>Inscription</h2>
@@ -45,13 +46,13 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center mt-3">
-                                <button type="submit" class="btn btn-primary" id="registerBtn">S'INSCRIRE</button>
+                                <button type="submit" class="btn btn-warning" id="registerBtn">S'INSCRIRE</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-sm-3 mt-md-3 mt-xs-3 mt-3 mt-lg-0 mt-xl-0">
                 <div class="card">
                     <div class="card-header">
                         <h2>Déja un compte ? Connectez vous !</h2>
@@ -79,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center mt-3">
-                                <button type="submit" class="btn btn-primary" id="loginBtn">SE CONNECTER</button>
+                                <button type="submit" class="btn btn-warning" id="loginBtn">SE CONNECTER</button>
                             </div>
                         </form>
                     </div>
@@ -107,6 +108,7 @@
                 </div>
             </div>
         </div>
+        <div class="tiket-stars footer-star mt-3"></div>
     </main>
     <?php include 'php_assets/footer.php'?>
     <script src="js/register.js"></script>
