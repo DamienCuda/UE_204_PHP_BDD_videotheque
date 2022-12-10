@@ -1,5 +1,6 @@
 <?php
     require_once("php_assets/connectdb.php");
+    require ("verif_session_connect.php");
     require ("php_assets/fonctions.php");
 ?>
 
@@ -45,12 +46,30 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <?php foreach($movies as $movie): ?>
+                <?php
+                    foreach($movies as $movie):
+
+                        // On verifie si le film est présent dans la table movies_bookmark.
+                        $moviesReq = $conn->prepare('SELECT * FROM movies_bookmark WHERE movie_id = ? AND user_id = ? LIMIT 1');
+                        $moviesReq->execute([
+                            $movie['id'],
+                            $_SESSION['id']
+                        ]);
+                        $bookmark = $moviesReq->fetchAll();
+
+                        // Si il est présent on passe la bool $is_bookmark à true.
+                        if(count($bookmark) > 0){
+                            $is_bookmark = true;
+                        }else{
+                            $is_bookmark = false;
+                        }
+
+                    ?>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
                     <div class="card movie">
                         <a href="php_assets/add-bookmark.php?movie=<?= $movie['id'] ?>">
                             <div class="bookmark">
-                                <i class='bx bx-bookmark'></i>
+                                <i class='bx <?php if($is_bookmark){ echo "bxs-bookmark"; }else{ echo "bx-bookmark"; } ?>'></i>
                             </div>
                         </a>
                         <a href="catalogue.php?movie=<?= $movie['id'] ?>">
