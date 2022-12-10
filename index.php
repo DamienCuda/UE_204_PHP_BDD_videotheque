@@ -1,4 +1,13 @@
-<?php session_start(); ?>
+<?php
+    session_start();
+
+    if(empty($_SESSION['id']))
+    {
+        //l'utilisateur est déconnecté
+    }else{
+        header("location: catalogue.php");
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
