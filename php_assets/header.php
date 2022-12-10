@@ -1,5 +1,5 @@
 <?php
-
+    $is_admin = $_SESSION['is_admin'];
     $header = '
         <header class="bg-light">
             <div class="container">
