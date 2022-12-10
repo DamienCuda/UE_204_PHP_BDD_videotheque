@@ -2,7 +2,7 @@
     require_once("connectdb.php");
     require ("fonctions.php");
 
-$pdoDe = $conn->prepare('DELETE FROM utilisateurs WHERE id= ? LIMIT 1');
+$pdoDe = $conn->prepare('UPDATE utilisateurs SET is_admin=0 WHERE id= ? LIMIT 1');
 $pdoDe->execute([
 nettoyage($_GET['id'])
 ]);
