@@ -248,6 +248,5 @@
         </div>
     </main>
     <?php include 'php_assets/footer.php'?>
-    <script src="js/bookmark-animation.js"></script>
 </body>
 </html>
