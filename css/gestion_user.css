@@ -1,0 +1,27 @@
+#gestion_user input{
+    background: #09172a !important;
+    color: #fff;
+    box-shadow: inset 0 0px 0 #ddd;
+}
+
+#gestion_user .profil-membre{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-size: cover !important;
+}
+
+#gestion_user label, #gestion_user .dataTables_info{
+    color: #fff;
+}
+
+#gestion_user select{
+    background: #ffc107;
+    border: 0;
+    cursor: pointer;
+}
+
+#gestion_user_table{
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+}

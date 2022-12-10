@@ -10,42 +10,76 @@ require ("php_assets/fonctions.php");
 <?php include 'php_assets/header.php'?>
 <body>
 <main>
-<?php
-    $userReq = $conn->prepare('SELECT * FROM utilisateurs');
-    $userReq->execute();
-    $users = $userReq->fetchAll();
-?>
-<div class="container">
-<table class="table table-hover">
-    <thead>
-        <tr>
-          <th>ID</th>
-          <th>login</th>
-          <th>email</th>
-          <th>Admin (1= Oui, 0= Non)</th>
-          <th>Suppression</th>
-          <th>Modifier</th>
-          <th>Upgrade</th>
-          <th>Downgrade</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($users as $user){ ?>
-        <tr>
-          <td><?= $user['id']; ?></td>
-          <td><?= $user['login']; ?></td>
-           <td><?= $user['email']; ?></td>
-           <td><?= $user['is_admin']; ?></td>
-           <td><a href="php_assets/delete_user.php?id=<?= $user['id']; ?>"<><button>Supprimer</button></a></td>
-           <td><a href="php_assets/modif_user.php?id=<?= $user['id']; ?>"<><button>Editer</button></a></td>
-           <td><a href="php_assets/upgrade_user.php?id=<?= $user['id']; ?>"<><button>Mettre admin</button></a></td>
-           <td><a href="php_assets/downgrade_user.php?id=<?= $user['id']; ?>"<><button>Retrograder</button></a></td>
-        </tr>
-        <?php } ?>
-    </tbody>
-</table>  
-</div>   
+    <?php
+        $userReq = $conn->prepare('SELECT * FROM utilisateurs');
+        $userReq->execute();
+        $users = $userReq->fetchAll();
+    ?>
+    <div class="container">
+        <section id="gestion_user" class="mt-5">
+            <table class="table table-striped" id="gestion_user_table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Photo de profil</th>
+                    <th>Utilisateur</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($users as $user){ ?>
+                    <tr>
+                        <td><?= $user['id']; ?></td>
+                        <td>
+                            <div class="profil-membre" style="background: url('img/profil_img/<?= $user['profile_picture']; ?>');"></div>
+                        </td>
+                        <td><?= $user['login']; ?></td>
+                        <td><?= $user['email']; ?></td>
+                        <td>
+                            <?php
+                            if($user['is_admin'] == 1){
+                                echo "Administrateur";
+                            }else{
+                                echo "Membre";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <a href="php_assets/modif_user.php?id=<?= $user['id']; ?>" title="Modifier"><i class='bx bx-edit-alt'></i></a>
+                                <?php
+                                if($user['is_admin'] == 1){
+                                    ?>
+                                    <a href="php_assets/downgrade_user.php?id=<?= $user['id']; ?>" title="Destituer"><i class='bx bx-chevrons-down'></i></a>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <a href="php_assets/upgrade_user.php?id=<?= $user['id']; ?>" title="Promouvoir"><i class='bx bx-chevrons-up'></i></a>
+                                    <?php
+                                }
+                                ?>
+                                <a href="php_assets/delete_user.php?id=<?= $user['id']; ?>" title="Supprimer"><i class='bx bx-trash'></i></a>
+
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </section>
+    </div>
 </main>
 <?php include 'php_assets/footer.php'?>
+<script>
+    $(document).ready(function () {
+        $('#gestion_user_table').DataTable({
+            language: {
+                url: 'app-assets/dataTables.french.json'
+            }
+        });
+    });
+</script>
 </body>
 </html>
