@@ -42,8 +42,13 @@
                 $id_user
             ]);
         }
+
+        if(isset($_GET['page']) && $_GET['page'] == "film_details"){
+            header("location: ../catalogue.php?movie=$id_movie");
+        }else{
+            header("location: ../catalogue.php");
+        }
+    }else{
+        header("location: ../catalogue.php");
     }
-
-    header("location: ../catalogue.php");
-
  ?>

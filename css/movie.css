@@ -70,7 +70,7 @@ input{
 }
 
 .bookmark-right{
-    left: 90%;
+    left: 80%;
     top: 0;
     background: #ffc107;
 }
@@ -79,6 +79,7 @@ input{
     width: 300px;
     height: 400px;
     background-size: cover !important;
+    margin: auto;
 }
 
 .synospis{
