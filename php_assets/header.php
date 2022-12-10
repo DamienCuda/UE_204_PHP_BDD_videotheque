@@ -1,9 +1,4 @@
 <?php
-    if(!empty($_SESSION['id'])){
-        $is_admin = $_SESSION['is_admin'];
-    }else{
-        $is_admin = false;
-    }
 
     $header = '
         <header class="bg-light">

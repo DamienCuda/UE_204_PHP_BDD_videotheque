@@ -7,6 +7,14 @@ body#movieWallpaper{
     position: relative;
 }
 
+.card.movie .card-footer small{
+    color: #1d1d1d;
+}
+
+.card.movie .card-footer{
+    background: #f8f9fa;
+}
+
 .card-body.movie-img{
     height: 400px;
     background-size: cover !important;
@@ -31,4 +39,28 @@ input{
     background: #09172a;
     padding-left: 20px;
     padding-right: 20px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.bookmark{
+    width: 50px;
+    height: 70px;
+    background: #09172a;
+    position: absolute;
+    left: 20px;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20pt;
+    cursor: pointer;
 }
