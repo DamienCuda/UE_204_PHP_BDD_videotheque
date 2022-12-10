@@ -1,5 +1,7 @@
-<?php session_start(); 
-    require_once("php_assets/connectdb.php"); ?>
+<?php
+require_once("php_assets/connectdb.php");
+require ("php_assets/fonctions.php");
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
