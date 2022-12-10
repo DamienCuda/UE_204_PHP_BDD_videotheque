@@ -32,3 +32,11 @@ main{
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/wallpaper.jpg');
 }
 
+.nav-link{
+    color: #ffc107 !important;
+}
+
+.nav-link.active{
+    background: #ffc107 !important;
+    color: #fff !important;
+}
