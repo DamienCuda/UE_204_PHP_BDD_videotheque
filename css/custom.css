@@ -74,3 +74,12 @@ table i:hover{
     color: #ffc107 !important;
 }
 
+.pagination li a.page-link{
+    background: #1d1d1d !important;
+    border: none !important;
+}
+
+.pagination li.active a.page-link{
+    background: #ffc107 !important;
+    border: none !important;
+}
