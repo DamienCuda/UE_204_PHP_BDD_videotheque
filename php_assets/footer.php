@@ -4,7 +4,7 @@
 <script src="app-assets/dataTables.bootstrap5.min.js"></script>
 <!-- END: Utilitaire -->
 
-<footer class="bg-light fixed-bottom">
+<footer class="bg-light">
     <div class="container mt-auto">
         <div class="row text-center pt-3">
             <p class="col-12">
