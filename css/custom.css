@@ -1,3 +1,7 @@
+body{
+    background: #060d17;
+}
+
 .card, .modal-dialog{
     border: 0;
     opacity: 0.90;
@@ -40,3 +44,29 @@ main{
     background: #ffc107 !important;
     color: #fff !important;
 }
+
+table thead{
+    background: #ffc107 !important;
+}
+
+table .odd{
+    background: #1d1d1d !important;
+}
+
+table .odd td{
+    color: #fff !important;
+}
+
+table td{
+    vertical-align: middle !important;
+    padding: 10px !important;
+}
+
+table .odd i{
+    color: #fff !important;
+}
+
+table i:hover{
+    color: #ffc107 !important;
+}
+
