@@ -1,15 +1,17 @@
-.card{
+.card, .modal-dialog{
     border: 0;
-    opacity: 0.9;
+    opacity: 0.90;
 }
 
-.card-header{
+.card-header, .modal-header{
     background: #ffc107;
+    border: none;
 }
 
-.card-body{
+.card-body, .card-footer, .modal-body, .modal-footer{
     background: #1d1d1d;
     color: #fff;
+    border: none;
 }
 
 main{
@@ -29,3 +31,4 @@ main{
 #portailWallpaper{
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/wallpaper.jpg');
 }
+
