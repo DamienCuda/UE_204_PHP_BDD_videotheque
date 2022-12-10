@@ -124,7 +124,7 @@
 
                     ?>
                     <div class="card mt-3">
-                        <div class="card-header"><h5><?= $movieData['title']; ?></h5></div>
+                        <h5 class="card-header"><?= $movieData['title']; ?></h5>
                         <div class="card-body" id="movie-details">
                             <?php
 
