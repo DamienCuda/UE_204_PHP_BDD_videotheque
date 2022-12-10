@@ -70,6 +70,10 @@ table .odd i{
     color: #fff !important;
 }
 
+table i{
+    font-size: 13pt;
+}
+
 table i:hover{
     color: #ffc107 !important;
 }
