@@ -19,6 +19,14 @@ window.addEventListener('load', (event) => {
             menuList[i].children[0].classList.add("active");
         } else {
             menuList[i].children[0].classList.remove("active");
+
+            menuList[i].addEventListener("mouseover", function(){
+                menuList[i].children[0].classList.add("active");
+            });
+
+            menuList[i].addEventListener("mouseleave", function(){
+                menuList[i].children[0].classList.remove("active");
+            });
         }
     }
 });
