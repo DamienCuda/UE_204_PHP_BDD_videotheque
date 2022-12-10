@@ -1,0 +1,34 @@
+body#movieWallpaper{
+    background: #060d17;
+}
+
+.card.movie{
+    width: 300px;
+    position: relative;
+}
+
+.card-body.movie-img{
+    height: 400px;
+    background-size: cover !important;
+}
+
+input{
+    border: 0 !important;
+}
+
+#search-movie{
+    background: #09172a;
+    color: #fff;
+    box-shadow: inset 0 0px 0 #ddd;
+}
+
+#release_year{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    color: #fff;
+    background: #09172a;
+    padding-left: 20px;
+    padding-right: 20px;
+}

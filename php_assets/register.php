@@ -6,8 +6,8 @@
     if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email"]) && $_POST["email"] != "" && isset($_POST["pass"]) && $_POST["pass"] != "" && isset($_POST["passconfirm"]) && $_POST["passconfirm"] != "") {
 
         // On vérifie si l'utilistauer n'existe pas.
-        $usernameReq = $conn->prepare('SELECT * FROM utilisateurs WHERE identifiant =:identifiant');
-        $usernameReq->bindValue(':identifiant', nettoyage($_POST['username']));
+        $usernameReq = $conn->prepare('SELECT * FROM utilisateurs WHERE login =:login');
+        $usernameReq->bindValue(':login', nettoyage($_POST['username']));
         $usernameReq->execute();
         $usernames = $usernameReq->fetchAll();
 
@@ -34,7 +34,7 @@
                         $passwordHashed = password_hash($password, PASSWORD_DEFAULT, $options);
 
                         // On insert les données dans la table utilisateurs.
-                        $insert = $conn->prepare('INSERT INTO utilisateurs (identifiant, email, password) VALUES(?,?,?)');
+                        $insert = $conn->prepare('INSERT INTO utilisateurs (login, email, password) VALUES(?,?,?)');
                         $insert->execute(array(
                             $username,
                             $email,

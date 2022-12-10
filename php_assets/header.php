@@ -1,5 +1,6 @@
 <?php
-    $isadmin = true;
+    $is_admin = $_SESSION['is_admin'];
+
     $header = '
         <header class="bg-light">
             <div class="container">
@@ -23,12 +24,12 @@
                 </div>
             ';
         }
-        if($isadmin){
+        if($is_admin){
             $header .= '
                 <div class="col-9">
                 <nav class="site-navigation text-right ml-auto" role="navigation">
-                    <ul class="navbar-nav d-flex flex-row justify-content-around">
-                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Gestion Films</a></li>
+                    <ul class="nav nav-pills d-flex flex-row justify-content-around" id="nav_menu">
+                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link active">Gestion Films</a></li>
                         <li class="nav-item h5"><a href="gestion_user.php" class="nav-link">Gestion Utilisateur</a></li>
                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link">Déconnexion</a></li>
             ';
@@ -36,7 +37,7 @@
             $header .= '
                 <div class="col-9">
                 <nav class="site-navigation text-right ml-auto" role="navigation">
-                    <ul class="navbar-nav d-flex flex-row justify-content-around">
+                    <ul class="nav nav-pills d-flex flex-row justify-content-around" id="nav_menu">                
                         <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Catalogue</a></li>
                         <li class="nav-item h5"><a href="espace_perso_user.php" class="nav-link">Espace Perso</a></li>
                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link">Déconnexion</a></li>
@@ -52,3 +53,5 @@
         ';
         echo $header;
 ?>
+
+<script src="js/menu.js"></script>
