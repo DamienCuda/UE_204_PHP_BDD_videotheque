@@ -222,7 +222,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 mt-5">
-                                        <div class="d-flex btn-zone justify-content-between justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-start">
+                                        <div class="d-flex btn-zone justify-content-between justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-between">
                                             <a href="catalogue.php">
                                                 <button class="btn btn-light btn-back d-flex align-items-center justify-content-between"><i class='bx bx-left-arrow-alt' ></i><span>Retour</span></button>
                                             </a>
