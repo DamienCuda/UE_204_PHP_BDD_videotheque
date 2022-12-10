@@ -72,7 +72,7 @@
                             ?>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
                             <div class="card movie">
-                                <a href="php_assets/add-bookmark.php?movie=<?= $movie['id'] ?>">
+                                <a href="php_assets/add-bookmark.php?movie=<?= $movie['id'] ?>&page=catalogue">
                                     <div class="bookmark">
                                         <i class='bx <?php if($is_bookmark){ echo "bxs-bookmark"; }else{ echo "bx-bookmark"; } ?>'></i>
                                     </div>
@@ -145,7 +145,9 @@
                                 $is_bookmark = false;
                             }
                             ?>
-                            <div class="bookmark bookmark-right"><i class='bx <?php if($is_bookmark){ echo "bxs-bookmark"; }else{ echo "bx-bookmark"; } ?>'></i></div>
+                            <a href="php_assets/add-bookmark.php?movie=<?= $movie_id; ?>&page=film_details">
+                                <div class="bookmark bookmark-right"><i class='bx <?php if($is_bookmark){ echo "bxs-bookmark"; }else{ echo "bx-bookmark"; } ?>'></i></div>
+                            </a>
                             <div class="row">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 justify-content-sm-center justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-start">
                                 <div class="movie_picture" style="background: url('img/movies_img/<?= $movieData['movie_picture'] ?>');"></div>
