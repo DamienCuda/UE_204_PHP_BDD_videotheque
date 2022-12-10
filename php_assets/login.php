@@ -11,8 +11,8 @@
         $password = nettoyage($_POST["pass"]);
 
         // On récupère les donnée des utilisateurs.
-        $userReq = $conn->prepare('SELECT * FROM utilisateurs WHERE identifiant =:identifiant LIMIT 1');
-        $userReq->bindValue(':identifiant', $username);
+        $userReq = $conn->prepare('SELECT * FROM utilisateurs WHERE login =:login LIMIT 1');
+        $userReq->bindValue(':login', $username);
         $userReq->execute();
         $user = $userReq->fetchAll();
 
@@ -23,8 +23,14 @@
             if (password_verify($password, $user[0]['password'])) {
 
                 // On stocker les infos utile pour les pages dans les variables de sessions.
-                $_SESSION['identifiant'] = $user[0]['identifiant'];
+                $_SESSION['login'] = $user[0]['login'];
                 $_SESSION['id'] = $user[0]['id'];
+
+                if($user[0]['is_admin'] == 0){
+                    $_SESSION['is_admin'] = false;
+                }else{
+                    $_SESSION['is_admin'] = true;
+                }
 
                 // On retourne un status de succès pour ajax.
                 $response_array['status'] = 'success';

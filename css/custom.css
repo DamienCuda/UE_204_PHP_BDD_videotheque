@@ -17,6 +17,15 @@ main{
     position: relative;
 }
 
+.card-footer a{
+    text-decoration: none !important;
+    color: #1d1d1d;
+}
+
+.card-footer a:hover{
+    color: #0b5ed7;
+}
+
 #portailWallpaper{
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/wallpaper.jpg');
 }
