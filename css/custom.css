@@ -87,3 +87,8 @@ table i:hover{
     background: #ffc107 !important;
     border: none !important;
 }
+
+footer{
+    position: relative;
+    min-height: 180px !important;
+}
