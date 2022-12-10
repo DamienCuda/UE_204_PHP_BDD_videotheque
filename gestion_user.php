@@ -1,6 +1,6 @@
 <?php
     require_once("php_assets/connectdb.php");
-    require ("verif_session_connect.php");
+    require ("php_assets/verif_session_connect.php");
     require ("php_assets/fonctions.php");
 ?>
 
