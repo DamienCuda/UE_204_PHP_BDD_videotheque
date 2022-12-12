@@ -52,15 +52,7 @@ $(".edit_btn").click(function(){
                 // On vérifie si l'input en cours est un mot de passe
                 if($(this).attr("type") == "password"){
 
-                    // Si tout est ok on valide grâce à la class is-valid
-                    if($(this).val() != "" && regexPassword.test($(this).val())){
-                        $(this).removeClass("is-invalid");
-                        $(this).addClass("is-valid");
-                    }else{
-                        $(this).addClass("is-invalid");
-                        $(this).removeClass("is-valid");
-                        $("#validationPasswordFeedback").text("Le mot de passe doit contenir minimum 8 caractères, une majuscule, un chiffre et un caractère spécial.");
-                    }
+                    // Dans ce cas là on fait rien car le mot de passe est optionnel.
 
                     // Si l'input en cours n'est pas un mot de passe on fait tout pareil sans l'expression régulière.
                 }else if($(this).attr("type") == "email"){
@@ -135,11 +127,6 @@ $(".edit_btn").click(function(){
                             usernameInput.addClass("is-invalid");
                             usernameInput.removeClass("is-valid");
                             $("#validationEmailFeedback").text("Veuillez renseigner une adresse email.");
-                        }
-
-                        if(reponse.status == "passEmpty"){
-                            passwordInput.addClass("is-invalid");
-                            passwordInput.removeClass("is-valid");
                         }
 
                         if(reponse.status == "userExiste"){

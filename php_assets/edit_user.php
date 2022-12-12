@@ -124,21 +124,6 @@ if($is_admin > 0 && $permission >= 0){
             echo json_encode($response_array);
             exit();
         }
-
-        // Le mot de passe est vide on transmet l'infos à ajax.
-        if ($_POST["pass"] == "") {
-            $response_array['status'] = 'passEmpty';
-            echo json_encode($response_array);
-            exit();
-        }
-
-        // Le mot de passe de confirmation est vide on transmet l'infos à ajax.
-        if ($_POST["passconfirm"] == "") {
-            $response_array['status'] = 'passConfEmpty';
-            echo json_encode($response_array);
-            exit();
-        }
-
     }
 }
 
