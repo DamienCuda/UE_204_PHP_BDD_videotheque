@@ -11,7 +11,7 @@ $(".edit_btn").click(function(){
         let tr_user = this.parentNode.parentNode.parentNode;
 
         // Onrécupère les infos pour les mettre dans des inputs.
-        let userID = tr_user.children[0].getAttribute("id").substring(5);
+        let userID = tr_user.children[1].textContent;
         let utilisateur = tr_user.children[3];
         let utilisateur_value = tr_user.children[3].textContent;
         let email = tr_user.children[4];
@@ -36,7 +36,9 @@ $(".edit_btn").click(function(){
         email.innerHTML =
             '<input type="email" name="email" id="email" class="form-control" placeholder="Adresse email..." value="'+ email_value +'">' +
             '<div id="validationEmailFeedback" class="invalid-feedback">Veuillez renseigner une adresse email.</div>';
-        password.innerHTML = '<input type="password" name="pass" id="password" class="form-control" placeholder="Mot de passe (optionnel)">';
+        password.innerHTML =
+            '<input type="password" name="pass" id="password" class="form-control" placeholder="Mot de passe (optionnel)">' +
+            '<div id="validationPasswordFeedback" class="invalid-feedback"></div>';
 
         // On remplace les bouton par 1 bouton de validation et un autre d'annulation.
         let btnZone = tr_user.children[7].children[0];
@@ -95,7 +97,7 @@ $(".edit_btn").click(function(){
             if(verifUsername && verifEmail){
                 let usernameInput = $("#username");
                 let emailInput = $("#email");
-                let passwordInput = $("#pass");
+                let passwordInput = $("#password");
 
                 $.ajax({
                     url: "php_assets/edit_user.php?id=" + userID, // URL de la page
@@ -165,7 +167,7 @@ $(".edit_btn").click(function(){
 
         let usernameInput = $("#username");
         let emailInput = $("#email");
-        let passwordInput = $("#pass");
+        let passwordInput = $("#password");
 
         // On vérifie les changement sur les champs en temps réel
         usernameInput.keyup(function(){
@@ -224,6 +226,7 @@ $(".edit_btn").click(function(){
             }else{
                 passwordInput.removeClass("is-valid");
                 passwordInput.addClass("is-invalid");
+                $("#validationPasswordFeedback").text("Le mot de passe doit contenir minimum 8 caractères, une majuscule, un chiffre et un caractère spécial.");
             }
         });
 
