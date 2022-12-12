@@ -1,6 +1,7 @@
 <?php
     if(!empty($_SESSION['id'])){
         $is_admin = $_SESSION['is_admin'];
+        require_once("permission.php");
     }else{
         $is_admin = false;
     }
