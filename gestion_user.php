@@ -85,12 +85,13 @@ if($is_admin === false){
                                                 ?>
                                                     <a href="php_assets/downgrade_user.php?id=<?= $user['id']; ?>" title="Destituer"><i class='bx bx-chevrons-down'></i></a>
                                                 <?php
-                                            }
+                                            }else if($rang < 2){
                                         ?>
                                         <a href="php_assets/upgrade_user.php?id=<?= $user['id']; ?>" title="Promouvoir"><i class='bx bx-chevrons-up'></i></a>
                                         <?php
+                                            }
                                     }
-                                    if($permission >= 2){
+                                    if($permission >= 2 && $rang < 3){
                                         // Si notre permission est superieur à 2 on a le pouvoir de supprimer un membre.
                                         ?>
                                         <a href="php_assets/delete_user.php?id=<?= $user['id']; ?>" title="Supprimer"><i class='bx bx-trash'></i></a>
