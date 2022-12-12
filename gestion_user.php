@@ -25,7 +25,7 @@ if($is_admin === false){
     ?>
     <div class="container">
         <section id="gestion_user" class="mt-5">
-            <table class="table table-striped" id="gestion_user_table">
+            <table class="table table-striped responsive nowrap" id="gestion_user_table">
                 <thead>
                 <tr>
                     <th></th>
@@ -72,7 +72,7 @@ if($is_admin === false){
                             ?>
                         </td>
                         <td>
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex justify-content-start justify-content-sm-start justify-content-md-start justify-content-lg-around justify-content-xl-around">
                                 <a data-toggle="modal" data-target="#transaction-historique"><i class='bx bx-money-withdraw'></i></a>
                                 <?php
                                     // Si notre permission est supérieur au rang de l'utilsateur on à accès la modification, destition et promotion de l'utilisateur.
@@ -176,6 +176,7 @@ if($is_admin === false){
                 style:    'multi',
                 'selector': 'td:first-child'
             },
+            responsive: true,
             order: [[ 1, 'asc' ]]
         });
 
@@ -195,7 +196,7 @@ if($is_admin === false){
         // On met un timout car datatable.js doit d'abord créer les divs.
         setTimeout(() => {
             $("#gestion_user_table_filter").append(options);
-        }, "100")
+        }, "100");
     });
 </script>
 <script src="js/edit_user.js"></script>
