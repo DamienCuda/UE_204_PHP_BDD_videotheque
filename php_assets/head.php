@@ -6,6 +6,7 @@
     <link href="app-assets/bootstrap.min.css" rel="stylesheet">
     <link href="app-assets/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="app-assets/select.dataTables.min.css" rel="stylesheet">
+    <link href="app-assets/responsive.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/movie.css">

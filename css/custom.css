@@ -66,6 +66,10 @@ tr.odd.selected td, tr.even.selected td a{
     color: #fff !important;
 }
 
+table{
+    width: 100% !important;
+}
+
 table .odd{
     background: #1d1d1d !important;
 }
@@ -108,9 +112,19 @@ table i:hover{
 }
 
 .select-checkbox{
+    width: 30px !important;
     cursor: pointer;
-    display: flex;
+    /*display: flex;*/
+    display: block !important;
     align-items: center;
+}
+
+.sorting_1{
+    width: 30px !important;
+}
+
+table td, table th{
+    width: 16%;
 }
 
 tr:hover{
@@ -264,4 +278,14 @@ table th{
 
 .invalid-feedback{
     font-size: 8pt !important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before{
+    margin-left: 10px !important;
+}
+
+@media only screen and (max-width: 1000px) {
+    table.dataTable>tbody>tr.selected>td.select-checkbox:after, table.dataTable>tbody>tr.selected>th.select-checkbox:after{
+        content: "";
+    }
 }
