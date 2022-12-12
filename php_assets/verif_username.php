@@ -1,6 +1,6 @@
 <?php
-require_once("connectdb.php");
-require ("fonctions.php");
+    require_once("connectdb.php");
+    require ("fonctions.php");
 
     $usernameReq = $conn->prepare('SELECT * FROM utilisateurs WHERE identifiant =:identifiant');
     $usernameReq->bindValue(':identifiant', nettoyage($_POST['username']));

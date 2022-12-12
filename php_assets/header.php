@@ -24,7 +24,7 @@
         }else{
             $header .= '
                 <div class="site-logo col-3">
-                    <img class=" img_pages navbar-brand img-fluid" src="assets/Logo.png" alt="Vidéothèque Groupe 9">
+                    <img class=" img_pages navbar-brand img-fluid" src="assets/logo.png" alt="Vidéothèque Groupe 9">
                 </div>
             ';
         }
