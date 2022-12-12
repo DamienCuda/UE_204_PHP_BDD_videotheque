@@ -1,7 +1,3 @@
-body#movieWallpaper{
-    background: #060d17;
-}
-
 .card.movie{
     width: 300px;
     position: relative;
@@ -44,6 +40,10 @@ input{
     border-bottom-left-radius: 10px;
 }
 
+#movie-details{
+    position: relative;
+}
+
 .bookmark{
     width: 50px;
     height: 70px;
@@ -63,4 +63,57 @@ input{
     align-items: center;
     font-size: 20pt;
     cursor: pointer;
+}
+
+.bookmark-right{
+    left: 80%;
+    top: 0;
+    background: #ffc107;
+}
+
+.movie_picture{
+    width: 300px;
+    height: 400px;
+    background-size: cover !important;
+    margin: auto;
+}
+
+.synospis{
+    color: gray;
+    font-style: italic;
+    text-align: justify;
+}
+
+.details.genre{
+    color: gray;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+.details{
+    color: #fff;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.details a{
+    text-decoration: none;
+    color: gray;
+}
+
+.details a:hover{
+    text-decoration: underline;
+}
+
+.btn-price{
+    width: 150px;
+}
+
+.btn-back{
+    width: 100px;
+    margin-right: 10px;
+}
+
+.btn-zone a{
+    text-decoration: none;
 }
