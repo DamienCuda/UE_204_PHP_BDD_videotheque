@@ -31,7 +31,7 @@ if($is_admin > 0 && $permission >= 0){
                 $email = strtolower(nettoyage($_POST["email"]));
 
                 // On vérifie si un changement est détecté si c'est le cas on update le champs.
-                $userDataReq = $conn->prepare('SELECT * FROM utilisateurs WHERE id != ?');
+                $userDataReq = $conn->prepare('SELECT * FROM utilisateurs WHERE id = ?');
                 $userDataReq->execute([
                     $id
                 ]);
@@ -43,6 +43,11 @@ if($is_admin > 0 && $permission >= 0){
                         $username,
                         $id
                     ]);
+
+                    // On retourne un status de succès pour ajax.
+                    $response_array['status'] = 'success';
+                    echo json_encode($response_array);
+                    exit();
                 }
 
                 if($userData['email'] != $email){
@@ -51,13 +56,18 @@ if($is_admin > 0 && $permission >= 0){
                         $email,
                         $id
                     ]);
+
+                    // On retourne un status de succès pour ajax.
+                    $response_array['status'] = 'success';
+                    echo json_encode($response_array);
+                    exit();
                 }
 
                 if(isset($_POST["pass"]) && $_POST["pass"] != ""){
 
                     $password = nettoyage($_POST["pass"]);
+                    if(password_verify($password, $userData['password']) != 1) {
 
-                    if(!password_verify($password, $userData['password'])) {
                         // On vérifie que le mot de passe correspond à nos attentes.
                         if (preg_match_all('$\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$', $password)) {
 
@@ -70,19 +80,20 @@ if($is_admin > 0 && $permission >= 0){
                                 $passwordHashed,
                                 $id
                             ]);
+
+                            // On retourne un status de succès pour ajax.
+                            $response_array['status'] = 'success';
+                            echo json_encode($response_array);
+                            exit();
+
+                        }else{
+                            // Le mot de passe ne correspond pas aux attentes fixé dans le regex on transmet l'infos à ajax.
+                            $response_array['status'] = 'passNotCorrect';
+                            echo json_encode($response_array);
+                            exit();
                         }
-                    }else {
-                        // Le mot de passe ne correspond pas aux attentes fixé dans le regex on transmet l'infos à ajax.
-                        $response_array['status'] = 'passNotCorrect';
-                        echo json_encode($response_array);
-                        exit();
                     }
                 }
-
-                // On retourne un status de succès pour ajax.
-                $response_array['status'] = 'success';
-                echo json_encode($response_array);
-                exit();
 
             } else {
                 // l'email est incorrect on transmet l'infos à ajax.
