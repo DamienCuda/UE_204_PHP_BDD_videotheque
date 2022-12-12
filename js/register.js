@@ -83,7 +83,7 @@ $(document).ready(function() {
         }
 
         // On check si tout est bon avant de faire le traitement PHP
-        if(verifUsername && verifPassword && verifPasswordConfirm){
+        if(verifUsername && verifEmail && verifPassword && verifPasswordConfirm){
             $.ajax({
                 url: "php_assets/register.php", // URL de la page
                 type: "POST", // GET ou POST
