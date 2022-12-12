@@ -1,4 +1,13 @@
-<?php session_start(); ?>
+<?php
+    session_start();
+
+    if(empty($_SESSION['id']))
+    {
+        //l'utilisateur est déconnecté
+    }else{
+        header("location: catalogue.php");
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -9,7 +18,7 @@
     <?php include 'php_assets/header.php'?>
     <main class="container">
         <div class="row mt-5 d-flex align-content-start">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
                 <div class="card">
                     <div class="card-header">
                         <h2>Inscription</h2>
@@ -51,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-sm-3 mt-md-3 mt-xs-3 mt-3 mt-lg-0 mt-xl-0">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
                 <div class="card">
                     <div class="card-header">
                         <h2>Déja un compte ? Connectez vous !</h2>

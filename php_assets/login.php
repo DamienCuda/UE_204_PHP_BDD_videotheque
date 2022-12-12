@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once("connectdb.php");
     require ("fonctions.php");
 
@@ -23,6 +22,7 @@
             if (password_verify($password, $user[0]['password'])) {
 
                 // On stocker les infos utile pour les pages dans les variables de sessions.
+                session_start();
                 $_SESSION['login'] = $user[0]['login'];
                 $_SESSION['id'] = $user[0]['id'];
 

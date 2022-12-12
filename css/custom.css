@@ -1,3 +1,7 @@
+body{
+    background: #060d17;
+}
+
 .card, .modal-dialog{
     border: 0;
     opacity: 0.90;
@@ -32,3 +36,59 @@ main{
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/wallpaper.jpg');
 }
 
+.nav-link{
+    color: #1d1d1d !important;
+}
+
+.nav-link.active{
+    background: #ffc107 !important;
+    color: #fff !important;
+}
+
+table thead{
+    background: #ffc107 !important;
+}
+
+table .odd{
+    background: #1d1d1d !important;
+}
+
+table .odd td{
+    color: #fff !important;
+}
+
+table td{
+    vertical-align: middle !important;
+    padding: 10px !important;
+}
+
+table th{
+    border: 0 !important;
+}
+
+table .odd i{
+    color: #fff !important;
+}
+
+table i{
+    font-size: 13pt;
+}
+
+table i:hover{
+    color: #ffc107 !important;
+}
+
+.pagination li a.page-link{
+    background: #1d1d1d !important;
+    border: none !important;
+}
+
+.pagination li.active a.page-link{
+    background: #ffc107 !important;
+    border: none !important;
+}
+
+footer{
+    position: relative;
+    min-height: 180px !important;
+}

@@ -7,4 +7,6 @@ function nettoyage($valeur){
     $valeur = htmlspecialchars($valeur); // Et pour finir le pré-nettoyage on échape tout caractères comme les chevrons donc protège contre l'execution de code.
     return ($valeur);
 }
+
+
 ?>
