@@ -15,7 +15,7 @@
         if(str_contains($_SERVER['PHP_SELF'], 'index.php')){
             $header .= '
                         <div class="site-logo col-12 text-center">
-                            <img class="navbar-brand img-fluid img_index" src="assets/logo.png" alt="Vidéothèque Groupe 9">
+                            <img id="logo_index" class="navbar-brand img-fluid img_index" src="assets/logo.png" alt="Vidéothèque Groupe 9">
                         </div>               
                     </div>
                 </div>
