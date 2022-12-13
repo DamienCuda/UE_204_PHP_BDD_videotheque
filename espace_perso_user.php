@@ -67,7 +67,7 @@
                     <?php
                         foreach($user_rented_list as $movie):
                     ?>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start mb-4">
                         <div class="card movie">
                             <a href="php_assets/add-bookmark.php?movie=<?= $movie['id'] ?>&page=catalogue"></a>
                             <a href="catalogue.php?movie=<?= $movie['id'] ?>">
