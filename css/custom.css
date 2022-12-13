@@ -19,6 +19,7 @@ table button{
 .card-header, .modal-header{
     background: #ffc107;
     border: none;
+    color: #1d1d1d;
 }
 
 .card-body, .card-footer, .modal-body, .modal-footer{
