@@ -27,6 +27,11 @@ table button{
     border: none;
 }
 
+.card-footer{
+    display: flex;
+    flex-direction: column;
+}
+
 main{
     padding-bottom: 200px;
     position: relative;
