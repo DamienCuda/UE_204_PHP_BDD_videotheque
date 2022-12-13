@@ -31,6 +31,7 @@ table button{
 .card-footer{
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 main{
@@ -296,4 +297,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
 }
 .yellow-txt{
     color: #ffc107;
+}
+#logo_index{
+    margin-inline: auto;
 }
