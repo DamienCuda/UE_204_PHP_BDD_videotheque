@@ -6,7 +6,7 @@ body{
     background: #060d17;
 }
 
-button{
+table button{
     border: 0 !important;
     background: transparent !important;
 }
@@ -19,12 +19,18 @@ button{
 .card-header, .modal-header{
     background: #ffc107;
     border: none;
+    color: #1d1d1d;
 }
 
 .card-body, .card-footer, .modal-body, .modal-footer{
     background: #1d1d1d;
     color: #fff;
     border: none;
+}
+
+.card-footer{
+    display: flex;
+    flex-direction: column;
 }
 
 main{
