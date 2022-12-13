@@ -147,11 +147,6 @@ tr:hover{
     border: none !important;
 }
 
-footer{
-    position: relative;
-    min-height: 180px !important;
-}
-
 .close{
     border: none !important;
     background: #e6b41e !important;

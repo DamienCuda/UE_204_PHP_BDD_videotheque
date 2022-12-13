@@ -37,7 +37,6 @@
                         <li class="nav-item h5"><a href="catalogue.php" class="nav-link active">Gestion Films</a></li>
                         <li class="nav-item h5"><a href="gestion_user.php" class="nav-link">Gestion Utilisateur</a></li>
                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link">Déconnexion</a></li>
-                        <li class="bx bx-coin-stack">soldes:<a href="php_assets/coin.php" class="nav-link"> </a></li>
             ';
         }else{
             $header .= '
@@ -47,7 +46,6 @@
                         <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Catalogue</a></li>
                         <li class="nav-item h5"><a href="espace_perso_user.php" class="nav-link">Espace Perso</a></li>
                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link">Déconnexion</a></li>
-                        <li class="bx bx-coin-stack">soldes:<a href="php_assets/coin.php" class="nav-link"> </a></li>
             ';
         }
         $header .= '
