@@ -289,3 +289,10 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
         content: "";
     }
 }
+
+.yellow-bg{
+    background: #ffc107;
+}
+.yellow-txt{
+    color: #ffc107;
+}
