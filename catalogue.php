@@ -223,9 +223,9 @@
                                     </div>
                                     <div class="col-12 mt-5">
                                         <div class="d-flex btn-zone justify-content-between justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-between">
-                                            <a href="catalogue.php">
-                                                <button class="btn btn-light btn-back d-flex align-items-center justify-content-between"><i class='bx bx-left-arrow-alt' ></i><span>Retour</span></button>
-                                            </a>
+
+                                            <button class="btn btn-light btn-back d-flex align-items-center justify-content-between" id="back"><i class='bx bx-left-arrow-alt' ></i><span>Retour</span></button>
+
                                             <button class="btn btn-warning d-flex align-items-center justify-content-between btn-price"><span>Louer ce film</span><span class="d-flex align-items-center"><?= $movieData['price'] ?><i class='bx bx-coin'></i></span> </button>
                                         </div>
                                     </div>
@@ -248,5 +248,6 @@
         </div>
     </main>
     <?php include 'php_assets/footer.php'?>
+    <script src="js/back.js"></script>
 </body>
 </html>
