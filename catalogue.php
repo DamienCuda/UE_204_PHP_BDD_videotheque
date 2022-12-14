@@ -217,7 +217,7 @@
                                             <p class="details"><?= $movieData['duration'] ?></p>
                                         </div>
                                         <div class="col-12 mt-3">
-                                            <label>Synospis:</label>
+                                            <label>Synopsis:</label>
                                             <p class="synospis"><?= $movieData['synopsis'] ?></p>
                                         </div>
                                     </div>

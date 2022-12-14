@@ -286,6 +286,22 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
     margin-left: 10px !important;
 }
 
+td{
+    text-align: center !important;
+}
+
+.pagination{
+    margin-top: 20px !important;
+}
+
+tfoot{
+    background: #efefef !important;
+}
+
+tfoot input{
+    background: #1c1c1c !important;
+}
+
 @media only screen and (max-width: 1000px) {
     table.dataTable>tbody>tr.selected>td.select-checkbox:after, table.dataTable>tbody>tr.selected>th.select-checkbox:after{
         content: "";

@@ -1,11 +1,11 @@
 <?php
 require_once("connectdb.php");
-require("verif_session_connect.php");
+require ("verif_session_connect.php");
 require("fonctions.php");
 require("permission.php");
 
 // On vérifie si les champs ne sont pas vide.
-if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email"]) && $_POST["email"] != "" && isset($_POST["pass"]) && $_POST["pass"] != "" && isset($_POST["passconfirm"]) && $_POST["passconfirm"] != "") {
+if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email"]) && $_POST["email"] != "" && isset($_POST["pass"]) && $_POST["pass"] != "") {
 
     // On vérifie si l'utilistauer n'existe pas.
     $usernameReq = $conn->prepare('SELECT * FROM utilisateurs WHERE login =:login');
@@ -23,38 +23,44 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
             $username = strtolower(nettoyage($_POST["username"]));
             $email = strtolower(nettoyage($_POST["email"]));
             $password = nettoyage($_POST["pass"]);
-            $confirmpass = nettoyage($_POST["passconfirm"]);
+
+            if($permission > $_POST["role"]){
+                $rang = nettoyage($_POST["role"]);
+            }else{
+                // On retourne un status d'erreur pour ajax.
+                $response_array['status'] = 'ErrorPerm';
+                echo json_encode($response_array);
+                exit();
+            }
+
+            if($rang > 0){
+                $is_admin = 1;
+            }else{
+                $is_admin = 0;
+            }
 
             // On vérifie que le mot de passe correspond à nos attentes.
             if (preg_match_all('$\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$', $password)) {
 
-                // On vérifie que les mots de passes sont identiques.
-                if ($password == $confirmpass) {
+                // On hash le mot de passe pour le stocker.
+                $options = array("cost" => 4);
+                $passwordHashed = password_hash($password, PASSWORD_DEFAULT, $options);
 
-                    // On hash le mot de passe pour le stocker.
-                    $options = array("cost" => 4);
-                    $passwordHashed = password_hash($password, PASSWORD_DEFAULT, $options);
+                // On insert les données dans la table utilisateurs.
+                $insert = $conn->prepare('INSERT INTO utilisateurs (login, email, password, is_admin, rang) VALUES(?,?,?,?,?)');
+                $insert->execute(array(
+                    $username,
+                    $email,
+                    $passwordHashed,
+                    $is_admin,
+                    $rang
+                ));
 
-                    // On insert les données dans la table utilisateurs.
-                    $insert = $conn->prepare('INSERT INTO utilisateurs (login, email, password) VALUES(?,?,?)');
-                    $insert->execute(array(
-                        $username,
-                        $email,
-                        $passwordHashed
-                    ));
+                // On retourne un status de succès pour ajax.
+                $response_array['status'] = 'success';
+                echo json_encode($response_array);
+                exit();
 
-                    // On retourne un status de succès pour ajax.
-                    $response_array['status'] = 'success';
-                    echo json_encode($response_array);
-                    exit();
-
-                } else {
-
-                    // Les mots de passes ne correspondent pas on transmet l'infos à ajax.
-                    $response_array['status'] = 'passNotSame';
-                    echo json_encode($response_array);
-                    exit();
-                }
             } else {
                 // Le mot de passe ne correspond pas aux attentes fixé dans le regex on transmet l'infos à ajax.
                 $response_array['status'] = 'passNotCorrect';
@@ -98,9 +104,9 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
         exit();
     }
 
-    // Le mot de passe de confirmation est vide on transmet l'infos à ajax.
-    if ($_POST["passconfirm"] == "") {
-        $response_array['status'] = 'passConfEmpty';
+    // Le role est vide on transmet l'infos à ajax.
+    if ($_POST["role"] == "") {
+        $response_array['status'] = 'roleEmpty';
         echo json_encode($response_array);
         exit();
     }
