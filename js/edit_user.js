@@ -30,15 +30,12 @@ $(".edit_btn").click(function(){
 
         // On insert un input avec les différentes valeurs récupérer.
         utilisateur.innerHTML =
-            '<input type="text" name="username" id="username" class="form-control" placeholder="Nom d\'utilisateur..." value="'+ utilisateur_value +'">' +
-            '<div id="validationUsernameFeedback" class="invalid-feedback">Le nom d\'utilisateur doit être renseigner.</div>';
+            '<input type="text" name="username" id="username" class="form-control" placeholder="Nom d\'utilisateur..." value="'+ utilisateur_value +'">';
 
         email.innerHTML =
-            '<input type="email" name="email" id="email" class="form-control" placeholder="Adresse email..." value="'+ email_value +'">' +
-            '<div id="validationEmailFeedback" class="invalid-feedback">Veuillez renseigner une adresse email.</div>';
+            '<input type="email" name="email" id="email" class="form-control" placeholder="Adresse email..." value="'+ email_value +'">';
         password.innerHTML =
-            '<input type="password" name="pass" id="password" class="form-control" placeholder="Mot de passe (optionnel)">' +
-            '<div id="validationPasswordFeedback" class="invalid-feedback"></div>';
+            '<input type="password" name="pass" id="password" class="form-control" placeholder="Mot de passe (optionnel)">';
 
         // On remplace les bouton par 1 bouton de validation et un autre d'annulation.
         let btnZone = tr_user.children[7].children[0];
@@ -65,7 +62,6 @@ $(".edit_btn").click(function(){
                     }else{
                         $(this).addClass("is-invalid");
                         $(this).removeClass("is-valid");
-                        $("#validationEmailFeedback").text("L'adresse email n'est pas valide.");
                         verifEmail = false;
                     }
                 } else{
@@ -108,31 +104,26 @@ $(".edit_btn").click(function(){
                         if(reponse.status == "passNotCorrect"){
                             passwordInput.addClass("is-invalid");
                             passwordInput.removeClass("is-valid");
-                            $("#validationPasswordFeedback").text("Le mot de passe doit contenir minimum 8 caractères, une majuscule, un chiffre et un caractère spécial.");
                         }
 
                         if(reponse.status == "emailInvalid"){
                             emailInput.addClass("is-invalid");
                             emailInput.removeClass("is-valid");
-                            $("#validationEmailFeedback").text("L'adresse email n'est pas une adresse email valide.");
                         }
 
                         if(reponse.status == "usernameEmpty"){
                             usernameInput.addClass("is-invalid");
                             usernameInput.removeClass("is-valid");
-                            $("#validationUsernameFeedback").text("Veuillez renseigner un nom d'utilisateur.");
                         }
 
                         if(reponse.status == "emailEmpty"){
                             usernameInput.addClass("is-invalid");
                             usernameInput.removeClass("is-valid");
-                            $("#validationEmailFeedback").text("Veuillez renseigner une adresse email.");
                         }
 
                         if(reponse.status == "userExiste"){
                             usernameInput.addClass("is-invalid");
                             usernameInput.removeClass("is-valid");
-                            $("#validationUsernameFeedback").text("Cet utilisateur existe déjà.");
                         }
 
                         if(reponse.status == "success"){
@@ -178,7 +169,6 @@ $(".edit_btn").click(function(){
                         if(reponse.status == "usernameExiste"){
                             usernameInput.addClass("is-invalid")
                             usernameInput.removeClass("is-valid")
-                            $("#validationUsernameFeedback").text("Cet utilisateur existe déjà.");
                         }else{
                             usernameInput.removeClass("is-invalid")
                             usernameInput.addClass("is-valid")
@@ -202,7 +192,6 @@ $(".edit_btn").click(function(){
             }else{
                 emailInput.removeClass("is-valid");
                 emailInput.addClass("is-invalid");
-                $("#validationEmailFeedback").text("L'adresse email n'est pas une adresse email valide.");
             }
         });
 
@@ -213,7 +202,6 @@ $(".edit_btn").click(function(){
             }else{
                 passwordInput.removeClass("is-valid");
                 passwordInput.addClass("is-invalid");
-                $("#validationPasswordFeedback").text("Le mot de passe doit contenir minimum 8 caractères, une majuscule, un chiffre et un caractère spécial.");
             }
         });
 
