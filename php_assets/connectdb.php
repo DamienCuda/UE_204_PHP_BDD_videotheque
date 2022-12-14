@@ -1,6 +1,6 @@
 <?php 
   $servername = "localhost";
-  $username = "videotheque";
+  $username = "root";
   $password = "";
   $dbname = "videotheque";
 

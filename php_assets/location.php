@@ -80,11 +80,20 @@ if (isset($_GET['movie']) && $_GET['movie'] != "") {
                     $newsolde,
                     $_SESSION['id']
                 ]);
+
+                // On enregistre la transaction
+                $insert = $conn->prepare('INSERT INTO transaction (movie_id, user_id, date, amount) VALUES(?,?,?,?)');
+                $insert->execute(array(
+                    $movie_id,
+                    $_SESSION['id'],
+                    $date,
+                    $movie_price
+                ));
             }
 
         }
     }
-    header("location: ../catalogue.php?movie=$movie_id");
+    header("location: ../espace_perso_user.php");
 } else {
     header("location: ../catalogue.php");
 }
