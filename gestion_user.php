@@ -48,6 +48,8 @@ if($is_admin === false){
                         $rang = 2;
                     }else if($user['rang'] == "Modérateur"){
                         $rang = 1;
+                    }else if($user['rang'] == "Membre"){
+                        $rang = 0;
                     }else{
                         $rang = 0;
                     }
@@ -64,11 +66,7 @@ if($is_admin === false){
                         <td>********</td>
                         <td>
                             <?php
-                            if($user['is_admin'] == 1){
                                 echo $user['rang'];
-                            }else{
-                                echo "Membre";
-                            }
                             ?>
                         </td>
                         <td>
@@ -85,7 +83,8 @@ if($is_admin === false){
                                                 ?>
                                                     <a href="php_assets/downgrade_user.php?id=<?= $user['id']; ?>" title="Destituer"><i class='bx bx-chevrons-down'></i></a>
                                                 <?php
-                                            }else if($rang < 2){
+                                            }
+                                            if($rang + 1 < $permission){
                                         ?>
                                         <a href="php_assets/upgrade_user.php?id=<?= $user['id']; ?>" title="Promouvoir"><i class='bx bx-chevrons-up'></i></a>
                                         <?php

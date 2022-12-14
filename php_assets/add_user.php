@@ -8,9 +8,10 @@ require("permission.php");
 if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email"]) && $_POST["email"] != "" && isset($_POST["pass"]) && $_POST["pass"] != "") {
 
     // On vérifie si l'utilistauer n'existe pas.
-    $usernameReq = $conn->prepare('SELECT * FROM utilisateurs WHERE login =:login');
-    $usernameReq->bindValue(':login', nettoyage($_POST['username']));
-    $usernameReq->execute();
+    $usernameReq = $conn->prepare('SELECT * FROM utilisateurs WHERE login = ?');
+    $usernameReq->execute([
+        nettoyage($_POST['username'])
+    ]);
     $usernames = $usernameReq->fetchAll();
 
     // Si l'utilistauer n'existe pas on continue.
@@ -39,6 +40,14 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
                 $is_admin = 0;
             }
 
+            if($rang == 0){
+                $user_rang = "Membre";
+            }else if($rang == 1){
+                $user_rang = "Modérateur";
+            }else if($rang == 2){
+                $user_rang = "Administrateur";
+            }
+
             // On vérifie que le mot de passe correspond à nos attentes.
             if (preg_match_all('$\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$', $password)) {
 
@@ -53,7 +62,7 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
                     $email,
                     $passwordHashed,
                     $is_admin,
-                    $rang
+                    $user_rang
                 ));
 
                 // On retourne un status de succès pour ajax.
