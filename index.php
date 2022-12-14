@@ -32,7 +32,7 @@
                                     Veuillez renseigner un nom d'utilisateur.
                                 </div>
                                 <div class="valid-feedback">
-                                    Ce nom d'tilisateur est disponible.
+                                    Ce nom d'utilisateur est disponible.
                                 </div>
                             </div>
                             <div class="col-12 mt-3">
