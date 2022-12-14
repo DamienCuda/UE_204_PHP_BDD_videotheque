@@ -151,6 +151,8 @@ $(document).ready(function() {
 
                         $('#registerModal').modal('show');
 
+                        window.location.href = 'gestion_user.php';
+
                     }
                 },
                 error:function(error){

@@ -56,7 +56,7 @@ if($is_admin === false){
 
                     ?>
                     <tr class="<?php if($user['id'] == $_SESSION['id']){ echo "you"; } ?>">
-                        <td id="user_<?= $user['id']; ?>" class="checkbox_table"></td>
+                        <td id="<?= $user['id']; ?>" class="checkbox_table"></td>
                         <td><?= $user['id']; ?></td>
                         <td>
                             <div class="profil-membre" style="background: url('img/profil_img/<?= $user['profile_picture']; ?>');"></div>
@@ -147,6 +147,28 @@ if($is_admin === false){
         </section>
     </div>
 </main>
+
+<!-- Modal permissionError -->
+<div class="modal fade" id="permissionError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;">Attention !</span> <i class='bx bx-error' ></i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Vous avez séléctionné des utilisateurs sur les quels vous n'avez pas la permission d'intéragir. Seuls les utilisateurs dont vous avez l'autorité seront pris en compte.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="gestion_user.php">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" id="valid_permissionError">J'AI COMPRIS</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Add User -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -249,8 +271,8 @@ if($is_admin === false){
                     '<button class="btn border dropdown-toggle mr-2" type="button" id="invoice-options-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>' +
                     'Options' +
                     '</button>' +
-                    '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="gestion-user-options-btn">' +
-                        '<span class="dropdown-item" id="multiDelete" style="cursor:pointer">Supprimer</span>' +
+                    '<div id="multiDelete" class="dropdown-menu dropdown-menu-right" aria-labelledby="gestion-user-options-btn">' +
+                        '<span class="dropdown-item" style="cursor:pointer">Supprimer</span>' +
                     '</div>' +
                 '</div>' +
             '</div>';
@@ -263,5 +285,6 @@ if($is_admin === false){
 </script>
 <script src="js/edit_user.js"></script>
 <script src="js/add_user.js"></script>
+<script src="js/gestion_user.js"></script>
 </body>
 </html>
