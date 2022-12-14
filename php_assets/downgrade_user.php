@@ -1,10 +1,46 @@
-<?php session_start();
-    require_once("connectdb.php");
-    require ("fonctions.php");
+<?php
 
-$pdoDe = $conn->prepare('UPDATE utilisateurs SET is_admin=0 WHERE id= ? LIMIT 1');
-$pdoDe->execute([
-nettoyage($_GET['id'])
+require_once("connectdb.php");
+require("verif_session_connect.php");
+require("fonctions.php");
+require("permission.php");
+
+// On vérifie si l'utilistauer à un grade inférieur à nous
+$userData = $conn->prepare('SELECT * FROM utilisateurs WHERE id = ?');
+$userData->execute([
+    nettoyage($_GET['id'])
 ]);
+$user = $userData->fetch();
+
+if ($user['rang'] === "Membre") {
+    $user_rang = 0;
+} else if ($user['rang'] === "Modérateur") {
+    $user_rang = 1;
+} else if ($user['rang'] === "Administrateur") {
+    $user_rang = 2;
+} else if ($user['rang'] === "Owner") {
+    $user_rang = 3;
+}
+
+
+if ($permission > $user_rang) {
+
+    $user_rang--;
+
+    if($user_rang === 0){
+        $rang = "Membre";
+    }else if($user_rang === 1){
+        $rang = "Modérateur";
+    }
+
+    $pdoEdit = $conn->prepare('UPDATE utilisateurs SET is_admin = 1, rang = ? WHERE id = ? LIMIT 1');
+    $pdoEdit->execute([
+        $rang,
+        nettoyage($_GET['id'])
+    ]);
+}
+
+
 header("Location: ../gestion_user.php");
+
 ?>

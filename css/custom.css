@@ -134,10 +134,6 @@ table td, table th{
     width: 16%;
 }
 
-tr:hover{
-    cursor: pointer;
-}
-
 .pagination li a.page-link{
     background: #1d1d1d !important;
     border: none !important;
