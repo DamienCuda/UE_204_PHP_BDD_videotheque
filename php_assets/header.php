@@ -3,6 +3,15 @@
         $id_user = $_SESSION['id'];
         $is_admin = $_SESSION['is_admin'];
         require_once("permission.php");
+        require_once("connectdb.php");
+        
+        //Requête pour recupérer le solde utilisateur
+        $solde_user_req = $conn->prepare('
+        SELECT solde FROM utilisateurs
+            WHERE id = ?');
+        $solde_user_req->execute(array($id_user));
+        $solde_user = $solde_user_req->fetch(PDO::FETCH_ASSOC);
+
     }else{
         $is_admin = false;
     }
@@ -52,6 +61,7 @@
                         <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link">Ma Liste</a></li>
                         <div class="d-flex align-items-center">
                             <li class="nav-item h5"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link"><i class="icones_nav bx bx-user-circle"></i></a></li>
+                            <li class="nav-item h5  d-flex align-items-center"><i class="icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
                             <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link"><i class="icones_nav bx bx-log-out"></i></a></li>
                         </div>
             ';
