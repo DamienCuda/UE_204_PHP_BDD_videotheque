@@ -69,6 +69,14 @@ main{
     color: #fff !important;
 }
 
+.bx-log-out:hover{
+    color: #dc3545 !important;
+}
+
+.bx-user-circle:hover{
+    color: #ffc107 !important;
+}
+
 table thead{
     background: #ffc107 !important;
 }
@@ -150,6 +158,14 @@ table td, table th{
 .pagination li.active a.page-link{
     background: #ffc107 !important;
     border: none !important;
+}
+
+.pagination a.page-link{
+    color: #fff !important;
+}
+
+.pagination .disabled a.page-link{
+    color: #6c757d !important;
 }
 
 .close{
@@ -308,6 +324,10 @@ tfoot input{
 
 .no-data{
     color: #f4f5f5 !important;
+}
+
+nav i{
+    font-size: 20pt !important;
 }
 
 @media only screen and (max-width: 1000px) {

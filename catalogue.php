@@ -2,6 +2,7 @@
 require_once("php_assets/connectdb.php");
 require("php_assets/verif_session_connect.php");
 require("php_assets/fonctions.php");
+require("php_assets/permission.php");
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,7 @@ $result = $movieCount->fetch();
 $nbMovies = (int)$result['nb_movies'];
 
 // On determine le nombre de film par page.
-$parPage = 16;
+$parPage = 12;
 $pages = ceil($nbMovies / $parPage);
 $premier = ($currentPage * $parPage) - $parPage;
 
@@ -40,18 +41,29 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 <?php include 'php_assets/header.php' ?>
 <main>
     <div class="container">
-        <div class="row mt-5">
-            <div class="col-12">
-                <input type="text" class="form-control" id="search-movie" name="search-movie"
-                       placeholder="Rechercher un film...">
-            </div>
-        </div>
         <div id="catalogue">
             <?php
-            if ($is_admin == 0){
-
             if (!isset($_GET['movie'])){ ?>
             <div class="row mt-5">
+                <?php if($is_admin == 1 && $permission >= 1){
+                ?>
+                    <div class="col-10 mb-5">
+                        <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film...">
+                    </div>
+                    <div class="col-2 mb-5">
+                        <a href="add-movie.php">
+                            <button class="btn btn-warning col-3 align-items-center d-flex justify-content-center" style="width:100%"><span>Ajouter un film</span><i class='bx bxs-folder-plus ml-2'></i></button>
+                        </a>
+                    </div>
+                <?php
+                }else{
+                ?>
+                    <div class="col-12 mb-5">
+                        <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film...">
+                    </div>
+                    <?php
+                }
+                ?>
                 <?php
                 foreach ($movies as $movie):
 
@@ -91,13 +103,26 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                             <div class="card-footer d-flex flex-column justify-content-between">
                                 <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h4><?= $movie['title']; ?></h4></a>
                                 <small>De <?= $movie['director'] ?></small>
+                                <?php
+                                    $id_movie = $movie['id'];
+
+                                    if($is_admin == 1 && $permission >= 1){
+
+                                        echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1' style='width:100%'>Modifier</button></a>";
+
+                                        // NOTE POUR Julien - Il faut modifier le lien delete-movie.php (pas edit-movie)
+                                        if($permission >= 2){
+                                            echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1' style='width:100%'>Supprimer</button></a>";
+                                        }
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
             <?php
-            if (count($movies) > $parPage) {
+            if ($nbMovies >= $parPage) {
                 ?>
                 <ul class="pagination mt-5 d-flex justify-content-end">
                     <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
@@ -129,6 +154,8 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
             $movieData = $movieDataReq->fetch();
 
             ?>
+            <button class="btn btn-light btn-back d-flex align-items-center justify-content-between mt-5" id="back"><i
+                        class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
             <div class="card mt-3">
                 <h5 class="card-header"><?= $movieData['title']; ?></h5>
                 <div class="card-body" id="movie-details">
@@ -233,10 +260,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                             <div class="col-12 mt-5">
-                                <div class="d-flex btn-zone justify-content-between justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-between">
-
-                                    <button class="btn btn-light btn-back d-flex align-items-center justify-content-between"
-                                            id="back"><i class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
+                                <div class="d-flex btn-zone justify-content-end">
                                     <?php
                                     // On récupère les infos de location du film.
                                     $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
@@ -258,7 +282,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                     if ($is_loc === 0) {
                                         ?>
                                         <a href="php_assets/location.php?movie=<?= $_GET['movie']; ?>">
-                                            <button class="btn btn-warning d-flex align-items-center justify-content-between btn-price"
+                                            <button class="btn btn-warning d-flex align-items-center justify-content-end btn-price"
                                                     id="location_button"><span>Louer ce film</span><span
                                                         class="d-flex align-items-center"><?= $movieData['price'] ?><i
                                                             class='bx bx-coin'></i></span></button>
@@ -266,7 +290,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                         <?php
                                     } else {
                                         ?>
-                                        <button class="btn btn-warning d-flex align-items-center justify-content-between btn-show-movie"
+                                        <button class="btn btn-warning d-flex align-items-center justify-content-end btn-show-movie"
                                                 id="show_movie_button"><span>Voir ce film</span><span
                                                     class="d-flex align-items-center"><i class='bx bx-show'></i></span>
                                         </button>
@@ -278,96 +302,6 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </div>
-            </div>
-            <?php
-        }
-        } else {
-            ?>
-            <div class="row">
-            <?php
-                $filmReq = $conn->prepare('SELECT * FROM catalogue');
-                $filmReq->execute();
-                $films = $filmReq->fetchAll();
-            ?>
-                <section id="gestion_film" class="mt-5">
-                    <table class="table table-striped responsive nowrap" id="gestion_filù_table">
-                        <thead>
-                        <tr>
-                            <th class="text-center"></th>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">Poster</th>
-                            <th class="text-center">Titre</th>
-                            <th class="text-center">Réalisateur</th>
-                            <th class="text-center">Acteurs</th>
-                            <th class="text-center">Genre</th>
-                            <th class="text-center">Date de sortie</th>
-                            <th class="text-center">Durée</th>
-                            <th class="text-center">Synopsis</th>
-                            <th class="text-center">Prix</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach($films as $film){
-                            ?>
-                            <tr class="<?php if($film['id'] == $_SESSION['id']){ echo "you"; } ?>">
-                                <td id="<?= $film['id']; ?>" class="checkbox_table"></td>
-                                <td><?= $film['id']; ?></td>
-                                <td><?= $film['movie_picture']; ?></td>
-                                <td><?= $film['title']; ?></td>
-                                <td><?= $film['director']; ?></td>
-                                <td><?= $film['acteurs']; ?></td>
-                                <td><?= $film['genre']; ?></td>
-                                <td><?= $film['release_year']; ?></td>
-                                <td><?= $film['duration']; ?></td>
-                                <td><?= $film['synopsis']; ?></td>
-                                <td><?= $film['price']; ?></td>
-                                <td><a href="php_assets/delete_film.php?id=<?= $film['id']; ?>" title="Supprimer"><i class='bx bx-trash'></i></a></td>
-                            </tr>
-                        <?php } ?>
-                        </tbody>
-                        <tfoot>
-                            <tr id="add_film_row">
-
-                                <?php
-                                    $pdoID = $conn->prepare("SELECT MAX(id) AS max_id FROM catalogue");
-                                    $pdoID->execute();
-                                    $pdoID = $pdoID->fetch();
-                                    $max_incrementation = $pdoID['max_id'] + 1;
-                                ?>
-
-                                <td></td>
-                                <td><?= $max_incrementation ?></td>
-                                <td><div class="profil-membre" style="background: url('img/profil_img/avatar.jpg');"></div></td>
-                                <td style="height: 60px">
-                                    <input type="text" name="title_add" id="title_add" class="form-control" placeholder="Nom du film...">
-                                </td>
-                                <td>
-                                    <input type="text" name="director_add" id="director_add" class="form-control" placeholder="Nom du réalisateur...">
-                                </td>
-                                <td>
-                                    <input type="text" name="acteurs_add" id="acteurs_add" class="form-control" placeholder="Nom des acteurs...">
-                                </td>
-                                <td>
-                                    <input type="text" name="genre_add" id="genre_add" class="form-control" placeholder="Genres du film...">
-                                </td>
-                                <td>
-                                    <input type="text" name="year_add" id="year_add" class="form-control" placeholder="Année de sortie...">
-                                </td>
-                                <td>
-                                    <input type="text" name="duration_add" id="duration_add" class="form-control" placeholder="Durée du film...">
-                                </td>
-                                <td>
-                                    <input type="textarea" name="synopsis_add" id="synopsis_add" class="form-control" placeholder="Synopsis du film...">
-                                </td>
-                                <td>
-                                    <input type="text" name="price_add" id="price_add" class="form-control" placeholder="Prix du film...">
-                                </td>
-                                <td><button class="btn btn-warning" style="background: #ffca2c !important;" id="add_film_btn">Ajouter</button></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </section>
             </div>
             <?php
         }

@@ -39,18 +39,33 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             SELECT DISTINCT catalogue.id, catalogue.movie_picture, catalogue.release_year, catalogue.title, catalogue.director
                 FROM catalogue AS catalogue
                 JOIN movies_location AS rented_movies
-                ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ?');
-            $rented_movies_req->execute(array($user_id));
+                ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? LIMIT 4');
+            $rented_movies_req->execute(array($_GET['id']));
             $user_rented_list = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
+
+            $count_movies_loc = $conn->prepare("SELECT count(*) as total FROM movies_location WHERE user_id = ? AND is_loc = ?");
+            $count_movies_loc->execute([
+                    nettoyage($_GET['id']),
+                    1
+            ]);
+            $result_loc = $count_movies_loc->fetch();
+            $total_movie_loc = $result_loc['total'];
 
             //Requête pour recupérer les films loués par l'utilisateur en ce moment
             $rented_movies_req = $conn->prepare('
                 SELECT DISTINCT catalogue.id, catalogue.movie_picture, catalogue.release_year, catalogue.title, catalogue.director
                     FROM catalogue AS catalogue
                     JOIN movies_location AS rented_movies
-                    ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1');
-            $rented_movies_req->execute(array($user_id));
+                    ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1 LIMIT 4');
+            $rented_movies_req->execute(array($_GET['id']));
             $user_rented_list_now = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
+
+            $count_movies_his = $conn->prepare("SELECT count(*) as total FROM movies_location WHERE user_id = ?");
+            $count_movies_his->execute([
+                nettoyage($_GET['id'])
+            ]);
+            $result_his = $count_movies_his->fetch();
+            $total_movie_his = $result_his['total'];
             ?>
             <!-- Section d'affichage des informations et modification utilisateur -->
             <section id="user_infos_container" class="container">
@@ -64,8 +79,19 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center ">
                         <div id="profil_picture">
                             <div id="edit_zone_img"></div>
-                            <img class="rounded-circle mb-3" src="img/profil_img/<?= $user_profil_pic; ?>" alt="Avatar"
-                                 style="height:150px">
+                            <?php
+                                if($user_profil_pic == null){
+                                    ?>
+                                    <img class="rounded-circle mb-3" src="img/profil_img/avatar.jpg" alt="Avatar"
+                                         style="height:150px;object-fit: cover;">
+                            <?php
+                                }else{
+                            ?>
+                            <img class="rounded-circle mb-3" src="users/<?= $_GET['id']; ?>/avatar/<?= $user_profil_pic; ?>" alt="Avatar"
+                                 style="height:150px;object-fit: cover;">
+                            <?php
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 text-light text-center text-sm-center text-md-center text-lg-start text-xl-start">
@@ -73,13 +99,13 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <p class="mb-2" id="email_line">Email: <span id="email_zone"><?= $user_email; ?></span></p>
                         <p class="mb-2 d-none" id="password_line">Mot de passe: <span id="password_zone"></span></p>
                         <p class="mb-2">Rang : <?= $user_rank; ?></p>
-                        <a href="liste.php" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus'></i><span>Ma liste</span></p></a>
+                        <a href="liste.php?id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus'></i><span>Ma liste</span></p></a>
                         <?php
                         if ($_GET['id'] == $_SESSION['id']) {
                         ?>
                             <div class="d-flex mt-4 justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start">
                                 <button class="btn btn-warning" id="btn_edit_profil">Modifier le profil</button>
-                                <button class="btn btn-light d-none" id="btn_edit_profil_skip">Annuler les modification</button>
+                                <button class="btn btn-light d-none" id="btn_edit_profil_skip">Annuler les modifications</button>
                                 <button class="btn btn-warning d-none ml-2" id="btn_edit_profil_valid">Modifier</button>
                             </div>
                         <?php
@@ -90,8 +116,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             </section>
             <section id="current_locations" class="container">
                 <div class="row mb-5">
-                    <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span
-                                class="mr-2">Location en cours</span><i class='bx bx-cart-download'></i></h3>
+                    <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span class="mr-2">Locations en cours</span><i class='bx bx-cart-download'></i></h3>
                     <div class="row mt-5">
                         <?php
                         if (count($user_rented_list_now) > 0) {
@@ -136,11 +161,13 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         ?>
 
                     </div>
+                    <?php if($total_movie_loc > 4){ ?>
+                        <a href="locations-list.php?id=<?= $_GET['id']; ?>"><div class="d-flex justify-content-end"><button class="btn btn-warning">Voir tout</button></div></a>
+                    <?php } ?>
                 </div>
             </section>
             <section id="past_locations" class="container">
-                <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span
-                            class="mr-2">Historique de location</span><i class='bx bx-history'></i></h3>
+                <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span class="mr-2">Historique des locations</span><i class='bx bx-history'></i></h3>
                 <div class="row mt-5">
                     <?php
                     if (count($user_rented_list) > 0) {
@@ -194,6 +221,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         echo "<h5 class='no-data'>Aucun film n'a été loué pour le moment...</h5>";
                     }
                     ?>
+                    <?php if($total_movie_his > 4){ ?>
+                        <a href="locations-historique.php?id=<?= $_GET['id']; ?>"><div class="d-flex justify-content-end"><button class="btn btn-warning">Voir tout</button></div></a>
+                    <?php } ?>
                 </div>
             </section>
             <?php
