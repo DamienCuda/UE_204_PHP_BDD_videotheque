@@ -3,10 +3,6 @@
     width: 150px;
 }
 
-#user_infos_container .editing{
-    cursor: pointer;
-}
-
 #user_infos_container #email_zone, #user_infos_container #password_zone{
     width: 100%;
 }
@@ -20,6 +16,7 @@
 #user_infos_container #edit_zone_img label{
     width: 150px;
     height: 150px;
+    cursor: pointer;
 }
 
 #user_infos_container #edit_zone_img i{
