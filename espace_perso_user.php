@@ -77,8 +77,19 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center ">
                         <div id="profil_picture">
                             <div id="edit_zone_img"></div>
-                            <img class="rounded-circle mb-3" src="img/profil_img/<?= $user_profil_pic; ?>" alt="Avatar"
-                                 style="height:150px">
+                            <?php
+                                if($user_profil_pic == null){
+                                    ?>
+                                    <img class="rounded-circle mb-3" src="img/profil_img/avatar.jpg" alt="Avatar"
+                                         style="height:150px;object-fit: cover;">
+                            <?php
+                                }else{
+                            ?>
+                            <img class="rounded-circle mb-3" src="users/<?= $_GET['id']; ?>/avatar/<?= $user_profil_pic; ?>" alt="Avatar"
+                                 style="height:150px;object-fit: cover;">
+                            <?php
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 text-light text-center text-sm-center text-md-center text-lg-start text-xl-start">
@@ -86,7 +97,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <p class="mb-2" id="email_line">Email: <span id="email_zone"><?= $user_email; ?></span></p>
                         <p class="mb-2 d-none" id="password_line">Mot de passe: <span id="password_zone"></span></p>
                         <p class="mb-2">Rang : <?= $user_rank; ?></p>
-                        <a href="liste.php" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus'></i><span>Ma liste</span></p></a>
+                        <a href="liste.php?id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus'></i><span>Ma liste</span></p></a>
                         <?php
                         if ($_GET['id'] == $_SESSION['id']) {
                         ?>

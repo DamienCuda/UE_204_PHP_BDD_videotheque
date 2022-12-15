@@ -2,6 +2,7 @@
 require_once("php_assets/connectdb.php");
 require("php_assets/verif_session_connect.php");
 require("php_assets/fonctions.php");
+require("php_assets/permission.php");
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,7 @@ $result = $movieCount->fetch();
 $nbMovies = (int)$result['nb_movies'];
 
 // On determine le nombre de film par page.
-$parPage = 16;
+$parPage = 12;
 $pages = ceil($nbMovies / $parPage);
 $premier = ($currentPage * $parPage) - $parPage;
 
@@ -40,18 +41,29 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 <?php include 'php_assets/header.php' ?>
 <main>
     <div class="container">
-        <div class="row mt-5">
-            <div class="col-12">
-                <input type="text" class="form-control" id="search-movie" name="search-movie"
-                       placeholder="Rechercher un film...">
-            </div>
-        </div>
         <div id="catalogue">
             <?php
-            if ($is_admin == 0){
-
             if (!isset($_GET['movie'])){ ?>
             <div class="row mt-5">
+                <?php if($is_admin == 1 && $permission >= 1){
+                ?>
+                    <div class="col-10 mb-5">
+                        <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film...">
+                    </div>
+                    <div class="col-2 mb-5">
+                        <a href="add-movie.php">
+                            <button class="btn btn-warning col-3 align-items-center d-flex justify-content-center" style="width:100%"><span>Ajouter un film</span><i class='bx bxs-folder-plus ml-2'></i></button>
+                        </a>
+                    </div>
+                <?php
+                }else{
+                ?>
+                    <div class="col-12 mb-5">
+                        <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film...">
+                    </div>
+                    <?php
+                }
+                ?>
                 <?php
                 foreach ($movies as $movie):
 
@@ -91,13 +103,26 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                             <div class="card-footer">
                                 <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h3><?= $movie['title']; ?></h3></a>
                                 <small>De <?= $movie['director'] ?></small>
+                                <?php
+                                    $id_movie = $movie['id'];
+
+                                    if($is_admin == 1 && $permission >= 1){
+
+                                        echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1' style='width:100%'>Modifier</button></a>";
+
+                                        // NOTE POUR Julien - Il faut modifier le lien delete-movie.php (pas edit-movie)
+                                        if($permission >= 2){
+                                            echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1' style='width:100%'>Supprimer</button></a>";
+                                        }
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
             <?php
-            if (count($movies) > $parPage) {
+            if ($nbMovies >= $parPage) {
                 ?>
                 <ul class="pagination mt-5 d-flex justify-content-end">
                     <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
@@ -129,6 +154,8 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
             $movieData = $movieDataReq->fetch();
 
             ?>
+            <button class="btn btn-light btn-back d-flex align-items-center justify-content-between mt-5" id="back"><i
+                        class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
             <div class="card mt-3">
                 <h5 class="card-header"><?= $movieData['title']; ?></h5>
                 <div class="card-body" id="movie-details">
@@ -233,10 +260,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                             <div class="col-12 mt-5">
-                                <div class="d-flex btn-zone justify-content-between justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-between">
-
-                                    <button class="btn btn-light btn-back d-flex align-items-center justify-content-between"
-                                            id="back"><i class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
+                                <div class="d-flex btn-zone justify-content-end">
                                     <?php
                                     // On récupère les infos de location du film.
                                     $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
@@ -258,7 +282,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                     if ($is_loc === 0) {
                                         ?>
                                         <a href="php_assets/location.php?movie=<?= $_GET['movie']; ?>">
-                                            <button class="btn btn-warning d-flex align-items-center justify-content-between btn-price"
+                                            <button class="btn btn-warning d-flex align-items-center justify-content-end btn-price"
                                                     id="location_button"><span>Louer ce film</span><span
                                                         class="d-flex align-items-center"><?= $movieData['price'] ?><i
                                                             class='bx bx-coin'></i></span></button>
@@ -266,7 +290,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                         <?php
                                     } else {
                                         ?>
-                                        <button class="btn btn-warning d-flex align-items-center justify-content-between btn-show-movie"
+                                        <button class="btn btn-warning d-flex align-items-center justify-content-end btn-show-movie"
                                                 id="show_movie_button"><span>Voir ce film</span><span
                                                     class="d-flex align-items-center"><i class='bx bx-show'></i></span>
                                         </button>
@@ -278,15 +302,6 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </div>
-            </div>
-            <?php
-        }
-        } else {
-            ?>
-            <div class="row">
-                <!-- Remplace ça par le tableau de gestion admin -->
-                <div class="col-12 mt-5" style="color:#fff;">Vous êtes admin</div>
-                <!-- Remplace ça par le tableau de gestion admin -->
             </div>
             <?php
         }

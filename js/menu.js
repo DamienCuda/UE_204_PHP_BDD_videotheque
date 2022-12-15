@@ -29,4 +29,14 @@ window.addEventListener('load', (event) => {
             });
         }
     }
+
+    // On fait une exeption pour les sous-pages du catalogue pour les admins.
+    if(page_courrante == "edit-movie.php"){
+        document.querySelectorAll("a[href='catalogue.php']")[0].classList.add("active");
+    }
+
+    if(page_courrante == "add-movie.php"){
+        document.querySelectorAll("a[href='catalogue.php']")[0].classList.add("active");
+    }
+
 });
