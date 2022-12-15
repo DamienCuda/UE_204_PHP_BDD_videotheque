@@ -14,7 +14,7 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
     ]);
     $usernames = $usernameReq->fetchAll();
 
-    // Si l'utilistauer n'existe pas on continue.
+    // Si l'utilisateur n'existe pas on continue.
     if (count($usernames) === 0) {
 
         // On vérifie que l'email est correct.
