@@ -8,8 +8,7 @@
         // On initialise et nettoie les variables.
         $id_movie = nettoyage($_GET['movie']);
         $id_user = $_SESSION['id'];
-        $datenow = date("Y-m-d H:i:s");
-        $date = date("d/m/y",strtotime($datenow));
+        $date = date("Y-m-d H:i:s");
 
         // On récupère le film avec l'ID en paramètre dans l'url.
         $moviesReq = $conn->prepare('SELECT * FROM catalogue WHERE id = ? LIMIT 1');

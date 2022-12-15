@@ -28,14 +28,14 @@ if($is_admin === false){
             <table class="table table-striped responsive nowrap" id="gestion_user_table">
                 <thead>
                 <tr>
-                    <th></th>
-                    <th>ID</th>
-                    <th>Photo de profil</th>
-                    <th>Utilisateur</th>
-                    <th>Email</th>
-                    <th>Mot de passe</th>
-                    <th>Rôle</th>
-                    <th>Action</th>
+                    <th class="text-center"></th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Photo de profil</th>
+                    <th class="text-center">Utilisateur</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Mot de passe</th>
+                    <th class="text-center">Rôle</th>
+                    <th class="text-center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,13 +48,15 @@ if($is_admin === false){
                         $rang = 2;
                     }else if($user['rang'] == "Modérateur"){
                         $rang = 1;
+                    }else if($user['rang'] == "Membre"){
+                        $rang = 0;
                     }else{
                         $rang = 0;
                     }
 
                     ?>
                     <tr class="<?php if($user['id'] == $_SESSION['id']){ echo "you"; } ?>">
-                        <td id="user_<?= $user['id']; ?>" class="checkbox_table"></td>
+                        <td id="<?= $user['id']; ?>" class="checkbox_table"></td>
                         <td><?= $user['id']; ?></td>
                         <td>
                             <div class="profil-membre" style="background: url('img/profil_img/<?= $user['profile_picture']; ?>');"></div>
@@ -64,15 +66,11 @@ if($is_admin === false){
                         <td>********</td>
                         <td>
                             <?php
-                            if($user['is_admin'] == 1){
                                 echo $user['rang'];
-                            }else{
-                                echo "Membre";
-                            }
                             ?>
                         </td>
                         <td>
-                            <div class="d-flex justify-content-start justify-content-sm-start justify-content-md-start justify-content-lg-around justify-content-xl-around">
+                            <div class="d-flex mt-2 mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0 justify-content-around justify-content-sm-around justify-content-md-around justify-content-lg-around justify-content-xl-around">
                                 <a data-toggle="modal" data-target="#transaction-historique"><i class='bx bx-money-withdraw'></i></a>
                                 <?php
                                     // Si notre permission est supérieur au rang de l'utilsateur on à accès la modification, destition et promotion de l'utilisateur.
@@ -85,13 +83,14 @@ if($is_admin === false){
                                                 ?>
                                                     <a href="php_assets/downgrade_user.php?id=<?= $user['id']; ?>" title="Destituer"><i class='bx bx-chevrons-down'></i></a>
                                                 <?php
-                                            }else if($rang < 2){
+                                            }
+                                            if($rang + 1 < $permission){
                                         ?>
                                         <a href="php_assets/upgrade_user.php?id=<?= $user['id']; ?>" title="Promouvoir"><i class='bx bx-chevrons-up'></i></a>
                                         <?php
                                             }
                                     }
-                                    if($permission >= 2 && $rang < 3){
+                                    if($permission >= 2 && $rang < 3 && $permission > $rang){
                                         // Si notre permission est superieur à 2 on a le pouvoir de supprimer un membre.
                                         ?>
                                         <a href="php_assets/delete_user.php?id=<?= $user['id']; ?>" title="Supprimer"><i class='bx bx-trash'></i></a>
@@ -103,10 +102,95 @@ if($is_admin === false){
                     </tr>
                 <?php } ?>
                 </tbody>
+                <tfoot>
+                    <tr id="add_user_row">
+
+                        <?php
+                            $pdoID = $conn->prepare("SELECT MAX(id) AS max_id FROM utilisateurs");
+                            $pdoID->execute();
+                            $pdoID = $pdoID->fetch();
+                            $max_incrementation = $pdoID['max_id'] + 1;
+                        ?>
+
+                        <td></td>
+                        <td><?= $max_incrementation ?></td>
+                        <td><div class="profil-membre" style="background: url('img/profil_img/avatar.jpg');"></div></td>
+                        <td style="height: 60px">
+                            <input type="text" name="username_add" id="username_add" class="form-control" placeholder="Nom d'utilisateur...">
+                        </td>
+                        <td>
+                            <input type="email" name="email_add" id="email_add" class="form-control" placeholder="Adresse email...">
+                        </td>
+                        <td>
+                            <input type="password" name="pass_add" id="pass_add" class="form-control" placeholder="Mot de passe...">
+                        </td>
+                        <td>
+                            <?php if($permission > 1){?>
+                            <select name="role" id="role_add">
+                                <?php if($permission === 1){ ?>
+                                <option value="0">Membre</option>
+                                <?php }else if($permission === 2){ ?>
+                                    <option value="0">Membre</option>
+                                    <option value="1">Modérateur</option>
+                                <?php }else if($permission === 3){ ?>
+                                    <option value="0">Membre</option>
+                                    <option value="1">Modérateur</option>
+                                    <option value="2">Administrateur</option>
+                                <?php } ?>
+                            </select>
+                            <?php } ?>
+                        </td>
+                        <td><button class="btn btn-warning" style="background: #ffca2c !important;" id="add_user_btn">Ajouter</button></td>
+                    </tr>
+                </tfoot>
             </table>
         </section>
     </div>
 </main>
+
+<!-- Modal permissionError -->
+<div class="modal fade" id="permissionError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;">Attention !</span> <i class='bx bx-error' ></i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Vous avez séléctionné des utilisateurs sur les quels vous n'avez pas la permission d'intéragir. Seuls les utilisateurs dont vous avez l'autorité seront pris en compte.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="gestion_user.php">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" id="valid_permissionError">J'AI COMPRIS</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add User -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;">Félicitation !</span> <i class='bx bx-party'></i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p>L'utilisateur a été ajouté avec succès.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="gestion_user.php">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">CONTINUER</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Transaction -->
 <div class="modal fade" id="transaction-historique" tabindex="-1" role="dialog" aria-labelledby="transaction-historiqueLabel" aria-hidden="true">
@@ -187,8 +271,8 @@ if($is_admin === false){
                     '<button class="btn border dropdown-toggle mr-2" type="button" id="invoice-options-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>' +
                     'Options' +
                     '</button>' +
-                    '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="gestion-user-options-btn">' +
-                        '<span class="dropdown-item" id="multiDelete" style="cursor:pointer">Supprimer</span>' +
+                    '<div id="multiDelete" class="dropdown-menu dropdown-menu-right" aria-labelledby="gestion-user-options-btn">' +
+                        '<span class="dropdown-item" style="cursor:pointer">Supprimer</span>' +
                     '</div>' +
                 '</div>' +
             '</div>';
@@ -200,5 +284,7 @@ if($is_admin === false){
     });
 </script>
 <script src="js/edit_user.js"></script>
+<script src="js/add_user.js"></script>
+<script src="js/gestion_user.js"></script>
 </body>
 </html>

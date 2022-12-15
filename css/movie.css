@@ -109,6 +109,10 @@ input{
     width: 150px;
 }
 
+.btn-show-movie{
+    width: 130px;
+}
+
 .btn-back{
     width: 100px;
     margin-right: 10px;
