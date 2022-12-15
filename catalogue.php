@@ -304,6 +304,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                             <th class="text-center">Durée</th>
                             <th class="text-center">Synopsis</th>
                             <th class="text-center">Prix</th>
+                            <th class="text-center">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -321,6 +322,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?= $film['duration']; ?></td>
                                 <td><?= $film['synopsis']; ?></td>
                                 <td><?= $film['price']; ?></td>
+                                <td><a href="php_assets/delete_film.php?id=<?= $film['id']; ?>" title="Supprimer"><i class='bx bx-trash'></i></a></td>
                             </tr>
                         <?php } ?>
                         </tbody>
