@@ -1,8 +1,6 @@
 <?php
 require_once("connectdb.php");
-require("verif_session_connect.php");
 require("fonctions.php");
-require("permission.php");
 
 // On vérifie si les champs ne sont pas vide.
 if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email"]) && $_POST["email"] != "" && isset($_POST["pass"]) && $_POST["pass"] != "" && isset($_POST["passconfirm"]) && $_POST["passconfirm"] != "") {

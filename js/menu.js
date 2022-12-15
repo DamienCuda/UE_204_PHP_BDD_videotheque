@@ -10,7 +10,7 @@ window.addEventListener('load', (event) => {
     var page_courrante = window.location.pathname;
     page_courrante = page_courrante.split("/");
     page_courrante = page_courrante[page_courrante.length - 1];
-    
+
     let menu = document.getElementById("nav_menu");
     let menuList = menu.children;
 
