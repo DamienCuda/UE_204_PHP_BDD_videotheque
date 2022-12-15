@@ -73,6 +73,10 @@ main{
     color: #dc3545 !important;
 }
 
+.espace_perso_hover{
+    color: #ffc107 !important;
+}
+
 table thead{
     background: #ffc107 !important;
 }
