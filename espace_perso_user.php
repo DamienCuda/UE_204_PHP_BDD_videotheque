@@ -38,18 +38,33 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             SELECT DISTINCT catalogue.id, catalogue.movie_picture, catalogue.release_year, catalogue.title, catalogue.director
                 FROM catalogue AS catalogue
                 JOIN movies_location AS rented_movies
-                ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ?');
+                ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? LIMIT 4');
             $rented_movies_req->execute(array($_GET['id']));
             $user_rented_list = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
+
+            $count_movies_loc = $conn->prepare("SELECT count(*) as total FROM movies_location WHERE user_id = ? AND is_loc = ?");
+            $count_movies_loc->execute([
+                    nettoyage($_GET['id']),
+                    1
+            ]);
+            $result_loc = $count_movies_loc->fetch();
+            $total_movie_loc = $result_loc['total'];
 
             //Requête pour recupérer les films loués par l'utilisateur en ce moment
             $rented_movies_req = $conn->prepare('
                 SELECT DISTINCT catalogue.id, catalogue.movie_picture, catalogue.release_year, catalogue.title, catalogue.director
                     FROM catalogue AS catalogue
                     JOIN movies_location AS rented_movies
-                    ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1');
+                    ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1 LIMIT 4');
             $rented_movies_req->execute(array($_GET['id']));
             $user_rented_list_now = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
+
+            $count_movies_his = $conn->prepare("SELECT count(*) as total FROM movies_location WHERE user_id = ?");
+            $count_movies_his->execute([
+                nettoyage($_GET['id'])
+            ]);
+            $result_his = $count_movies_his->fetch();
+            $total_movie_his = $result_his['total'];
             ?>
             <section id="user_infos_container" class="container">
                 <div class="row mt-5">
@@ -77,7 +92,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         ?>
                             <div class="d-flex mt-4 justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start">
                                 <button class="btn btn-warning" id="btn_edit_profil">Modifier le profil</button>
-                                <button class="btn btn-light d-none" id="btn_edit_profil_skip">Annuler les modification</button>
+                                <button class="btn btn-light d-none" id="btn_edit_profil_skip">Annuler les modifications</button>
                                 <button class="btn btn-warning d-none ml-2" id="btn_edit_profil_valid">Modifier</button>
                             </div>
                         <?php
@@ -88,8 +103,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             </section>
             <section id="current_locations" class="container">
                 <div class="row mb-5">
-                    <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span
-                                class="mr-2">Location en cours</span><i class='bx bx-cart-download'></i></h3>
+                    <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span class="mr-2">Locations en cours</span><i class='bx bx-cart-download'></i></h3>
                     <div class="row mt-5">
                         <?php
                         if (count($user_rented_list_now) > 0) {
@@ -131,11 +145,13 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         ?>
 
                     </div>
+                    <?php if($total_movie_loc > 4){ ?>
+                        <a href="locations-list.php?id=<?= $_GET['id']; ?>"><div class="d-flex justify-content-end"><button class="btn btn-warning">Voir tout</button></div></a>
+                    <?php } ?>
                 </div>
             </section>
             <section id="past_locations" class="container">
-                <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span
-                            class="mr-2">Historique de location</span><i class='bx bx-history'></i></h3>
+                <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span class="mr-2">Historique des locations</span><i class='bx bx-history'></i></h3>
                 <div class="row mt-5">
                     <?php
                     if (count($user_rented_list) > 0) {
@@ -187,6 +203,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         echo "<h5 class='no-data'>Aucun film n'a été loué pour le moment...</h5>";
                     }
                     ?>
+                    <?php if($total_movie_his > 4){ ?>
+                        <a href="locations-historique.php?id=<?= $_GET['id']; ?>"><div class="d-flex justify-content-end"><button class="btn btn-warning">Voir tout</button></div></a>
+                    <?php } ?>
                 </div>
             </section>
             <?php
