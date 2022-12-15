@@ -7,8 +7,6 @@ $(document).ready(function() {
         $("#btn_edit_profil_skip").removeClass("d-none");
         $("#btn_edit_profil_valid").removeClass("d-none");
 
-        $("#profil_picture").addClass("editing");
-
         $("#email_line").addClass("flex-column");
         $("#password_line").addClass("flex-column");
         $("#edit_zone_img").html("<label for='img_user'><i class='bx bxs-camera-plus'></i></label><input type='file' name='img_user' id='img_user' hidden>");
@@ -21,10 +19,9 @@ $(document).ready(function() {
 
     $("#btn_edit_profil_skip").click(function(){
         $("#btn_edit_profil").removeClass("d-none");
-            $("#btn_edit_profil_skip").addClass("d-none");
-            $("#btn_edit_profil_valid").addClass("d-none");
-            $("#edit_zone_img").html("");
-        $("#profil_picture").removeClass("editing");
+        $("#btn_edit_profil_skip").addClass("d-none");
+        $("#btn_edit_profil_valid").addClass("d-none");
+        $("#edit_zone_img").html("");
 
         $("#email_zone").html(emailValue);
 
