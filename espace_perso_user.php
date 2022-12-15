@@ -59,7 +59,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center ">
                         <div id="profil_picture">
                             <div id="edit_zone_img"></div>
                             <img class="rounded-circle mb-3" src="img/profil_img/<?= $user_profil_pic; ?>" alt="Avatar"
@@ -68,14 +68,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 text-light text-center text-sm-center text-md-center text-lg-start text-xl-start">
                         <h3 class="mt-3 h3">Vos informations</h3>
-                        <p class="mb-2 d-flex align-items-start" id="email_line">Email: <span id="email_zone" class="ml-2"><?= $user_email; ?></span></p>
-                        <p class="mb-2 d-flex align-items-start d-none" id="password_line">Mot de passe: <span id="password_zone"></span></p>
+                        <p class="mb-2" id="email_line">Email: <span id="email_zone"><?= $user_email; ?></span></p>
+                        <p class="mb-2 d-none" id="password_line">Mot de passe: <span id="password_zone"></span></p>
                         <p class="mb-2">Rang : <?= $user_rank; ?></p>
-                        <a href="liste.php" class="text-light"><p class="mb-2 d-flex align-items-center"><i class='bx bx-plus'></i><span>Ma liste</span></p></a>
+                        <a href="liste.php" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus'></i><span>Ma liste</span></p></a>
                         <?php
                         if ($_GET['id'] == $_SESSION['id']) {
                         ?>
-                            <div class="d-flex mt-4">
+                            <div class="d-flex mt-4 justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start">
                                 <button class="btn btn-warning" id="btn_edit_profil">Modifier le profil</button>
                                 <button class="btn btn-light d-none" id="btn_edit_profil_skip">Annuler les modification</button>
                                 <button class="btn btn-warning d-none ml-2" id="btn_edit_profil_valid">Modifier</button>
