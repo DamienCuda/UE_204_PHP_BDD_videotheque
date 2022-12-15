@@ -1,0 +1,32 @@
+#user_infos_container #profil_picture{
+    position: relative;
+    width: 150px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#user_infos_container #email_zone, #user_infos_container #password_zone{
+    width: 100%;
+}
+
+#user_infos_container #edit_zone_img{
+    width: 150px;
+    height: 150px;
+    position: absolute;
+}
+
+#user_infos_container #edit_zone_img label{
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+}
+
+#user_infos_container #edit_zone_img i{
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30pt;
+
+}

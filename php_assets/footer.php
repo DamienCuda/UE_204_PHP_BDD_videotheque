@@ -1,7 +1,11 @@
 <!-- BEGIN: Utilitaire -->
-<script src="app-assets/jquery-3.6.1.min.js"></script>
+<script src="app-assets/jquery-3.6.1.js"></script>
 <script src="app-assets/jquery.dataTables.min.js"></script>
 <script src="app-assets/dataTables.bootstrap5.min.js"></script>
+<script src="app-assets/dataTables.select.min.js"></script>
+<script src="app-assets/dataTables.responsive.min.js"></script>
+<script src="app-assets/popper.min.js"></script>
+<script src="app-assets/bootstrap.min.js"></script>
 <!-- END: Utilitaire -->
 
 <footer class="bg-light">

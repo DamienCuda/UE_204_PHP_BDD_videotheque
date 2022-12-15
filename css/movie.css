@@ -72,7 +72,7 @@ input{
 }
 
 .movie_picture{
-    width: 300px;
+    width: 100%;
     height: 400px;
     background-size: cover !important;
     margin: auto;
@@ -107,6 +107,10 @@ input{
 
 .btn-price{
     width: 150px;
+}
+
+.btn-show-movie{
+    width: 130px;
 }
 
 .btn-back{
