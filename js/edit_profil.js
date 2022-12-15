@@ -29,9 +29,8 @@ $(document).ready(function() {
         $("#edit_zone_img").html("");
 
         $("#email_line").removeClass("flex-column");
+        $("#email_line").removeClass("d-flex align-items-start");
         $("#password_line").removeClass("flex-column");
-
-        $("#email_zone").addClass("ml-2");
 
     });
 });
