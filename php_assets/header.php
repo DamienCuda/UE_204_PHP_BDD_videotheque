@@ -1,5 +1,6 @@
 <?php
     if(!empty($_SESSION['id'])){
+        $id_user = $_SESSION['id'];
         $is_admin = $_SESSION['is_admin'];
         require_once("permission.php");
     }else{
@@ -35,7 +36,7 @@
                 <nav class="site-navigation text-right ml-auto" role="navigation">
                     <ul class="nav nav-pills d-flex flex-row justify-content-around" id="nav_menu">
                         <li class="nav-item h5"><a href="catalogue.php" class="nav-link active">Gestion Films</a></li>
-                        <li class="nav-item h5"><a href="gestion_user.php" class="nav-link">Gestion Utilisateur</a></li>
+                        <li class="nav-item h5"><a href="gestion_user.php?id='.$id_user.'" class="nav-link">Gestion Utilisateur</a></li>
                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link">Déconnexion</a></li>
             ';
         }else{
@@ -44,7 +45,7 @@
                 <nav class="site-navigation text-right ml-auto" role="navigation">
                     <ul class="nav nav-pills d-flex flex-row justify-content-around" id="nav_menu">                
                         <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Catalogue</a></li>
-                        <li class="nav-item h5"><a href="espace_perso_user.php" class="nav-link">Espace Perso</a></li>
+                        <li class="nav-item h5"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link">Espace Perso</a></li>
                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link">Déconnexion</a></li>
             ';
         }

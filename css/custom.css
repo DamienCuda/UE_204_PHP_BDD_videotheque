@@ -6,6 +6,14 @@ body{
     background: #060d17;
 }
 
+a{
+    text-decoration: none !important;
+}
+
+#notfound{
+    margin-top: 200px !important;
+}
+
 table button{
     border: 0 !important;
     background: transparent !important;
