@@ -69,11 +69,11 @@ main{
     color: #fff !important;
 }
 
-.logout_hover{
+.bx-log-out:hover{
     color: #dc3545 !important;
 }
 
-.espace_perso_hover{
+.bx-user-circle:hover{
     color: #ffc107 !important;
 }
 

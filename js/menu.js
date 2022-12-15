@@ -21,25 +21,11 @@ window.addEventListener('load', (event) => {
             menuList[i].children[0].classList.remove("active");
 
             menuList[i].addEventListener("mouseover", function(){
-
-                if (menuList[i].children[0].getAttribute("href").includes("disconnect.php")) {
-                    menuList[i].children[0].classList.add("logout_hover");
-                }else if(menuList[i].children[0].getAttribute("href").includes("espace_perso_user.php")){
-                    menuList[i].children[0].classList.add("espace_perso_hover");
-                }else{
-                    menuList[i].children[0].classList.add("active");
-                }
-
+                menuList[i].children[0].classList.add("active");
             });
 
             menuList[i].addEventListener("mouseleave", function(){
-                if (menuList[i].children[0].getAttribute("href").includes("disconnect.php")) {
-                    menuList[i].children[0].classList.remove("logout_hover");
-                }else if(menuList[i].children[0].getAttribute("href").includes("espace_perso_user.php")){
-                    menuList[i].children[0].classList.remove("espace_perso_hover");
-                }else{
-                    menuList[i].children[0].classList.remove("active");
-                }
+                menuList[i].children[0].classList.remove("active");
             });
         }
     }
