@@ -10,12 +10,12 @@ window.addEventListener('load', (event) => {
     var page_courrante = window.location.pathname;
     page_courrante = page_courrante.split("/");
     page_courrante = page_courrante[page_courrante.length - 1];
-
+    
     let menu = document.getElementById("nav_menu");
     let menuList = menu.children;
 
     for (let i = 0; i < menuList.length; i++) {
-        if (menuList[i].children[0].getAttribute("href") == page_courrante) {
+        if (menuList[i].children[0].getAttribute("href").includes(page_courrante)) {
             menuList[i].children[0].classList.add("active");
         } else {
             menuList[i].children[0].classList.remove("active");
