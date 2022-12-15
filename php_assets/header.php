@@ -48,8 +48,9 @@
                         <li class="nav-item h5"><a href="gestion_user.php?id='.$id_user.'" class="nav-link">Gestion Utilisateur</a></li>
                         <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link">Ma Liste</a></li>
                         <div class="d-flex align-items-center">
-                        <li class="nav-item h5"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link"><i class="icones_nav bx bx-user-circle"></i></a></li>
-                           <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link"><i class="bx bx-log-out icones_nav"></i></a></li>
+                            <li class="nav-item h5"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link"><i class="icones_nav bx bx-user-circle"></i></a></li>
+                            <li class="nav-item h5  d-flex align-items-center"><i class="icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
+                            <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link"><i class="bx bx-log-out icones_nav"></i></a></li>
                         </div>
             ';
         }else{
