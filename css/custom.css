@@ -69,6 +69,10 @@ main{
     color: #fff !important;
 }
 
+.logout_hover{
+    color: #dc3545 !important;
+}
+
 table thead{
     background: #ffc107 !important;
 }
