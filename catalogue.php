@@ -88,8 +88,8 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                     <div id="release_year"><h5><?= $movie['release_year'] ?></h5></div>
                                 </div>
                             </a>
-                            <div class="card-footer">
-                                <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h3><?= $movie['title']; ?></h3></a>
+                            <div class="card-footer d-flex flex-column justify-content-between">
+                                <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h4><?= $movie['title']; ?></h4></a>
                                 <small>De <?= $movie['director'] ?></small>
                             </div>
                         </div>

@@ -27,6 +27,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             $user_id = $_GET['id'];
 
             foreach ($user_datas as $user_data) {
+                //On récupère lmes données de l'utilsataur séparément
                 $user_login = $user_data['login'];
                 $user_email = $user_data['email'];
                 $user_profil_pic = $user_data['profile_picture'];
@@ -39,7 +40,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 FROM catalogue AS catalogue
                 JOIN movies_location AS rented_movies
                 ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ?');
-            $rented_movies_req->execute(array($_GET['id']));
+            $rented_movies_req->execute(array($user_id));
             $user_rented_list = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
 
             //Requête pour recupérer les films loués par l'utilisateur en ce moment
@@ -48,9 +49,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     FROM catalogue AS catalogue
                     JOIN movies_location AS rented_movies
                     ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1');
-            $rented_movies_req->execute(array($_GET['id']));
+            $rented_movies_req->execute(array($user_id));
             $user_rented_list_now = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
             ?>
+            <!-- Section d'affichage des informations et modification utilisateur -->
             <section id="user_infos_container" class="container">
                 <div class="row mt-5">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center"></div>
@@ -115,11 +117,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                 </div>
                                             </div>
                                         </a>
-                                        <div class="card-footer">
+                                        <div class="card-footer d-flex flex-column justify-content-between">
                                             <a href="catalogue.php?movie=<?= $movie_isloc['id'] ?>">
-                                                <h3><?= $movie_isloc['title']; ?></h3></a>
-                                            <small>De <?= $movie_isloc['director'] ?></small>
-                                            <small>Loué le: <?= $location_date ?></small>
+                                                <h4><?= $movie_isloc['title']; ?></h4>
+                                            </a>
+                                            <div class="d-flex flex-column">
+                                                <small>De <?= $movie_isloc['director'] ?></small>
+                                                <small>Loué le: <?= $location_date ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -167,17 +172,19 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                             <div id="release_year"><h5><?= $movie['release_year'] ?></h5></div>
                                         </div>
                                     </a>
-                                    <div class="card-footer">
+                                    <div class="card-footer d-flex flex-column justify-content-between">
                                         <a href="catalogue.php?movie=<?= $movie['id'] ?>">
-                                            <h3><?= $movie['title']; ?></h3>
+                                            <h4><?= $movie['title']; ?></h4>
                                         </a>
-                                        <small>De <?= $movie['director'] ?></small>
-                                        <small>Loué le: <?= $location_date ?></small>
-                                        <small><?php if ($is_loc === 1) {
-                                                echo "Status: En cours";
-                                            } else {
-                                                echo "Location terminé le: $location_date_end";
-                                            } ?></small>
+                                        <div class="d-flex flex-column">
+                                            <small>De <?= $movie['director'] ?></small>
+                                            <small>Loué le: <?= $location_date ?></small>
+                                            <small><?php if ($is_loc === 1) {
+                                                    echo "Status: En cours";
+                                                } else {
+                                                    echo "Location terminé le: $location_date_end";
+                                                } ?></small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
