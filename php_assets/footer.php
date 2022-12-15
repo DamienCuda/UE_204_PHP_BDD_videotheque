@@ -14,7 +14,7 @@
             <p class="col-12">
                 Groupe 9
                 <br>
-                Bryan Gast - Julien Biechler - Damien Cuda - Duckens Dos
+                Bryan Gast - Julien Biechler - Damien Cuda
             </p>
         </div>
     </div>
