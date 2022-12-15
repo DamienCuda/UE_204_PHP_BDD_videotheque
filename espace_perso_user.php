@@ -75,7 +75,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <?php
                         if ($_GET['id'] == $_SESSION['id']) {
                         ?>
-                            <div class="d-flex">
+                            <div class="d-flex mt-4">
                                 <button class="btn btn-warning" id="btn_edit_profil">Modifier le profil</button>
                                 <button class="btn btn-light d-none" id="btn_edit_profil_skip">Annuler les modification</button>
                                 <button class="btn btn-warning d-none ml-2" id="btn_edit_profil_valid">Modifier</button>
