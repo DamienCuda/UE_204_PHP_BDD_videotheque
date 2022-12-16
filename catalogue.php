@@ -108,11 +108,11 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 
                                     if($is_admin == 1 && $permission >= 1){
 
-                                        echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1' style='width:100%'>Modifier</button></a>";
+                                        echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
 
                                         // NOTE POUR Julien - Il faut modifier le lien delete-movie.php (pas edit-movie)
                                         if($permission >= 2){
-                                            echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1' style='width:100%'>Supprimer</button></a>";
+                                            echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
                                         }
                                     }
                                 ?>
