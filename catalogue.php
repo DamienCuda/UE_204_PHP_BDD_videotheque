@@ -40,6 +40,9 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 <body id="movieWallpaper">
 <?php include 'php_assets/header.php' ?>
 <main>
+    <div id="loading">
+        <div class="loader_search"></div>
+    </div>
     <div class="container">
         <div id="catalogue">
             <?php
@@ -64,63 +67,69 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                     <?php
                 }
                 ?>
-                <?php
-                foreach ($movies as $movie):
+            </div>
+            <div class="row" id="movie_display">
+                    <?php
+                    foreach ($movies as $movie):
 
-                    // On verifie si le film est présent dans la table movies_bookmark.
-                    $moviesReq = $conn->prepare('SELECT * FROM movies_bookmark WHERE movie_id = ? AND user_id = ? LIMIT 1');
-                    $moviesReq->execute([
-                        $movie['id'],
-                        $_SESSION['id']
-                    ]);
-                    $bookmark = $moviesReq->fetchAll();
+                        // On verifie si le film est présent dans la table movies_bookmark.
+                        $moviesReq = $conn->prepare('SELECT * FROM movies_bookmark WHERE movie_id = ? AND user_id = ? LIMIT 1');
+                        $moviesReq->execute([
+                            $movie['id'],
+                            $_SESSION['id']
+                        ]);
+                        $bookmark = $moviesReq->fetchAll();
 
-                    // Si il est présent on passe la bool $is_bookmark à true.
-                    if (count($bookmark) > 0) {
-                        $is_bookmark = true;
-                    } else {
-                        $is_bookmark = false;
-                    }
+                        // Si il est présent on passe la bool $is_bookmark à true.
+                        if (count($bookmark) > 0) {
+                            $is_bookmark = true;
+                        } else {
+                            $is_bookmark = false;
+                        }
 
-                    ?>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
-                        <div class="card movie mb-5">
-                            <a href="php_assets/add-bookmark.php?movie=<?= $movie['id'] ?>&page=catalogue">
-                                <div class="bookmark">
-                                    <i class='bx <?php if ($is_bookmark) {
-                                        echo "bxs-bookmark";
-                                    } else {
-                                        echo "bx-bookmark";
-                                    } ?>'></i>
-                                </div>
-                            </a>
-                            <a href="catalogue.php?movie=<?= $movie['id'] ?>">
-                                <div class="card-body movie-img"
-                                     style="background: url('img/movies_img/<?= $movie['movie_picture'] ?>')">
-                                    <div id="release_year"><h5><?= $movie['release_year'] ?></h5></div>
-                                </div>
-                            </a>
-                            <div class="card-footer d-flex flex-column justify-content-between">
-                                <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h4><?= $movie['title']; ?></h4></a>
-                                <small>De <?= $movie['director'] ?></small>
-                                <?php
-                                    $id_movie = $movie['id'];
+                        ?>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
+                            <div class="card movie mb-5">
+                                <a href="php_assets/add-bookmark.php?movie=<?= $movie['id'] ?>&page=catalogue">
+                                    <div class="bookmark">
+                                        <i class='bx <?php if ($is_bookmark) {
+                                            echo "bxs-bookmark";
+                                        } else {
+                                            echo "bx-bookmark";
+                                        } ?>'></i>
+                                    </div>
+                                </a>
+                                <a href="catalogue.php?movie=<?= $movie['id'] ?>">
+                                    <div class="card-body movie-img"
+                                         style="background: url('img/movies_img/<?= $movie['movie_picture'] ?>')">
+                                        <div id="release_year"><h5><?= $movie['release_year'] ?></h5></div>
+                                    </div>
+                                </a>
+                                <div class="card-footer d-flex flex-column justify-content-between">
+                                    <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h4><?= $movie['title']; ?></h4></a>
+                                    <small>De <?= $movie['director'] ?></small>
+                                    <?php
+                                        $id_movie = $movie['id'];
 
-                                    if($is_admin == 1 && $permission >= 1){
+                                        if($is_admin == 1 && $permission >= 1){
 
-                                        echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
+                                            echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
 
-                                        // NOTE POUR Julien - Il faut modifier le lien delete-movie.php (pas edit-movie)
-                                        if($permission >= 2){
-                                            echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
+                                            // NOTE POUR Julien - Il faut modifier le lien delete-movie.php (pas edit-movie)
+                                            if($permission >= 2){
+                                                echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
+                                            }
                                         }
-                                    }
-                                ?>
+                                    ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+
             </div>
+            <label id="title-search" class="text-light mb-3">Recherche:</label>
+            <br>
+            <div id="result-search" class="row"></div>
             <?php
             if ($nbMovies >= $parPage) {
                 ?>
@@ -329,5 +338,6 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 <?php include 'php_assets/footer.php' ?>
 <script src="js/back.js"></script>
 <script src="js/trailer.js"></script>
+<script src="js/search_movie.js"></script>
 </body>
 </html>

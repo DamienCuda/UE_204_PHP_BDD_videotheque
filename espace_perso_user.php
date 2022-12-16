@@ -350,6 +350,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     </main>
     <?php include 'php_assets/footer.php' ?>
     <script src="js/edit_profil.js"></script>
+    <script src="js/search_movie.js"></script>
     </body>
     </html>
     <?php

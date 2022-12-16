@@ -148,3 +148,7 @@ input{
 .btn-zone a{
     text-decoration: none;
 }
+
+#title-search, .noresult, .result-search{
+    display: none;
+}
