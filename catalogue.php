@@ -50,10 +50,10 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
             <div class="row mt-5">
                 <?php if($is_admin == 1 && $permission >= 1){
                 ?>
-                    <div class="col-10 mb-5">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 mb-3 mb-sm-3 mb-md-3 mb-lg-5 mb-xl-5">
                         <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film...">
                     </div>
-                    <div class="col-2 mb-5">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-5">
                         <a href="add-movie.php">
                             <button class="btn btn-warning col-3 align-items-center d-flex justify-content-center" style="width:100%"><span>Ajouter un film</span><i class='bx bxs-folder-plus ml-2'></i></button>
                         </a>
