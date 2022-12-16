@@ -8,7 +8,7 @@ if (isset($_GET['search'])) {
 
     $search = trim($_GET['search']);
     $query = $conn->prepare('SELECT * FROM catalogue WHERE title LIKE ? OR release_year LIKE ? OR genre LIKE ? OR synopsis LIKE ? OR director LIKE ? LIMIT 10');
-    $query->execute(array("%$search%", "%$search%", "%$search%", "$search%", "$search%"));
+    $query->execute(array("%$search%", "%$search%", "%$search%", "%$search%", "%$search%"));
 
 
     while ($results = $query->fetch()) {
