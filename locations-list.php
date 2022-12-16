@@ -112,6 +112,28 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                         secondsZone.innerHTML = ('0' + t.seconds).slice(-2);
 
                                                         if (t.total <= 0) {
+
+                                                            let movie_id = <?= $movie_isloc['id'] ?>;
+
+                                                            $.ajax({
+                                                                url: "php_assets/update_movie_couldown.php?id=<?= $_GET['id'] ?>", // URL de la page
+                                                                type: "POST", // GET ou POST
+                                                                data: {
+                                                                    movie_id:movie_id
+                                                                }, // Paramètres envoyés à php
+                                                                dataType: "json", // Données en retour
+                                                                success: function(reponse) {
+                                                                    console.log(reponse)
+
+                                                                    if(reponse.status == "success"){
+                                                                        window.location.href = 'espace_perso_user.php?id=<?= $_GET['id'] ?>';
+                                                                    }
+                                                                },
+                                                                error:function(error){
+                                                                    console.log(error)
+                                                                }
+                                                            });
+
                                                             clearInterval(timeinterval);
                                                         }
                                                     }
