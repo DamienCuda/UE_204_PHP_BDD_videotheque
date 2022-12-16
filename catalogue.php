@@ -298,14 +298,14 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                             <button class="btn btn-warning d-flex align-items-center justify-content-end btn-price"
                                                     id="location_button"><span>Louer ce film</span><span
                                                         class="d-flex align-items-center"><?= $movieData['price'] ?><i
-                                                            class='bx bx-coin'></i></span></button>
+                                                            class='bx bx-coin ml-2'></i></span></button>
                                         </a>
                                         <?php
                                     } else {
                                         ?>
                                         <button class="btn btn-warning d-flex align-items-center justify-content-end btn-show-movie"
                                                 id="show_movie_button"><span>Voir ce film</span><span
-                                                    class="d-flex align-items-center"><i class='bx bx-show'></i></span>
+                                                    class="d-flex align-items-center"><i class='bx bx-show ml-2'></i></span>
                                         </button>
                                         <?php
                                     }
