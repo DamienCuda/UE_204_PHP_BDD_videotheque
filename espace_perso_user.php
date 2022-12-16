@@ -40,7 +40,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 FROM catalogue AS catalogue
                 JOIN movies_location AS rented_movies
                 ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? LIMIT 4');
-            $rented_movies_req->execute(array($_GET['id']));
+            $rented_movies_req->execute(array(nettoyage($_GET['id'])));
             $user_rented_list = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
 
             $count_movies_loc = $conn->prepare("SELECT count(*) as total FROM movies_location WHERE user_id = ? AND is_loc = ?");
@@ -57,7 +57,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     FROM catalogue AS catalogue
                     JOIN movies_location AS rented_movies
                     ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1 LIMIT 4');
-            $rented_movies_req->execute(array($_GET['id']));
+            $rented_movies_req->execute(array(nettoyage($_GET['id'])));
             $user_rented_list_now = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
 
             $count_movies_his = $conn->prepare("SELECT count(*) as total FROM movies_location WHERE user_id = ?");

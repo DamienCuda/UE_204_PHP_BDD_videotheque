@@ -24,15 +24,45 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         <?php
         if (count($user_datas) != 0) {
 
-            $user_id = $_GET['id'];
+            // On détermine la page courrante.
+            if (isset($_GET['page']) && !empty($_GET['page'])) {
+                $currentPage = (int)strip_tags($_GET['page']);
+            } else {
+                $currentPage = 1;
+            }
 
-            //Requête pour recupérer les films loués par l'utilisateur en ce moment
+            // On compte le nombre de film.
+            $rented_movies_req_count = $conn->prepare('
+            SELECT COUNT(*) AS nb_movies
+                    FROM catalogue AS catalogue
+                    JOIN movies_location AS rented_movies
+                    ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1');
+            $rented_movies_req_count->execute(array(nettoyage($_GET['id'])));
+            $result = $rented_movies_req_count->fetch();
+            $nbMovies = (int)$result['nb_movies'];
+
+            // On determine le nombre de film par page.
+            $parPage = 12;
+            $pages = ceil($nbMovies / $parPage);
+            $premier = ($currentPage * $parPage) - $parPage;
+
+            // On sécurise l'accès au pages qui n'existe pas.
+            $id_user = nettoyage($_GET['id']);
+
+            if($currentPage > $pages){
+                header("location: locations-list.php?id=$id_user&page=1");
+            }
+
+            //Requête pour recupérer les films loués par l'utilisateur
             $rented_movies_req = $conn->prepare('
                 SELECT DISTINCT catalogue.id, catalogue.movie_picture, catalogue.release_year, catalogue.title, catalogue.director
                     FROM catalogue AS catalogue
                     JOIN movies_location AS rented_movies
-                    ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1');
-            $rented_movies_req->execute(array($_GET['id']));
+                    ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = :id && rented_movies.is_loc = 1 LIMIT :premier, :parpage;');
+            $rented_movies_req->bindValue(':id', nettoyage($_GET['id']));
+            $rented_movies_req->bindValue(':premier', $premier, PDO::PARAM_INT);
+            $rented_movies_req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+            $rented_movies_req->execute();
             $user_rented_list_now = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
 
             ?>
@@ -195,7 +225,28 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             echo "<h5 class='no-data'>Aucun film n'est loué actuellement...</h5>";
                         }
                         ?>
-
+                        <?php
+                        if ($nbMovies >= $parPage) {
+                            ?>
+                            <ul class="pagination mt-5 d-flex justify-content-end">
+                                <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
+                                <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                                    <a href="locations-list.php?id=<?= $_GET['id']; ?>" class="page-link">Précédente</a>
+                                </li>
+                                <?php for ($page = 1; $page <= $pages; $page++): ?>
+                                    <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
+                                    <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                                        <a href="locations-list.php?id=<?= $_GET['id']; ?>&page=<?= $page ?>" class="page-link"><?= $page ?></a>
+                                    </li>
+                                <?php endfor ?>
+                                <!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
+                                <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                                    <a href="locations-list.php?id=<?= $_GET['id']; ?>&page=<?= $currentPage + 1 ?>" class="page-link">Suivante</a>
+                                </li>
+                            </ul>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </section>
