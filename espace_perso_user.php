@@ -78,6 +78,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 <div class="row mb-5">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center ">
                         <div id="profil_picture">
+                            <!-- L'image affichée dans l'espace perso est différente si l'utilisatuer à défini un avatar ou non -->
                             <div id="edit_zone_img"></div>
                             <?php
                                 if($user_profil_pic == null){
