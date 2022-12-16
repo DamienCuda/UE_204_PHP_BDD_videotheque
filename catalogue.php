@@ -283,7 +283,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                         ?>
                                         <a href="php_assets/location.php?movie=<?= $_GET['movie']; ?>">
                                             <button class="btn btn-warning d-flex align-items-center justify-content-end btn-price"
-                                                    id="location_button"><span>Louer ce film</span><span
+                                                    id="location_button"><span class="me-2">Louer ce film</span><span
                                                         class="d-flex align-items-center"><?= $movieData['price'] ?><i
                                                             class='bx bx-coin'></i></span></button>
                                         </a>
