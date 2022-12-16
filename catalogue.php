@@ -187,8 +187,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 justify-content-sm-center justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-start">
-                            <div class="movie_picture"
-                                 style="background: url('img/movies_img/<?= $movieData['movie_picture'] ?>');"></div>
+                            <div class="movie_picture d-flex align-items-center justify-content-center" id="movie_trailer_btn" style="background: url('img/movies_img/<?= $movieData['movie_picture'] ?>');"><div id="overlay"><i class='bx bx-play play-ba'></i></div></div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 cold-lg-12 col-xl-9 justify-content-sm-center justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-start mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-0">
                             <div class="row">
@@ -303,6 +302,25 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
+            <!-- Modal Trailer -->
+            <div class="modal fade" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;"><?= $movieData['title'] ?> - Bande d'annonce</span><i class='bx bx-movie-play'></i></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <iframe width="560" height="315" src="" id="trailer_player" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">FERMER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <?php
         }
         ?>
@@ -310,5 +328,6 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 </main>
 <?php include 'php_assets/footer.php' ?>
 <script src="js/back.js"></script>
+<script src="js/trailer.js"></script>
 </body>
 </html>
