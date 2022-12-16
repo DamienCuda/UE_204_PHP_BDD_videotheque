@@ -70,8 +70,8 @@ if($is_admin === false){
                             ?>
                         </td>
                         <td>
-                            <div class="d-flex mt-2 mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0 justify-content-around justify-content-sm-around justify-content-md-around justify-content-lg-around justify-content-xl-around">
-                                <a data-toggle="modal" data-target="#transaction-historique"><i class='bx bx-money-withdraw'></i></a>
+                            <div class="d-flex mt-2 mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0 justify-content-around justify-content-sm-around justify-content-md-around justify-content-lg-around justify-content-xl-around">   
+                                <a href="user_transaction.php?user_id=<?= $user['id']; ?>"><i class='bx bx-money-withdraw'></i></a>
                                 <?php
                                     // Si notre permission est supérieur au rang de l'utilisateur on à accès la modification, destitution et promotion de l'utilisateur.
                                     if($permission > $rang){
@@ -159,7 +159,7 @@ if($is_admin === false){
                 </button>
             </div>
             <div class="modal-body text-center">
-                <p>Vous avez séléctionné des utilisateurs sur les quels vous n'avez pas la permission d'intéragir. Seuls les utilisateurs dont vous avez l'autorité seront pris en compte.</p>
+                <p>Vous avez séléctionné des utilisateurs sur lesquels vous n'avez pas la permission d'intéragir. Seuls les utilisateurs dont vous avez l'autorité seront pris en compte.</p>
             </div>
             <div class="modal-footer">
                 <a href="gestion_user.php">
@@ -192,57 +192,6 @@ if($is_admin === false){
     </div>
 </div>
 
-<!-- Modal Transaction -->
-<div class="modal fade" id="transaction-historique" tabindex="-1" role="dialog" aria-labelledby="transaction-historiqueLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-up" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;">Historique des transactions</span> <i class='bx bx-money-withdraw'></i></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <table class="table table-striped" id="gestion_user_table">
-                    <thead>
-                        <tr>
-                            <td>Photo</td>
-                            <td>Utilisateur</td>
-                            <td>Montant</td>
-                            <td>Film</td>
-                            <td>Durée</td>
-                            <td>Date</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td>Test</td>
-                            <td>10€</td>
-                            <td>Harry Potter et la Coupe de Feu</td>
-                            <td>24H</td>
-                            <td>01/02/2022</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Test</td>
-                            <td>10€</td>
-                            <td>Harry Potter et la Coupe de Feu</td>
-                            <td>24H</td>
-                            <td>01/02/2022</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">FERMER</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <?php include 'php_assets/footer.php'?>
 
 <script>
@@ -264,7 +213,7 @@ if($is_admin === false){
             order: [[ 1, 'asc' ]]
         });
 
-        // Ajout du bouton "options" à coter de la barre de recherche.
+        // Ajout du bouton "options" à coté de la barre de recherche.
         let options =
             '<div class="action-dropdown-btn">' +
                 '<div class="dropdown invoice-options">' +
