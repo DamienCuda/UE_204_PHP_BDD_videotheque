@@ -177,13 +177,13 @@ input{
     color: #fff;
 }
 
-#location_btn a{
+.btn_location_movie{
     display: flex;
     justify-content: space-between;
     color: #000;
 }
 
-#view_btn a{
+.btn_view_movie{
     display: flex;
     justify-content: space-between;
     color: #fff;
