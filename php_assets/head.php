@@ -14,5 +14,6 @@
     <link rel="stylesheet" href="css/espace_perso.css">
     <link href='app-assets/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <script src="app-assets/jquery-3.6.1.js"></script>
     <title>Vidéothèque | Groupe 9</title>
 </head>

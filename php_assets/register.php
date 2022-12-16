@@ -1,8 +1,6 @@
 <?php
 require_once("connectdb.php");
-require("verif_session_connect.php");
 require("fonctions.php");
-require("permission.php");
 
 // On vérifie si les champs ne sont pas vide.
 if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email"]) && $_POST["email"] != "" && isset($_POST["pass"]) && $_POST["pass"] != "" && isset($_POST["passconfirm"]) && $_POST["passconfirm"] != "") {
@@ -42,6 +40,22 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
                         $email,
                         $passwordHashed
                     ));
+
+                    // On détermine l'identifiant de l'utilisateur.
+                    $pdoID = $conn->prepare("SELECT MAX(id) AS max_id FROM utilisateurs");
+                    $pdoID->execute();
+                    $pdoID = $pdoID->fetch();
+                    $newID = $pdoID['max_id'] + 1;
+
+                    // On lui créer son repertoire.
+                    $userFolder = "../users/$newID";
+                    $avatarFolder = "../users/$newID/avatar";
+
+                    // On attrivue les permission au dossier.
+                    if (!file_exists($userFolder)) {
+                        mkdir($userFolder, 0777, true);
+                        mkdir($avatarFolder, 0777, true);
+                    }
 
                     // On retourne un status de succès pour ajax.
                     $response_array['status'] = 'success';

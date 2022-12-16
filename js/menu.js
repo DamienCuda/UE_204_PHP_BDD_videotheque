@@ -15,7 +15,7 @@ window.addEventListener('load', (event) => {
     let menuList = menu.children;
 
     for (let i = 0; i < menuList.length; i++) {
-        if (menuList[i].children[0].getAttribute("href") == page_courrante) {
+        if (menuList[i].children[0].getAttribute("href").includes(page_courrante)) {
             menuList[i].children[0].classList.add("active");
         } else {
             menuList[i].children[0].classList.remove("active");
@@ -29,4 +29,18 @@ window.addEventListener('load', (event) => {
             });
         }
     }
+
+    // On fait une exeption pour les sous-pages du catalogue pour les admins.
+    if(page_courrante == "edit-movie.php"){
+        document.querySelectorAll("a[href='catalogue.php']")[0].classList.add("active");
+    }
+
+    if(page_courrante == "add-movie.php"){
+        document.querySelectorAll("a[href='catalogue.php']")[0].classList.add("active");
+    }
+
+    if(page_courrante == "espace_perso_user.php"){
+        document.getElementById("user_icon").style.color = "#ffc107";
+    }
+
 });

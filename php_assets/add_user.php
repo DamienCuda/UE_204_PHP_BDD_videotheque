@@ -14,7 +14,7 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
     ]);
     $usernames = $usernameReq->fetchAll();
 
-    // Si l'utilistauer n'existe pas on continue.
+    // Si l'utilisateur n'existe pas on continue.
     if (count($usernames) === 0) {
 
         // On vérifie que l'email est correct.
@@ -64,6 +64,22 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
                     $is_admin,
                     $user_rang
                 ));
+
+                // On détermine l'identifiant de l'utilisateur.
+                $pdoID = $conn->prepare("SELECT MAX(id) AS max_id FROM utilisateurs");
+                $pdoID->execute();
+                $pdoID = $pdoID->fetch();
+                $newID = $pdoID['max_id'] + 1;
+
+                // On lui créer son repertoire.
+                $userFolder = "../users/$newID";
+                $avatarFolder = "../users/$newID/avatar";
+
+                // On attribue les permission au dossier.
+                if (!file_exists($userFolder)) {
+                    mkdir($userFolder, 0777, true);
+                    mkdir($avatarFolder, 0777, true);
+                }
 
                 // On retourne un status de succès pour ajax.
                 $response_array['status'] = 'success';
