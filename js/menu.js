@@ -39,4 +39,8 @@ window.addEventListener('load', (event) => {
         document.querySelectorAll("a[href='catalogue.php']")[0].classList.add("active");
     }
 
+    if(page_courrante == "espace_perso_user.php"){
+        document.getElementById("user_icon").style.color = "#ffc107";
+    }
+
 });

@@ -75,7 +75,7 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
                 $userFolder = "../users/$newID";
                 $avatarFolder = "../users/$newID/avatar";
 
-                // On attrivue les permission au dossier.
+                // On attribue les permission au dossier.
                 if (!file_exists($userFolder)) {
                     mkdir($userFolder, 0777, true);
                     mkdir($avatarFolder, 0777, true);

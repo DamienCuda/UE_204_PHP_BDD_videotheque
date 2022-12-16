@@ -40,7 +40,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 FROM catalogue AS catalogue
                 JOIN movies_location AS rented_movies
                 ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? LIMIT 4');
-            $rented_movies_req->execute(array($_GET['id']));
+            $rented_movies_req->execute(array(nettoyage($_GET['id'])));
             $user_rented_list = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
 
             $count_movies_loc = $conn->prepare("SELECT count(*) as total FROM movies_location WHERE user_id = ? AND is_loc = ?");
@@ -57,7 +57,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     FROM catalogue AS catalogue
                     JOIN movies_location AS rented_movies
                     ON catalogue.id = rented_movies.movie_id && rented_movies.user_id = ? && rented_movies.is_loc = 1 LIMIT 4');
-            $rented_movies_req->execute(array($_GET['id']));
+            $rented_movies_req->execute(array(nettoyage($_GET['id'])));
             $user_rented_list_now = $rented_movies_req->fetchAll(PDO::FETCH_ASSOC);
 
             $count_movies_his = $conn->prepare("SELECT count(*) as total FROM movies_location WHERE user_id = ?");
@@ -147,7 +147,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                             if($diff < 0)
                                             {
                                         ?>
-                                        <div id="couldown_<?= $movie_isloc['id'] ?>" class="couldown d-flex align-items-center">
+                                        <div id="countdown_<?= $movie_isloc['id'] ?>" class="countdown d-flex align-items-center">
                                             <div class="days"></div>
                                             <div class="separator">J</div>
                                             <div class="hours"></div>
@@ -175,7 +175,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                 };
                                             }
 
-                                            function Couldown(id, dateEnd) {
+                                            function Countdown(id, dateEnd) {
                                                 let clock = document.getElementById(id);
                                                 let daysZone = clock.querySelector('.days');
                                                 let hoursZone = clock.querySelector('.hours');
@@ -195,7 +195,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                         let movie_id = <?= $movie_isloc['id'] ?>;
 
                                                         $.ajax({
-                                                            url: "php_assets/update_movie_couldown.php?id=<?= $_GET['id'] ?>", // URL de la page
+                                                            url: "php_assets/update_movie_countdown.php?id=<?= $_GET['id'] ?>", // URL de la page
                                                             type: "POST", // GET ou POST
                                                             data: {
                                                                 movie_id:movie_id
@@ -221,7 +221,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                 let timeinterval = setInterval(updateTime, 1000);
                                             }
                                             let dateEnd<?= $movie_isloc['id'] ?> = new Date(Date.parse(new Date("<?= $location_date_end; ?>")));
-                                            Couldown('couldown_<?= $movie_isloc['id'] ?>', dateEnd<?= $movie_isloc['id'] ?>);
+                                            Countdown('countdown_<?= $movie_isloc['id'] ?>', dateEnd<?= $movie_isloc['id'] ?>);
                                         </script>
                                         <?php
                                             }else{
@@ -232,7 +232,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                     let movie_id = <?= $movie_isloc['id'] ?>;
 
                                                     $.ajax({
-                                                        url: "php_assets/update_movie_couldown.php?id=<?= $_GET['id'] ?>", // URL de la page
+                                                        url: "php_assets/update_movie_countdown.php?id=<?= $_GET['id'] ?>", // URL de la page
                                                         type: "POST", // GET ou POST
                                                         data: {
                                                             movie_id:movie_id
@@ -352,6 +352,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     </main>
     <?php include 'php_assets/footer.php' ?>
     <script src="js/edit_profil.js"></script>
+    <script src="js/search_movie.js"></script>
     </body>
     </html>
     <?php

@@ -330,6 +330,20 @@ nav i{
     font-size: 20pt !important;
 }
 
+#loading{
+    width: 100%;
+    height: 2px;
+    position: relative;
+    display: none;
+}
+
+.loader_search{
+    width: 0%;
+    height: 2px;
+    background: #ffc107;
+    left: 0;
+}
+
 @media only screen and (max-width: 1000px) {
     table.dataTable>tbody>tr.selected>td.select-checkbox:after, table.dataTable>tbody>tr.selected>th.select-checkbox:after{
         content: "";
