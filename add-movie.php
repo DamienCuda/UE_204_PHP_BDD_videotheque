@@ -33,18 +33,20 @@ require("php_assets/permission.php");
                             <div class="col-12 d-flex">
                                 <label>Genre:</label>
                                 <p class="details genre">
-                                    <span>Rien</span>
+                                    <span><input type="text" class="form-control" name="movie_genre" id="movie_genre" placeholder="Genres" require></span>
                                 </p>
                             </div>
                             <div class="col-12 d-flex">
                                 <label>Acteurs:</label>
                                 <p class="details">
-                                    <span>Rien</span>
+                                    <span><input type="text" class="form-control" name="movie_actor" id="movie_actor" placeholder="Acteurs" require></span>
                                 </p>
                             </div>
                             <div class="col-12 d-flex">
                                 <label>Réalisateur:</label>
-                                <p class="details">Rien</p>
+                                <p class="details">
+                                    <span><input type="text" class="form-control" name="movie_director" id="movie_director" placeholder="Réalisateurs" require></span>
+                                </p>
                             </div>
                             <div class="col-12 d-flex">
                                 <label>Année de sortie:</label>
@@ -52,17 +54,20 @@ require("php_assets/permission.php");
                             </div>
                             <div class="col-12 d-flex">
                                 <label>Durée:</label>
-                                <p class="details">Rien</p>
+                                <p class="details">
+                                <span><input type="text" class="form-control" name="movie_duration" id="movie_duration" placeholder="Durée" require></span>
+                                </p>
                             </div>
                             <div class="col-12 mt-3">
                                 <label>Synopsis:</label>
-                                <p class="synospis">Rien</p>
+                                <p class="synospis">
+                                <span><textarea class="form-control" name="movie_synopsis" id="movie_synopsis" placeholder="Synopsis" require></textarea></span>
+                                </p>
                             </div>
                         </div>
                         <div class="col-12 mt-5">
                             <div class="d-flex btn-zone justify-content-end">
 
-                                <!-- NOTE POUR Julien il faut modifier le lien add_movie.php -->
                                 <a href="php_assets/add_movie.php?movie=">
                                     <button class="btn btn-warning d-flex align-items-center justify-content-end"><span>Ajouter le film</span><i
                                                 class='bx bx-plus ml-2'></i></button>
