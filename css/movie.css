@@ -152,3 +152,39 @@ input{
 #title-search, .noresult, .result-search{
     display: none;
 }
+
+#location_btn, #view_btn{
+    position: absolute;
+    top: 300px;
+    left: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    color: #000;
+    background: #ffc107;
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#view_btn{
+    background: #09172a;
+    color: #fff;
+}
+
+#location_btn a{
+    display: flex;
+    justify-content: space-between;
+    color: #000;
+}
+
+#view_btn a{
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+}

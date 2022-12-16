@@ -104,6 +104,36 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                         } ?>'></i>
                                     </div>
                                 </a>
+                                <?php
+                                // On récupère les infos de location du film.
+                                $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
+                                $locationData->execute([
+                                    nettoyage($movie['id']),
+                                    $_SESSION['id']
+                                ]);
+                                $locations = $locationData->fetchAll();
+
+                                // On vérifie si le film est déjà présent dans la table des location, sinon on met is_loc à 0.
+                                if (count($locations) > 0) {
+                                    foreach ($locations as $location) {
+                                        $is_loc = $location['is_loc'];
+                                    }
+                                } else {
+                                    $is_loc = 0;
+                                }
+
+                                if ($is_loc === 0) {
+                                    ?>
+
+                                    <div id="location_btn" style="z-index: 10"><a href="php_assets/location.php?movie=<?= $movie['id']; ?>"><span>Louer ce film</span><span class="d-flex align-items-center ml-2">3<i class="bx bx-coin"></i></span></a></div>
+
+                                    <?php
+                                }else{
+                                    ?>
+                                    <div id="view_btn"><a href="#"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></a></div>
+                                    <?php
+                                }
+                                ?>
                                 <a href="catalogue.php?movie=<?= $movie['id'] ?>">
                                     <div class="card-body movie-img"
                                          style="background: url('img/movies_img/<?= $movie['movie_picture'] ?>')">
@@ -297,8 +327,8 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                         <a href="php_assets/location.php?movie=<?= $_GET['movie']; ?>">
                                             <button class="btn btn-warning d-flex align-items-center justify-content-end btn-price"
                                                     id="location_button"><span>Louer ce film</span><span
-                                                        class="d-flex align-items-center"><?= $movieData['price'] ?><i
-                                                            class='bx bx-coin ml-2'></i></span></button>
+                                                        class="d-flex align-items-center ml-2"><?= $movieData['price'] ?><i
+                                                            class='bx bx-coin'></i></span></button>
                                         </a>
                                         <?php
                                     } else {
@@ -405,6 +435,36 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                     } ?>'></i>
                                 </div>
                             </a>
+                            <?php
+                            // On récupère les infos de location du film.
+                            $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
+                            $locationData->execute([
+                                nettoyage($movie['id']),
+                                $_SESSION['id']
+                            ]);
+                            $locations = $locationData->fetchAll();
+
+                            // On vérifie si le film est déjà présent dans la table des location, sinon on met is_loc à 0.
+                            if (count($locations) > 0) {
+                                foreach ($locations as $location) {
+                                    $is_loc = $location['is_loc'];
+                                }
+                            } else {
+                                $is_loc = 0;
+                            }
+
+                            if ($is_loc === 0) {
+                                ?>
+
+                                <div id="location_btn" style="z-index: 10"><a href="php_assets/location.php?movie=<?= $movie['id']; ?>"><span>Louer ce film</span><span class="d-flex align-items-center ml-2">3<i class="bx bx-coin"></i></span></a></div>
+
+                                <?php
+                            }else{
+                                ?>
+                                <div id="view_btn"><a href="#"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></a></div>
+                                <?php
+                            }
+                            ?>
                             <a href="catalogue.php?movie=<?= $movie['id'] ?>">
                                 <div class="card-body movie-img"
                                      style="background: url('img/movies_img/<?= $movie['movie_picture'] ?>')">
