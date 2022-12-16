@@ -18,8 +18,7 @@
 
     $header = '
         <header class="bg-light">
-            <div class="container">
-                <div class="row align-items-center">
+            <nav class="align-items-center navbar navbar-expand-lg navbar-light bg-light px-5 ms-md-auto">
         ';
 
         if(str_contains($_SERVER['PHP_SELF'], 'index.php')){
@@ -27,53 +26,50 @@
                         <div class="site-logo col-12 text-center">
                             <img id="logo_index" class="navbar-brand img-fluid img_index" src="assets/logo.png" alt="Vidéothèque Groupe 9">
                         </div>               
-                    </div>
+                    </nav>
                 </div>
             </header>';
             echo $header;
             return;
         }else{
             $header .= '
-                <div class="site-logo col-3">
-                    <img class=" img_pages navbar-brand img-fluid" src="assets/logo.png" alt="Vidéothèque Groupe 9">
-                </div>
+                <img class="site-logo img_pages navbar-brand img-fluid" src="assets/logo.png" alt="Vidéothèque Groupe 9">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             ';
         }
         if($is_admin){
             $header .= '
-                <div class="col-9">
-                <nav class="site-navigation text-right ml-auto d-flex flex-row justify-content-around align-items-center" role="navigation">
-                    <ul class="nav nav-pills col-9 justify-content-around align-items-center" id="nav_menu">
-                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Gestion Films</a></li>
-                        <li class="nav-item h5"><a href="gestion_user.php?id='.$id_user.'" class="nav-link">Gestion Utilisateur</a></li>
-                        <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link">Ma Liste</a></li>
-                    </ul>
-                    <ul class="d-flex align-items-center icon-right-nav col-3 justify-content-around align-items-center">
-                        <li class="nav-item h5 m-0"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link"><i class="icones_nav bx bx-user-circle" id="user_icon"></i></a></li>
-                        <li class="nav-item h5 m-0 d-flex align-items-center solde_icon"><i class="icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
-                        <li class="nav-item h5 m-0"><a href="php_assets/disconnect.php" class="nav-link"><i class="bx bx-log-out icones_nav"></i></a></li>
-                    </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="col-md-9 col-sm-12 d-lg-flex d-md-inline d-sm-inline nav-pills justify-content-around align-items-center text-md-end text-sm-end" id="nav_menu">
+                    <li class="nav-item h5"><a href="catalogue.php" class="nav-link p-2">Gestion Films</a></li>
+                    <li class="nav-item h5"><a href="gestion_user.php?id='.$id_user.'" class="nav-link p-2">Gestion Utilisateur</a></li>
+                    <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link p-2">Ma Liste</a></li>
+                </ul>
+                <ul class="col-md-3 col-sm-12 d-lg-flex d-md-inline d-sm-inline align-items-center justify-content-around align-items-center icon-right-nav text-md-end text-sm-end">
+                    <li class="nav-item h5"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link p-2"><i class="icones_nav bx bx-user-circle" id="user_icon"></i></a></li>
+                    <li class="nav-item h5 d-flex align-items-center justify-content-md-end justify-content-sm-end solde_icon"><i class="p-2 icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
+                    <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link p-2"><i class="bx bx-log-out icones_nav"></i></a></li>
+                </ul>
             ';
         }else{
             $header .= '
-                <div class="col-9">
-                <nav class="site-navigation text-right ml-auto d-flex flex-row justify-content-around align-items-center" role="navigation">
-                    <ul class="nav nav-pills col-9 justify-content-around align-items-center" id="nav_menu">                
-                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Catalogue</a></li>
-                        <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link">Ma Liste</a></li>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="col-md-9 col-sm-12 d-lg-flex d-md-inline d-sm-inline nav-pills justify-content-around align-items-center text-md-end text-sm-end" id="nav_menu">                
+                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link p-2">Catalogue</a></li>
+                        <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link p-2">Ma Liste</a></li>
                      </ul>
-                     <ul class="d-flex align-items-center icon-right-nav col-3 justify-content-around align-items-center">
-                         <li class="nav-item h5 m-0"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link"><i class="icones_nav bx bx-user-circle" id="user_icon"></i></a></li>
-                         <li class="nav-item h5 m-0 d-flex align-items-center solde_icon"><i class="icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
-                         <li class="nav-item h5 m-0"><a href="php_assets/disconnect.php" class="nav-link"><i class="icones_nav bx bx-log-out"></i></a></li>
+                     <ul class="col-md-3 col-sm-12 d-lg-flex d-md-inline d-sm-inline align-items-center justify-content-around align-items-center icon-right-nav text-md-end text-sm-end">
+                         <li class="nav-item h5"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link p-2"><i class="icones_nav bx bx-user-circle" id="user_icon"></i></a></li>
+                         <li class="nav-item h5 d-flex align-items-center justify-content-md-end justify-content-sm-end solde_icon"><i class=" p-2 icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
+                         <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link p-2"><i class="icones_nav bx bx-log-out"></i></a></li>
                      </ul>
             ';
         }
         $header .= '
-                    </nav>
-                    </div>
                 </div>
-            </div>
+            </nav>
         </header>
         ';
         echo $header;
