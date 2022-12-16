@@ -68,7 +68,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                         if($diff < 0)
                                         {
                                             ?>
-                                            <div id="couldown_<?= $movie_isloc['id'] ?>" class="couldown d-flex align-items-center">
+                                            <div id="countdown_<?= $movie_isloc['id'] ?>" class="countdown d-flex align-items-center">
                                                 <div class="days"></div>
                                                 <div class="separator">J</div>
                                                 <div class="hours"></div>
@@ -96,7 +96,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                     };
                                                 }
 
-                                                function Couldown(id, dateEnd) {
+                                                function Countdown(id, dateEnd) {
                                                     let clock = document.getElementById(id);
                                                     let daysZone = clock.querySelector('.days');
                                                     let hoursZone = clock.querySelector('.hours');
@@ -116,7 +116,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                             let movie_id = <?= $movie_isloc['id'] ?>;
 
                                                             $.ajax({
-                                                                url: "php_assets/update_movie_couldown.php?id=<?= $_GET['id'] ?>", // URL de la page
+                                                                url: "php_assets/update_movie_ountdown.php?id=<?= $_GET['id'] ?>", // URL de la page
                                                                 type: "POST", // GET ou POST
                                                                 data: {
                                                                     movie_id:movie_id
@@ -142,7 +142,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                     let timeinterval = setInterval(updateTime, 1000);
                                                 }
                                                 let dateEnd<?= $movie_isloc['id'] ?> = new Date(Date.parse(new Date("<?= $location_date_end; ?>")));
-                                                Couldown('couldown_<?= $movie_isloc['id'] ?>', dateEnd<?= $movie_isloc['id'] ?>);
+                                                Countdown('countdown_<?= $movie_isloc['id'] ?>', dateEnd<?= $movie_isloc['id'] ?>);
                                             </script>
                                         <?php
                                         }else{
@@ -153,7 +153,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                 let movie_id = <?= $movie_isloc['id'] ?>;
 
                                                 $.ajax({
-                                                    url: "php_assets/update_movie_couldown.php?id=<?= $_GET['id'] ?>", // URL de la page
+                                                    url: "php_assets/update_movie_countdown.php?id=<?= $_GET['id'] ?>", // URL de la page
                                                     type: "POST", // GET ou POST
                                                     data: {
                                                         movie_id:movie_id
