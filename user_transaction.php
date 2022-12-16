@@ -3,10 +3,6 @@ require_once("php_assets/connectdb.php");
 require ("php_assets/verif_session_connect.php");
 require ("php_assets/fonctions.php");
 
-//On vérifie à chaque fois que la personne à bine le droit d'être sur cette page
-if($is_admin === false){
-    header("location: index.php");
-}
 ?>
 
 <!DOCTYPE html>
