@@ -90,7 +90,9 @@ require("php_assets/permission.php");
                                 </div>
                                 <div class="col-12 d-flex">
                                     <label>Réalisateur:</label>
-                                    <p class="details"><?= $movieData['director'] ?></p>
+                                    <p class="details"><input type="text" class="form-control" name="movie_director"
+                                                              id="movie_director"
+                                                              value="<?= $movieData['director'] ?>"></p>
                                 </div>
                                 <div class="col-12 d-flex">
                                     <label>Année de sortie:</label>
@@ -100,17 +102,20 @@ require("php_assets/permission.php");
                                 </div>
                                 <div class="col-12 d-flex">
                                     <label>Durée:</label>
-                                    <p class="details"><?= $movieData['duration'] ?></p>
+                                    <p class="details"><input type="text" class="form-control" name="movie_duration"
+                                                              id="movie_duration"
+                                                              value="<?= $movieData['duration'] ?>"></p>
                                 </div>
                                 <div class="col-12 mt-3">
                                     <label>Synopsis:</label>
-                                    <p class="synospis"><?= $movieData['synopsis'] ?></p>
+                                    <p class="synospis"><input type="text" class="form-control" name="movie_synopsis"
+                                                              id="movie_synopsis"
+                                                              value="<?= $movieData['synopsis'] ?>"></p>
                                 </div>
                             </div>
                             <div class="col-12 mt-5">
                                 <div class="d-flex btn-zone justify-content-end">
 
-                                    <!-- NOTE POUR Julien il faut modifier le lien edit_movie.php -->
                                     <a href="php_assets/edit_movie.php?movie=<?= $_GET['movie']; ?>">
                                         <button class="btn btn-warning d-flex align-items-center justify-content-end">
                                             <span>Modifier</span> <i class='bx bx-edit-alt ml-2'></i></button>

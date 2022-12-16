@@ -51,7 +51,7 @@
                     <ul class="d-flex align-items-center icon-right-nav col-3 justify-content-around align-items-center">
                         <li class="nav-item h5 m-0"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link"><i class="icones_nav bx bx-user-circle" id="user_icon"></i></a></li>
                         <li class="nav-item h5 m-0 d-flex align-items-center solde_icon"><i class="icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
-                         <li class="nav-item h5 m-0"><a href="php_assets/disconnect.php" class="nav-link"><i class="bx bx-log-out icones_nav"></i></a></li>
+                        <li class="nav-item h5 m-0"><a href="php_assets/disconnect.php" class="nav-link"><i class="bx bx-log-out icones_nav"></i></a></li>
                     </ul>
             ';
         }else{
