@@ -39,6 +39,36 @@ if (isset($_GET['search'])) {
                         } ?>'></i>
                     </div>
                 </a>
+                <?php
+                // On récupère les infos de location du film.
+                $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
+                $locationData->execute([
+                    nettoyage($results['id']),
+                    $_SESSION['id']
+                ]);
+                $locations = $locationData->fetchAll();
+
+                // On vérifie si le film est déjà présent dans la table des location, sinon on met is_loc à 0.
+                if (count($locations) > 0) {
+                    foreach ($locations as $location) {
+                        $is_loc = $location['is_loc'];
+                    }
+                } else {
+                    $is_loc = 0;
+                }
+
+                if ($is_loc === 0) {
+                    ?>
+
+                    <div id="location_btn" style="z-index: 10"><a href="php_assets/location.php?movie=<?= $results['id']; ?>"><span>Louer ce film</span><span class="d-flex align-items-center ml-2">3<i class="bx bx-coin"></i></span></a></div>
+
+                    <?php
+                }else{
+                    ?>
+                    <div id="view_btn"><a href="#"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></a></div>
+                    <?php
+                }
+                ?>
                 <a href="catalogue.php?movie=<?= $results['id'] ?>">
                     <div class="card-body movie-img"
                          style="background: url('img/movies_img/<?= $results['movie_picture'] ?>')">
