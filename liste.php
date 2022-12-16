@@ -103,6 +103,36 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                 } ?>'></i>
                                             </div>
                                         </a>
+                                        <?php
+                                        // On récupère les infos de location du film.
+                                        $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
+                                        $locationData->execute([
+                                            nettoyage($user_fav_list['id']),
+                                            $_SESSION['id']
+                                        ]);
+                                        $locations = $locationData->fetchAll();
+
+                                        // On vérifie si le film est déjà présent dans la table des location, sinon on met is_loc à 0.
+                                        if (count($locations) > 0) {
+                                            foreach ($locations as $location) {
+                                                $is_loc = $location['is_loc'];
+                                            }
+                                        } else {
+                                            $is_loc = 0;
+                                        }
+
+                                        if ($is_loc === 0) {
+                                            ?>
+
+                                            <a href="php_assets/location.php?movie=<?= $user_fav_list['id']; ?>" class="btn_location_movie"><div id="location_btn" style="z-index: 10"><span>Louer ce film</span><span class="d-flex align-items-center ml-2">3<i class="bx bx-coin"></i></span></div></a>
+
+                                            <?php
+                                        }else{
+                                            ?>
+                                            <a href="#" class="btn_view_movie"><div id="view_btn"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></div></a>
+                                            <?php
+                                        }
+                                        ?>
                                         <a href="catalogue.php?movie=<?= $user_fav_list['id'] ?>">
                                             <div class="card-body movie-img"
                                                  style="background: url('img/movies_img/<?= $user_fav_list['movie_picture'] ?>')">
