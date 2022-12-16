@@ -11,7 +11,7 @@ require("php_assets/permission.php");
 <?php include 'php_assets/head.php' ?>
 
 <?php
-// On récupère les film dans le catalogue.
+// On détermine la page courrante.
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     $currentPage = (int)strip_tags($_GET['page']);
 } else {
@@ -28,6 +28,11 @@ $nbMovies = (int)$result['nb_movies'];
 $parPage = 12;
 $pages = ceil($nbMovies / $parPage);
 $premier = ($currentPage * $parPage) - $parPage;
+
+// On sécurise l'accès au pages qui n'existe pas.
+if($currentPage > $pages){
+    header("location: catalogue.php?page=1");
+}
 
 // On récupère les film de la page en cours.
 $movieDisplay = $conn->prepare('SELECT * FROM catalogue ORDER BY id DESC LIMIT :premier, :parpage;');
@@ -46,7 +51,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
     <div class="container">
         <div id="catalogue">
             <?php
-            if (!isset($_GET['movie'])){ ?>
+            if (!isset($_GET['movie']) && !isset($_GET["genre"])){ ?>
             <div class="row mt-5">
                 <?php if($is_admin == 1 && $permission >= 1){
                 ?>
@@ -316,7 +321,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;"><?= $movieData['title'] ?> - Bande d'annonce</span><i class='bx bx-movie-play'></i></h5>
+                            <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;"><?= $movieData['title'] ?> - Bande d'annonce [FR]</span><i class='bx bx-movie-play'></i></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -331,6 +336,130 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <?php
+        }else if(isset($_GET["genre"]) && $_GET["genre"] != ""){
+
+            // On détermine la page courrante.
+            if (isset($_GET['page']) && !empty($_GET['page'])) {
+                $currentPage = (int)strip_tags($_GET['page']);
+            } else {
+                $currentPage = 1;
+            }
+
+            $genre_search = nettoyage(trim($_GET['genre']));
+
+            // On compte le nombre de film.
+            $movieCount = $conn->prepare('SELECT COUNT(*) AS nb_movies FROM catalogue WHERE genre LIKE ?');
+            $movieCount->execute((array("%$genre_search%")));
+            $result = $movieCount->fetch();
+            $nbMovies = (int)$result['nb_movies'];
+
+            // On determine le nombre de film par page.
+            $parPage = 12;
+            $pages = ceil($nbMovies / $parPage);
+            $premier = ($currentPage * $parPage) - $parPage;
+
+            // On sécurise l'accès au pages qui n'existe pas.
+            if($currentPage > $pages){
+                header("location: catalogue.php?page=1");
+            }
+
+            // On récupère les film de la page en cours.
+            $movieDisplay = $conn->prepare('SELECT * FROM catalogue WHERE genre like :genre ORDER BY id DESC LIMIT :premier, :parpage;');
+            $movieDisplay->bindValue(':genre', "%$genre_search%");
+            $movieDisplay->bindValue(':premier', $premier, PDO::PARAM_INT);
+            $movieDisplay->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+            $movieDisplay->execute();
+            $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
+            ?>
+
+            <button class="btn btn-light btn-back d-flex align-items-center justify-content-between mt-5 mb-3" id="back"><i class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
+
+            <div class="row" id="movie_display">
+                <?php
+                foreach ($movies as $movie):
+
+                    // On verifie si le film est présent dans la table movies_bookmark.
+                    $moviesReq = $conn->prepare('SELECT * FROM movies_bookmark WHERE movie_id = ? AND user_id = ? LIMIT 1');
+                    $moviesReq->execute([
+                        $movie['id'],
+                        $_SESSION['id']
+                    ]);
+                    $bookmark = $moviesReq->fetchAll();
+
+                    // Si il est présent on passe la bool $is_bookmark à true.
+                    if (count($bookmark) > 0) {
+                        $is_bookmark = true;
+                    } else {
+                        $is_bookmark = false;
+                    }
+
+                    ?>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
+                        <div class="card movie mb-5">
+                            <a href="php_assets/add-bookmark.php?movie=<?= $movie['id'] ?>&page=catalogue">
+                                <div class="bookmark">
+                                    <i class='bx <?php if ($is_bookmark) {
+                                        echo "bxs-bookmark";
+                                    } else {
+                                        echo "bx-bookmark";
+                                    } ?>'></i>
+                                </div>
+                            </a>
+                            <a href="catalogue.php?movie=<?= $movie['id'] ?>">
+                                <div class="card-body movie-img"
+                                     style="background: url('img/movies_img/<?= $movie['movie_picture'] ?>')">
+                                    <div id="release_year"><h5><?= $movie['release_year'] ?></h5></div>
+                                </div>
+                            </a>
+                            <div class="card-footer d-flex flex-column justify-content-between">
+                                <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h4><?= $movie['title']; ?></h4></a>
+                                <small>De <?= $movie['director'] ?></small>
+                                <?php
+                                $id_movie = $movie['id'];
+
+                                if($is_admin == 1 && $permission >= 1){
+
+                                    echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
+
+                                    // NOTE POUR Julien - Il faut modifier le lien delete-movie.php (pas edit-movie)
+                                    if($permission >= 2){
+                                        echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
+            <label id="title-search" class="text-light mb-3">Recherche:</label>
+            <br>
+            <div id="result-search" class="row"></div>
+            <?php
+            if ($nbMovies >= $parPage) {
+                ?>
+                <ul class="pagination mt-5 d-flex justify-content-end">
+                    <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
+                    <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                        <a href="catalogue.php?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
+                    </li>
+                    <?php for ($page = 1; $page <= $pages; $page++): ?>
+                        <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
+                        <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                            <a href="catalogue.php?page=<?= $page ?>" class="page-link"><?= $page ?></a>
+                        </li>
+                    <?php endfor ?>
+                    <!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
+                    <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                        <a href="catalogue.php?page=<?= $currentPage + 1 ?>" class="page-link">Suivante</a>
+                    </li>
+                </ul>
+                <?php
+            }
+            ?>
+        </div>
+        <?php
         }
         ?>
     </div>

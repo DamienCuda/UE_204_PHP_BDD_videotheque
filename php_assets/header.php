@@ -44,7 +44,7 @@
                 <div class="col-9">
                 <nav class="site-navigation text-right ml-auto d-flex flex-row justify-content-around align-items-center" role="navigation">
                     <ul class="nav nav-pills col-9 justify-content-around align-items-center" id="nav_menu">
-                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link active">Gestion Films</a></li>
+                        <li class="nav-item h5"><a href="catalogue.php" class="nav-link">Gestion Films</a></li>
                         <li class="nav-item h5"><a href="gestion_user.php?id='.$id_user.'" class="nav-link">Gestion Utilisateur</a></li>
                         <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link">Ma Liste</a></li>
                     </ul>
