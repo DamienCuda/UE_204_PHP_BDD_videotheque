@@ -73,12 +73,12 @@ if($is_admin === false){
                             <div class="d-flex mt-2 mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0 justify-content-around justify-content-sm-around justify-content-md-around justify-content-lg-around justify-content-xl-around">
                                 <a data-toggle="modal" data-target="#transaction-historique"><i class='bx bx-money-withdraw'></i></a>
                                 <?php
-                                    // Si notre permission est supérieur au rang de l'utilsateur on à accès la modification, destition et promotion de l'utilisateur.
+                                    // Si notre permission est supérieur au rang de l'utilisateur on à accès la modification, destitution et promotion de l'utilisateur.
                                     if($permission > $rang){
                                         ?>
                                         <button class="edit_btn" title="Modifier"><i class='bx bx-edit-alt'></i></button>
                                         <?php
-                                            // Si l'utilisateur est membre on ne peut pas le desituer car y a plus rien en dessous.
+                                            // Si l'utilisateur est membre on ne peut pas le destituer car y a plus rien en dessous.
                                             if($rang > 0){
                                                 ?>
                                                     <a href="php_assets/downgrade_user.php?id=<?= $user['id']; ?>" title="Destituer"><i class='bx bx-chevrons-down'></i></a>
