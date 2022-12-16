@@ -76,6 +76,7 @@ input{
     height: 400px;
     background-size: cover !important;
     margin: auto;
+    background-position: center !important;
 }
 
 .synospis{

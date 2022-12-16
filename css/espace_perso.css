@@ -28,5 +28,29 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 30pt;
+    color: #f8f9fa !important;
+}
 
+.couldown{
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    color: #fff;
+    background: #09172a;
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-bottom-right-radius: 10px;
+    color: #dc3545;
+}
+
+.separator{
+    padding-right: 5px;
+}
+
+.timer_icon{
+    color: #dc3545;
 }
