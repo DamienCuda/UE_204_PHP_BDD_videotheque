@@ -21,10 +21,10 @@ $(document).ready(function() {
         $("#email_line").addClass("flex-column");
         $("#password_line").addClass("flex-column");
         $("#edit_zone_img").html("<label for='img_user'><i class='bx bxs-camera-plus'></i></label><input type='file' name='img_user' id='img_user' hidden>");
-        $("#email_zone").html("<input type='text' class='form-control' name='email_user' id='email_user' value="+ emailValue +">");
+        $("#email_zone").html("<input type='text' class='form-control' name='email_user' id='email_user' value="+ emailValue +" autocomplete=\"off\">");
         $("#email_zone").removeClass("ml-2");
         $("#password_line").removeClass("d-none");
-        $("#password_zone").html("<input type='password' class='form-control' name='pass_user' id='pass_user' placeholder='********'>");
+        $("#password_zone").html("<input type='password' class='form-control' name='pass_user' id='pass_user' placeholder='********' autocomplete=\"off\">");
 
 
         $("#email_user").keyup(function(){

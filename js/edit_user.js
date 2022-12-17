@@ -30,12 +30,12 @@ $(".edit_btn").click(function(){
 
         // On insert un input avec les différentes valeurs récupérer.
         utilisateur.innerHTML =
-            '<input type="text" name="username" id="username" class="form-control" placeholder="Nom d\'utilisateur..." value="'+ utilisateur_value +'">';
+            '<input type="text" name="username" id="username" class="form-control" placeholder="Nom d\'utilisateur..." value="'+ utilisateur_value +'" autocomplete="off">';
 
         email.innerHTML =
-            '<input type="email" name="email" id="email" class="form-control" placeholder="Adresse email..." value="'+ email_value +'">';
+            '<input type="email" name="email" id="email" class="form-control" placeholder="Adresse email..." value="'+ email_value +'" autocomplete="off">';
         password.innerHTML =
-            '<input type="password" name="pass" id="password" class="form-control" placeholder="Mot de passe (optionnel)">';
+            '<input type="password" name="pass" id="password" class="form-control" placeholder="Mot de passe (optionnel)" autocomplete="off">';
 
         // On remplace les bouton par 1 bouton de validation et un autre d'annulation.
         let btnZone = tr_user.children[7].children[0];

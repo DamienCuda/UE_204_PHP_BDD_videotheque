@@ -120,13 +120,13 @@ if($is_admin === false){
                         <td><?= $max_incrementation ?></td>
                         <td><div class="profil-membre" style="background: url('img/profil_img/avatar.jpg');"></div></td>
                         <td style="height: 60px">
-                            <input type="text" name="username_add" id="username_add" class="form-control" placeholder="Nom d'utilisateur...">
+                            <input type="text" name="username_add" id="username_add" class="form-control" placeholder="Nom d'utilisateur..." autocomplete="off">
                         </td>
                         <td>
-                            <input type="email" name="email_add" id="email_add" class="form-control" placeholder="Adresse email...">
+                            <input type="email" name="email_add" id="email_add" class="form-control" placeholder="Adresse email..." autocomplete="off">
                         </td>
                         <td>
-                            <input type="password" name="pass_add" id="pass_add" class="form-control" placeholder="Mot de passe...">
+                            <input type="password" name="pass_add" id="pass_add" class="form-control" placeholder="Mot de passe..." autocomplete="off">
                         </td>
                         <td>
                             <?php if($permission > 1){?>
