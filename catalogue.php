@@ -217,7 +217,9 @@ $soldeUser = $data['solde'];
             <div class="card mt-3">
                 <h5 class="card-header">
                     <div class="col-6">
-                        <?= $movieData['title']; ?>
+                        <div class="movie-title">
+                            <?= $movieData['title']; ?>
+                        </div>
                     </div>
                     <div class="col-6">
                         <?php
