@@ -231,3 +231,11 @@ input{
     text-align: right;
     padding-right: 20px;
 }
+
+#trailerModal .card, .modal-dialog{
+    opacity: 1 !important;
+}
+
+#movieModal .card, .modal-dialog{
+    opacity: 1 !important;
+}
