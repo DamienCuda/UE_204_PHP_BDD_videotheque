@@ -86,7 +86,16 @@ input{
     display: none !important;
 }
 
+.picure_add{
+    font-size: 50pt;
+    display: none !important;
+}
+
 .movie_picture:hover .play-ba{
+    display: block !important;
+}
+
+.movie_picture:hover .picure_add{
     display: block !important;
 }
 
@@ -187,4 +196,14 @@ input{
     display: flex;
     justify-content: space-between;
     color: #fff;
+}
+
+.error-img{
+    font-size: 50pt !important;
+    color: red;
+}
+
+.valid-img{
+    font-size: 50pt !important;
+    color: green;
 }

@@ -115,7 +115,8 @@ if(isset($_FILES['avatar']['tmp_name']) && $_FILES['avatar']['tmp_name'] != "") 
         echo json_encode($array);
         exit();
     } else {
-        echo "Le fichier déposé n'est pas au format accépté (jpg, jpeg ou png) ou est supérieur à 2 Mo.";
+        echo "Le fichier déposé n'est pas au format accepté (jpg, jpeg ou png) ou est supérieur à 2 Mo.";
+        exit();
     }
 
 }

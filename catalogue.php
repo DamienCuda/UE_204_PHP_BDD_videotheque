@@ -150,7 +150,6 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 
                                             echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
 
-                                            // NOTE POUR Julien - Il faut modifier le lien delete-movie.php (pas edit-movie)
                                             if($permission >= 2){
                                                 echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
                                             }
@@ -341,6 +340,19 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                     }
                                     ?>
                                 </div>
+                                <div class="d-flex col-12 justify-content-between mt-3">
+                                    <?php
+                                    $id_movie = $_GET['movie'];
+
+                                    if($permission >= 2){
+                                        echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
+                                    }
+
+                                    if($is_admin == 1 && $permission >= 1){
+                                        echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -351,7 +363,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;"><?= $movieData['title'] ?> - Bande d'annonce [FR]</span><i class='bx bx-movie-play'></i></h5>
+                            <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;"><?= $movieData['title'] ?> - Bande d'annonce</span><i class='bx bx-movie-play'></i></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -481,7 +493,6 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 
                                     echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
 
-                                    // NOTE POUR Julien - Il faut modifier le lien delete-movie.php (pas edit-movie)
                                     if($permission >= 2){
                                         echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
                                     }
