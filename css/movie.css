@@ -226,3 +226,8 @@ input{
     color: #dc3545;
     z-index: 11;
 }
+
+.label-movie-admin{
+    text-align: right;
+    padding-right: 20px;
+}
