@@ -525,7 +525,7 @@ $soldeUser = $data['solde'];
                         </div>
                         <div class="modal-body text-center">
                             <div class="video-responsive">
-                                <iframe width="560" height="315" src="" id="trailer_player" title="YouTube video player" frameborder="0" allowfullscree></iframe>
+                                <iframe width="560" height="315" src="" id="trailer_player" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -547,7 +547,7 @@ $soldeUser = $data['solde'];
                         </div>
                         <div class="modal-body text-center">
                             <div class="video-responsive">
-                                <iframe width="560" height="315" src="" id="movie_player" title="YouTube video player" frameborder="0" allowfullscree></iframe>
+                                <iframe width="560" height="315" src="" id="movie_player" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                         <div class="modal-footer">
