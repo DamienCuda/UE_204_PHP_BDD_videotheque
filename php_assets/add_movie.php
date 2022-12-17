@@ -4,6 +4,10 @@ require ("verif_session_connect.php");
 require("fonctions.php");
 require("permission.php");
 
+if($is_admin === false){
+    exit();
+}
+
 if(
     isset($_POST['movie_title']) && $_POST['movie_title'] != "" &&
     isset($_POST['movie_genre']) && $_POST['movie_genre'] != "" &&

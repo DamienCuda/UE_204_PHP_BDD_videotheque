@@ -4,6 +4,10 @@ require("verif_session_connect.php");
 require("fonctions.php");
 require("permission.php");
 
+if($is_admin === false){
+    exit();
+}
+
 // On récupère les donnée du film.
 $datasMovie = $conn->prepare("SELECT * FROM catalogue WHERE id=:id");
 $datasMovie->bindValue(':id', nettoyage($_POST['id']));

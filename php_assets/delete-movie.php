@@ -5,6 +5,10 @@ require("verif_session_connect.php");
 require("fonctions.php");
 require("permission.php");
 
+if($is_admin === false && $permission < 2){
+    header("location: index.php");
+}
+
 if(isset($_GET['id']) && $_GET['id'] != ""){
 
     // On vÃ©rifie si l'utilisateur est bien administrateur.
