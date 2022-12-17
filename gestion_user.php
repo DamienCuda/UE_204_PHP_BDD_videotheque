@@ -59,7 +59,11 @@ if($is_admin === false){
                         <td id="<?= $user['id']; ?>" class="checkbox_table"></td>
                         <td><?= $user['id']; ?></td>
                         <td>
-                            <div class="profil-membre" style="background: url('img/profil_img/<?= $user['profile_picture']; ?>');"></div>
+                            <?php if( $user['profile_picture'] != null){ ?>
+                                <div class="profil-membre" style="background: url('users/<?= $user['id'] ?>/avatar/<?= $user['profile_picture']; ?>');"></div>
+                            <?php }else{ ?>
+                                <div class="profil-membre" style="background: url('img/profil_img/avatar.jpg');"></div>
+                            <?php } ?>
                         </td>
                         <td><?= $user['login']; ?></td>
                         <td><?= $user['email']; ?></td>

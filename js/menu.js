@@ -43,4 +43,9 @@ window.addEventListener('load', (event) => {
         document.getElementById("user_icon").style.color = "#ffc107";
     }
 
+    if(page_courrante == "user_transaction.php"){
+        document.getElementById("solde_icon").style.color = "#ffc107";
+        document.getElementById("solde_value").style.color = "#ffc107";
+    }
+
 });
