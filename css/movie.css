@@ -209,3 +209,20 @@ input{
     font-size: 50pt !important;
     color: green;
 }
+
+.countdown_movie{
+    position: absolute;
+    display: flex;
+    top: 0px;
+    right: 0;
+    padding: 10px;
+    background: #09172a;
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-left-radius: 10px;
+    width: 200px;
+    color: #dc3545;
+    z-index: 11;
+}

@@ -76,9 +76,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             foreach ($user_rented_list_now as $movie_isloc):
 
                                 // On check la date de location.
-                                $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ?');
+                                $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id');
                                 $locationData->execute([
-                                    $movie_isloc['id']
+                                    $movie_isloc['id'],
+                                    $_SESSION['id']
                                 ]);
                                 $location = $locationData->fetch();
 

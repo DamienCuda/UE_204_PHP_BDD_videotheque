@@ -40,6 +40,17 @@ $movieDisplay->bindValue(':premier', $premier, PDO::PARAM_INT);
 $movieDisplay->bindValue(':parpage', $parPage, PDO::PARAM_INT);
 $movieDisplay->execute();
 $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
+
+// On récupère le solde de l'utilisateur
+$userData = $conn->prepare('SELECT * FROM utilisateurs WHERE id = ?');
+$userData->execute([
+        $_SESSION['id']
+]);
+$data = $userData->fetch();
+
+$soldeUser = $data['solde'];
+
+
 ?>
 
 <body id="movieWallpaper">
@@ -124,13 +135,15 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 
                                 if ($is_loc === 0) {
                                     ?>
-
-                                    <a href="php_assets/location.php?movie=<?= $movie['id']; ?>" class="btn_location_movie"><div id="location_btn" style="z-index: 10"><span>Louer ce film</span><span class="d-flex align-items-center ml-2">3<i class="bx bx-coin"></i></span></div></a>
-
+                                    <?php if($soldeUser > $movie['price']){ ?>
+                                    <a href="php_assets/location.php?movie=<?= $movie['id']; ?>" class="btn_location_movie"><div id="location_btn" style="z-index: 10"><span>Louer ce film</span><span class="d-flex align-items-center ml-2"><?= $movie['price'] ?><i class="bx bx-coin"></i></span></div></a>
+                                    <?php }else{ ?>
+                                        <div id="location_btn" style="z-index: 10;color:gray"><span>Louer ce film</span><span class="d-flex align-items-center ml-2"><?= $movie['price'] ?><i class="bx bx-coin"></i></span></div>
+                                    <?php } ?>
                                     <?php
                                 }else{
                                     ?>
-                                    <a href="#" class="btn_view_movie"><div id="view_btn"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></div></a>
+                                    <a href="catalogue.php?movie=<?= $movie['id']; ?>" class="btn_view_movie"><div id="view_btn"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></div></a>
                                     <?php
                                 }
                                 ?>
@@ -220,6 +233,23 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                     } else {
                         $is_bookmark = false;
                     }
+
+                    // On récupère les infos de location du film.
+                    $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
+                    $locationData->execute([
+                        nettoyage($_GET['movie']),
+                        $_SESSION['id']
+                    ]);
+                    $locations = $locationData->fetchAll();
+
+                    // On vérifie si le film est déjà présent dans la table des location, sinon on met is_loc à 0.
+                    if (count($locations) > 0) {
+                        foreach ($locations as $location) {
+                            $is_loc = $location['is_loc'];
+                        }
+                    } else {
+                        $is_loc = 0;
+                    }
                     ?>
                     <a href="php_assets/add-bookmark.php?movie=<?= $movie_id; ?>&page=film_details">
                         <div class="bookmark bookmark-right"><i class='bx <?php if ($is_bookmark) {
@@ -240,6 +270,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                         <?php
                                         // On récupère le champs "genre" pour explode les valeurs et les afficher saparément.
                                         $genres = explode(",", $movieData['genre']);
+
                                         foreach ($genres as $index => $genre) {
                                             ?>
                                             <span>
@@ -260,6 +291,133 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                                         ?>
                                     </p>
                                 </div>
+                                <?php if ($is_loc === 1) { ?>
+                                    <?php
+
+                                    // On check la date de location.
+                                    $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
+                                    $locationData->execute([
+                                        nettoyage($_GET['movie']),
+                                        $_SESSION['id']
+                                    ]);
+                                    $location = $locationData->fetch();
+
+                                    $location_date_end = $location['date_location_end'];
+
+                                    $now = new DateTime();
+                                    $date_end = new DateTime( "$location_date_end" );
+                                    $diff = $now->getTimestamp() - $date_end->getTimestamp();
+
+                                    if($diff < 0)
+                                    {
+                                        ?>
+                                        <div id="countdown_<?= $movieData['id'] ?>" class="d-flex align-items-center countdown_movie">
+                                            <div class="days"></div>
+                                            <div class="separator">J</div>
+                                            <div class="hours"></div>
+                                            <div class="separator">H :</div>
+                                            <div class="minutes"></div>
+                                            <div class="separator">m :</div>
+                                            <div class="seconds"></div>
+                                            <div class="separator">s</div>
+                                            <i class='bx bx-timer ml-2 timer_icon'></i>
+                                        </div>
+                                    <script>
+                                        function getTime(dateEnd) {
+                                            let total = Date.parse(dateEnd) - Date.parse(new Date());
+                                            let seconds = Math.floor((total / 1000) % 60);
+                                            let minutes = Math.floor((total / 1000 / 60) % 60);
+                                            let hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+                                            let days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+                                            return {
+                                                total,
+                                                days,
+                                                hours,
+                                                minutes,
+                                                seconds
+                                            };
+                                        }
+
+                                        function Countdown(id, dateEnd) {
+                                            let clock = document.getElementById(id);
+                                            let daysZone = clock.querySelector('.days');
+                                            let hoursZone = clock.querySelector('.hours');
+                                            let minutesZone = clock.querySelector('.minutes');
+                                            let secondsZone = clock.querySelector('.seconds');
+
+                                            function updateTime() {
+                                                let t = getTime(dateEnd);
+
+                                                daysZone.innerHTML = t.days;
+                                                hoursZone.innerHTML = ('0' + t.hours).slice(-2);
+                                                minutesZone.innerHTML = ('0' + t.minutes).slice(-2);
+                                                secondsZone.innerHTML = ('0' + t.seconds).slice(-2);
+
+                                                if (t.total <= 0) {
+
+                                                    let movie_id = <?= nettoyage($_GET['movie']) ?>;
+
+                                                    $.ajax({
+                                                        url: "php_assets/update_movie_countdown.php?id=<?= $_SESSION['id'] ?>", // URL de la page
+                                                        type: "POST", // GET ou POST
+                                                        data: {
+                                                            movie_id:movie_id
+                                                        }, // Paramètres envoyés à php
+                                                        dataType: "json", // Données en retour
+                                                        success: function(reponse) {
+                                                            console.log(reponse)
+
+                                                            if(reponse.status == "success"){
+                                                                window.location.href = 'catalogue.php?movie=<?= $_GET['movie'] ?>';
+                                                            }
+                                                        },
+                                                        error:function(error){
+                                                            console.log(error)
+                                                        }
+                                                    });
+
+                                                    clearInterval(timeinterval);
+                                                }
+                                            }
+
+                                            updateTime();
+                                            let timeinterval = setInterval(updateTime, 1000);
+                                        }
+                                        let dateEnd<?= $movieData['id'] ?> = new Date(Date.parse(new Date("<?= $location_date_end; ?>")));
+                                        Countdown('countdown_<?= $movieData['id'] ?>', dateEnd<?= $movieData['id'] ?>);
+                                    </script>
+                                <?php
+                                }else{
+
+                                ?>
+                                    <script>
+
+                                        let movie_id = <?= $movieData['id'] ?>;
+
+                                        $.ajax({
+                                            url: "php_assets/update_movie_countdown.php?id=<?= $_SESSION['id'] ?>", // URL de la page
+                                            type: "POST", // GET ou POST
+                                            data: {
+                                                movie_id:movie_id
+                                            }, // Paramètres envoyés à php
+                                            dataType: "json", // Données en retour
+                                            success: function(reponse) {
+                                                console.log(reponse)
+
+                                                if(reponse.status == "success"){
+                                                    window.location.href = 'catalogue.php?movie=<?= $_GET['movie'] ?>';
+                                                }
+                                            },
+                                            error:function(error){
+                                                console.log(error)
+                                            }
+                                        });
+                                    </script>
+                                    <?php
+                                        }
+                                    ?>
+                                <?php } ?>
                                 <div class="col-12 d-flex">
                                     <label>Acteurs:</label>
                                     <p class="details">
@@ -304,31 +462,28 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                             <div class="col-12 mt-5">
                                 <div class="d-flex btn-zone justify-content-end">
                                     <?php
-                                    // On récupère les infos de location du film.
-                                    $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
-                                    $locationData->execute([
-                                        nettoyage($_GET['movie']),
-                                        $_SESSION['id']
-                                    ]);
-                                    $locations = $locationData->fetchAll();
-
-                                    // On vérifie si le film est déjà présent dans la table des location, sinon on met is_loc à 0.
-                                    if (count($locations) > 0) {
-                                        foreach ($locations as $location) {
-                                            $is_loc = $location['is_loc'];
-                                        }
-                                    } else {
-                                        $is_loc = 0;
-                                    }
 
                                     if ($is_loc === 0) {
                                         ?>
-                                        <a href="php_assets/location.php?movie=<?= $_GET['movie']; ?>">
+                                        <?php if($soldeUser > $movieData['price']){
+                                            ?>
+                                            <a href="php_assets/location.php?movie=<?= $_GET['movie']; ?>">
+                                                <button class="btn btn-warning d-flex align-items-center justify-content-end btn-price"
+                                                        id="location_button"><span>Louer ce film</span><span
+                                                            class="d-flex align-items-center ml-2"><?= $movieData['price'] ?><i
+                                                                class='bx bx-coin'></i></span></button>
+                                            </a>
+                                        <?php
+                                        }else{
+                                            ?>
                                             <button class="btn btn-warning d-flex align-items-center justify-content-end btn-price"
-                                                    id="location_button"><span>Louer ce film</span><span
+                                                    id="location_button" disabled><span>Louer ce film</span><span
                                                         class="d-flex align-items-center ml-2"><?= $movieData['price'] ?><i
                                                             class='bx bx-coin'></i></span></button>
-                                        </a>
+                                        <?php
+                                        }
+                                        ?>
+
                                         <?php
                                     } else {
                                         ?>
@@ -359,24 +514,44 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <!-- Modal Trailer -->
-            <div class="modal fade" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel"><span style="margin-right: 10px;"><?= $movieData['title'] ?> - Bande d'annonce</span><i class='bx bx-movie-play'></i></h5>
+                            <h5 class="modal-title d-flex align-items-center" id="trailerModalLabel"><span style="margin-right: 10px;"><?= $movieData['title'] ?> - Bande d'annonce</span><i class='bx bx-movie-play'></i></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body text-center">
                             <div class="video-responsive">
-
-                                <iframe class="yvideo" width="560" height="315" src="" id="trailer_player" title="YouTube video player" frameborder="0" allowfullscree></iframe>
+                                <iframe width="560" height="315" src="" id="trailer_player" title="YouTube video player" frameborder="0" allowfullscree></iframe>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-warning" data-dismiss="modal">FERMER</button>
-                            <button id="myStopClickButton">Stop</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Movie -->
+            <div class="modal fade" id="movieModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title d-flex align-items-center" id="movieModalLabelLabel"><span style="margin-right: 10px;"><?= $movieData['title'] ?> - <?= $movieData['release_year'] ?> (<?= $movieData['duration'] ?>)</span><i class='bx bx-movie-play'></i></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div class="video-responsive">
+                                <iframe width="560" height="315" src="" id="movie_player" title="YouTube video player" frameborder="0" allowfullscree></iframe>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">FERMER</button>
                         </div>
                     </div>
                 </div>
@@ -471,13 +646,15 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 
                             if ($is_loc === 0) {
                                 ?>
-
+                                <?php if($soldeUser > $movie['price']){ ?>
                                 <a href="php_assets/location.php?movie=<?= $movie['id']; ?>" class="btn_location_movie"><div id="location_btn" style="z-index: 10"><span>Louer ce film</span><span class="d-flex align-items-center ml-2">3<i class="bx bx-coin"></i></span></div></a>
-
+                                <?php }else{ ?>
+                                    <div id="location_btn" style="z-index: 10;color:gray"><span>Louer ce film</span><span class="d-flex align-items-center ml-2">3<i class="bx bx-coin"></i></span></div>
+                                <?php } ?>
                                 <?php
                             }else{
                                 ?>
-                                <a href="#" class="btn_view_movie"><div id="view_btn"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></div></a>
+                                <a href="catalogue.php?movie=<?= $movie['id']; ?>" class="btn_view_movie"><div id="view_btn"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></div></a>
                                 <?php
                             }
                             ?>
@@ -542,6 +719,7 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
 <?php include 'php_assets/footer.php' ?>
 <script src="js/back.js"></script>
 <script src="js/trailer.js"></script>
+<script src="js/movie.js"></script>
 <script src="js/search_movie.js"></script>
 </body>
 </html>

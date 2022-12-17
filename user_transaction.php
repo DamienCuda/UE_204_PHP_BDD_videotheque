@@ -3,6 +3,11 @@ require_once("php_assets/connectdb.php");
 require("php_assets/verif_session_connect.php");
 require("php_assets/fonctions.php");
 
+// On sécurise l'accès pour donner accès à cette page uniquement à l'utilisateur qui console ses transactions ou au admins
+if($is_admin === false && $_SESSION['id'] != $_GET['user_id']){
+    header("location: index.php");
+}
+
 ?>
 
 <!DOCTYPE html>
