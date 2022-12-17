@@ -4,7 +4,7 @@ $(document).ready(function() {
    $("#movie_trailer_btn").click(function(){
 
        // On format le titre du film pour l'url de la requête pour l'API.
-       let title = $(".card-header")[0].textContent;
+       let title = $(".movie-title")[0].textContent;
        let tite_custom = title.replace(/ /g,"+").trim();
 
         // On récupère l'ID du film grâce à l'API.
