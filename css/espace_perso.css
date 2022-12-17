@@ -53,3 +53,44 @@
 .timer_icon{
     color: #dc3545;
 }
+
+#search_user{
+    background: #09172a;
+    box-shadow: none !important;
+}
+
+#container-search-user{
+    position: relative;
+}
+
+#result-search-user{
+    display: none;
+    flex-direction: column;
+}
+
+#search_user{
+    color: #fff;
+}
+
+#container-search-user{
+    background-color: #09172a;
+    position: absolute;
+    z-index: 10;
+}
+
+#title-search{
+    padding: 10px;
+    justify-content: start;
+    display: none;
+}
+
+#result-search-user{
+    padding: 10px;
+    color: #fff;
+}
+
+#result-search-user a{
+    color: #fff !important;
+    display: flex;
+    margin-bottom: 20px;
+}

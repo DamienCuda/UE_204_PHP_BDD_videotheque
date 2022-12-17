@@ -21,6 +21,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     include 'php_assets/header.php' ?>
 
     <main>
+        <div id="loading">
+            <div class="loader_search"></div>
+        </div>
         <?php
         if (count($user_datas) != 0) {
 
@@ -70,9 +73,20 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             <!-- Section d'affichage des informations et modification utilisateur -->
             <section id="user_infos_container" class="container">
                 <div class="row mt-5">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center" id="container-search-user">
+                        <input type="text" name="search_user" id="search_user" placeholder="Rechercher un utilisateur" class="form-control">
+                        <label id="title-search" class="text-light mb-3">Rechercher un utilisateur:</label>
+                        <div id="result-search-user"></div>
+                    </div>
+                </div>
+                <div class="row mt-5">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center"></div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 text-light text-center text-sm-center text-md-center text-lg-start text-xl-start">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 text-light text-center text-sm-center text-md-center text-lg-start text-xl-start mt-2">
+                        <?php if(isset($_GET['id']) && $_GET['id'] == $_SESSION['id']){ ?>
                         <h2>Bienvenue sur votre espace <span class="yellow-txt"><?= $user_login; ?></span></h2>
+                        <?php }else{ ?>
+                            <h2>Bienvenue sur l'espace de <span class="yellow-txt"><?= $user_login; ?></span></h2>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="row mb-5">
@@ -96,14 +110,20 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 text-light text-center text-sm-center text-md-center text-lg-start text-xl-start">
+                        <?php if(isset($_GET['id']) && $_GET['id'] == $_SESSION['id']){ ?>
                         <h3 class="mt-3 h3">Vos informations</h3>
+                        <?php }else{ ?>
+                        <h3 class="mt-3 h3">Informations</h3>
+                        <?php } ?>
                         <p class="mb-2" id="email_line">Email: <span id="email_zone"><?= $user_email; ?></span></p>
                         <p class="mb-2 d-none" id="password_line">Mot de passe: <span id="password_zone"></span></p>
                         <p class="mb-2">Rang : <?= $user_rank; ?></p>
-                        <a href="liste.php?id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus'></i><span>Ma liste</span></p></a>
+                        <a href="liste.php?id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus mr-2'></i><span><?php if($_GET['id'] == $_SESSION['id']){ echo "Ma liste"; }else{ echo "Sa liste"; } ?></span></p></a>
+                        <?php if(isset($_GET['id']) && $_GET['id'] == $_SESSION['id']){ ?>
                         <a href="user_transaction.php?user_id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-euro'></i><span>Mes transactions</span></p></a>
+                        <?php } ?>
                         <?php
-                        if ($_GET['id'] == $_SESSION['id']) {
+                        if (isset($_GET['id']) && $_GET['id'] == $_SESSION['id']) {
                         ?>
                             <div class="d-flex mt-4 justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start">
                                 <button class="btn btn-warning" id="btn_edit_profil">Modifier le profil</button>
@@ -116,6 +136,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     </div>
                 </div>
             </section>
+            <?php if (isset($_GET['id']) && $_GET['id'] == $_SESSION['id']) { ?>
             <section id="current_locations" class="container">
                 <div class="row mb-5">
                     <h3 class="p-2 rounded yellow-bg d-flex align-items-center"><span class="mr-2">Locations en cours</span><i class='bx bx-cart-download'></i></h3>
@@ -345,6 +366,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <?php } ?>
                 </div>
             </section>
+            <?php } ?>
             <?php
         } else {
             echo "<h5 class='text-light justify-content-center align-items-center d-flex' id='notfound'>Erreur 404: Utilisateur introuvable !</h5>";
@@ -353,7 +375,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     </main>
     <?php include 'php_assets/footer.php' ?>
     <script src="js/edit_profil.js"></script>
-    <script src="js/search_movie.js"></script>
+    <script src="js/search_user.js"></script>
     </body>
     </html>
     <?php
