@@ -43,7 +43,7 @@ $(document).ready(function() {
                                         if(reponse.results[0].site == "YouTube"){
 
                                             // On affiche la vidéo dans une modal large.
-                                            let url = "https://www.youtube.com/embed/" + reponse.results[0].key + "?rel=0&controls=0&hd=1&showinfo=0&enablejsapi=1"
+                                            let url = "https://www.youtube.com/embed/" + reponse.results[0].key
                                             $("#movie_player").attr("src", url);
                                             $('#movieModal').modal('show');
                                         }
