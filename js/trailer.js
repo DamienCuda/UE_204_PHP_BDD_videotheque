@@ -38,7 +38,7 @@ $(document).ready(function() {
                                    // Si toujours rien on le notifie à l'utilisateur
                                    if(reponse.results == ""){
                                        $('#trailerModal').modal('show');
-                                       $("#modal-body").html("<p>Aucune bande d'annonce n'a été trouvé pour ce film.</p>")
+                                       $("#trailerModal .modal-body").html("<p>Aucune bande d'annonce n'a été trouvé pour ce film.</p>")
                                    }else{
                                        if(reponse.results[0].site == "YouTube"){
 
