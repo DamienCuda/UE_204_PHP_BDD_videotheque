@@ -63,7 +63,7 @@ if(count($movies) == 0){
                     <div class="col-12 col-sm-12 col-md-12 cold-lg-12 col-xl-9 justify-content-sm-center justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-start mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-0">
                         <div class="row col-12">
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 label-movie-admin">
                                     <label>Genre:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
@@ -71,7 +71,7 @@ if(count($movies) == 0){
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 label-movie-admin">
                                     <label>Acteurs:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
@@ -79,7 +79,7 @@ if(count($movies) == 0){
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 label-movie-admin">
                                     <label>Réalisateur:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
@@ -87,7 +87,7 @@ if(count($movies) == 0){
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 label-movie-admin">
                                     <label>Année de sortie:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
@@ -95,7 +95,7 @@ if(count($movies) == 0){
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 label-movie-admin">
                                     <label>Durée:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
@@ -108,7 +108,7 @@ if(count($movies) == 0){
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-start mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 label-movie-admin">
                                     <label>Synopsis:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
@@ -116,7 +116,7 @@ if(count($movies) == 0){
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-start mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 label-movie-admin">
                                     <label>Prix (en jeton):</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
