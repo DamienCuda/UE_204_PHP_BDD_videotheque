@@ -85,7 +85,7 @@ if (isset($_GET['movie']) && $_GET['movie'] != "") {
                 ]);
 
                 // On enregistre la transaction
-                $insert = $conn->prepare('INSERT INTO transaction (movie_id, user_id, date, amount) VALUES(?,?,?,?)');
+                $insert = $conn->prepare('INSERT INTO transactions (movie_id, user_id, date, amount) VALUES(?,?,?,?)');
                 $insert->execute(array(
                     $movie_id,
                     $_SESSION['id'],

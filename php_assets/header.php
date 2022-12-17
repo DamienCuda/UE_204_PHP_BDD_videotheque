@@ -47,7 +47,7 @@
                     <li class="nav-item h5"><a href="gestion_user.php?id='.$id_user.'" class="nav-link p-2">Gestion Utilisateur</a></li>
                     <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link p-2">Ma Liste</a></li>
                 </ul>
-                <ul class="col-md-3 col-sm-12 d-lg-flex d-md-inline d-sm-inline align-items-center justify-content-around align-items-center icon-right-nav text-md-end text-sm-end">
+                <ul class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-3 mt-sm-3 mt-md-3 mt-lg-0 mt-xl-0 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex d-md-inline d-sm-inline align-items-center justify-content-around align-items-center icon-right-nav text-md-end text-sm-end">
                     <li class="nav-item h5"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link p-2"><i class="icones_nav bx bx-user-circle" id="user_icon"></i></a></li>
                     <li class="nav-item h5 d-flex align-items-center justify-content-md-end justify-content-sm-end solde_icon"><i class="p-2 icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
                     <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link p-2"><i class="bx bx-log-out icones_nav"></i></a></li>
@@ -60,7 +60,7 @@
                         <li class="nav-item h5"><a href="catalogue.php" class="nav-link p-2">Catalogue</a></li>
                         <li class="nav-item h5"><a href="liste.php?id='.$id_user.'" class="nav-link p-2">Ma Liste</a></li>
                      </ul>
-                     <ul class="col-md-3 col-sm-12 d-lg-flex d-md-inline d-sm-inline align-items-center justify-content-around align-items-center icon-right-nav text-md-end text-sm-end">
+                     <ul class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-3 mt-sm-3 mt-md-3 mt-lg-0 mt-xl-0 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex d-md-inline d-sm-inline align-items-center justify-content-around align-items-center icon-right-nav text-md-end text-sm-end">
                          <li class="nav-item h5"><a href="espace_perso_user.php?id='.$id_user.'" class="nav-link p-2"><i class="icones_nav bx bx-user-circle" id="user_icon"></i></a></li>
                          <li class="nav-item h5 d-flex align-items-center justify-content-md-end justify-content-sm-end solde_icon"><i class=" p-2 icones_nav bx bxs-coin-stack"></i><span>'.$solde_user['solde'].'</span></li>
                          <li class="nav-item h5"><a href="php_assets/disconnect.php" class="nav-link p-2"><i class="icones_nav bx bx-log-out"></i></a></li>

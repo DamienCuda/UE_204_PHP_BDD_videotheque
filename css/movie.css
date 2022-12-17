@@ -63,12 +63,14 @@ input{
     align-items: center;
     font-size: 20pt;
     cursor: pointer;
+    z-index: 10 !important;
 }
 
 .bookmark-right{
     left: 80%;
     top: 0;
     background: #ffc107;
+    z-index: 10 !important;
 }
 
 .movie_picture{

@@ -369,7 +369,9 @@ $movies = $movieDisplay->fetchAll(PDO::FETCH_ASSOC);
                             </button>
                         </div>
                         <div class="modal-body text-center">
-                            <iframe width="560" height="315" src="" id="trailer_player" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="video-responsive">
+                                <iframe width="560" height="315" src="" id="trailer_player" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-warning" data-dismiss="modal">FERMER</button>
