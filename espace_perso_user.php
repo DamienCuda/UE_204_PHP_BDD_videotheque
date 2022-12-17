@@ -72,7 +72,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             ?>
             <!-- Section d'affichage des informations et modification utilisateur -->
             <section id="user_infos_container" class="container">
-                <div class="row mt-5">
+                <div class="row">
+                    <?php if(isset($_GET['id']) && $_GET['id'] != $_SESSION['id']){ ?>
+                        <button class="btn btn-light btn-back d-flex align-items-center justify-content-between mt-5" id="back"><i class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
+                    <?php } ?>
+                </div>
+                <div class="row <?php if(isset($_GET['id']) && $_GET['id'] != $_SESSION['id']){ echo "mt-3"; }else{ echo "mt-5"; } ?>">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center" id="container-search-user">
                         <input type="text" name="search_user" id="search_user" placeholder="Rechercher un utilisateur" class="form-control">
                         <label id="title-search" class="text-light mb-3">Rechercher un utilisateur:</label>
@@ -376,6 +381,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     <?php include 'php_assets/footer.php' ?>
     <script src="js/edit_profil.js"></script>
     <script src="js/search_user.js"></script>
+    <script src="js/back.js"></script>
     </body>
     </html>
     <?php

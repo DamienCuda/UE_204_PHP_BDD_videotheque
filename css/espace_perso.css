@@ -87,6 +87,8 @@
 #result-search-user{
     padding: 10px;
     color: #fff;
+    align-items: start;
+    margin-bottom: 20px;
 }
 
 #result-search-user a{
