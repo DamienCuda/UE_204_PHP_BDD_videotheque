@@ -43,7 +43,7 @@ $(document).ready(function() {
                                        if(reponse.results[0].site == "YouTube"){
 
                                            // On affiche la vidéo dans une modal large.
-                                           let url = "https://www.youtube.com/embed/" + reponse.results[0].key
+                                           let url = "https://www.youtube.com/embed/" + reponse.results[0].key + "?rel=0&controls=0&hd=1&showinfo=0&enablejsapi=1"
                                            $("#trailer_player").attr("src", url);
                                            $('#trailerModal').modal('show');
                                        }
@@ -73,4 +73,16 @@ $(document).ready(function() {
            }
        });
    });
+
+   // Fonction de fermture des trailer lorsqu'on quitte la modal
+    $('#trailerModal').on('hidden.bs.modal', function (e) {
+
+        // On récupère l'ID du film dans le GET
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let movie_id = urlParams.get('movie');
+
+        window.location.href = 'catalogue.php?movie=' + movie_id;
+    });
+
 });

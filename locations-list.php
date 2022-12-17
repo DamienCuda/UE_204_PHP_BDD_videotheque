@@ -49,7 +49,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             // On sécurise l'accès au pages qui n'existe pas.
             $id_user = nettoyage($_GET['id']);
 
-            if($currentPage > $pages){
+            if($currentPage > $pages && $pages > 0){
                 header("location: locations-list.php?id=$id_user&page=1");
             }
 
