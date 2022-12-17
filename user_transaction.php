@@ -73,6 +73,7 @@ if($is_admin === false && $_SESSION['id'] != $_GET['user_id']){
                 <table class="table table-striped responsive nowrap" id="transaction_user_table">
                     <thead>
                     <tr>
+                        <th>ID transaction</th>
                         <th>Montant</th>
                         <th>Film</th>
                         <th>Date de location</th>
@@ -94,6 +95,7 @@ if($is_admin === false && $_SESSION['id'] != $_GET['user_id']){
                         $movie = $rented_movie_req->fetch()
                         ?>
                         <tr>
+                            <td>#<?= $transaction['id']; ?></td>
                             <td>
                                 <span class="d-flex align-items-center justify-content-center"><?= $transaction['amount']; ?> <i
                                             class='bx bx-coin ml-2'></i></span></td>

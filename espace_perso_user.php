@@ -71,7 +71,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             $total_movie_his = $result_his['total'];
             ?>
             <!-- Section d'affichage des informations et modification utilisateur -->
-            <section id="user_infos_container" class="container">
+            <section id="user_search" class="container">
                 <div class="row">
                     <?php if(isset($_GET['id']) && $_GET['id'] != $_SESSION['id']){ ?>
                         <button class="btn btn-light btn-back d-flex align-items-center justify-content-between mt-5" id="back"><i class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
@@ -84,6 +84,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <div id="result-search-user"></div>
                     </div>
                 </div>
+            </section>
+            <section id="user_infos_container" class="container">
                 <div class="row mt-5">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center"></div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 text-light text-center text-sm-center text-md-center text-lg-start text-xl-start mt-2">
@@ -123,9 +125,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <p class="mb-2" id="email_line">Email: <span id="email_zone"><?= $user_email; ?></span></p>
                         <p class="mb-2 d-none" id="password_line">Mot de passe: <span id="password_zone"></span></p>
                         <p class="mb-2">Rang : <?= $user_rank; ?></p>
-                        <a href="liste.php?id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus mr-2'></i><span><?php if($_GET['id'] == $_SESSION['id']){ echo "Ma liste"; }else{ echo "Sa liste"; } ?></span></p></a>
+                        <p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><a href="liste.php?id=<?= $_GET['id']; ?>" class="text-light"><i class='bx bx-plus mr-2'></i><span><?php if($_GET['id'] == $_SESSION['id']){ echo "Ma liste"; }else{ echo "Sa liste"; } ?></span></a></p>
                         <?php if(isset($_GET['id']) && $_GET['id'] == $_SESSION['id']){ ?>
-                        <a href="user_transaction.php?user_id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-euro'></i><span>Mes transactions</span></p></a>
+                        <p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><a href="user_transaction.php?user_id=<?= $_GET['id']; ?>" class="text-light"><i class='bx bx-euro'></i><span>Mes transactions</span></a></p>
                         <?php } ?>
                         <?php
                         if (isset($_GET['id']) && $_GET['id'] == $_SESSION['id']) {

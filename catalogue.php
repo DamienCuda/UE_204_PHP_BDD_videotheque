@@ -156,7 +156,8 @@ $soldeUser = $data['solde'];
                                 <div class="card-footer d-flex flex-column justify-content-between">
                                     <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h4><?= $movie['title']; ?></h4></a>
                                     <small>De <?= $movie['director'] ?></small>
-                                    <?php
+                                    <div>
+                                        <?php
                                         $id_movie = $movie['id'];
 
                                         if($is_admin == 1 && $permission >= 1){
@@ -167,7 +168,8 @@ $soldeUser = $data['solde'];
                                                 echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
                                             }
                                         }
-                                    ?>
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +215,157 @@ $soldeUser = $data['solde'];
             <button class="btn btn-light btn-back d-flex align-items-center justify-content-between mt-5" id="back"><i
                         class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
             <div class="card mt-3">
-                <h5 class="card-header"><?= $movieData['title']; ?></h5>
+                <h5 class="card-header">
+                    <div class="col-6">
+                        <?= $movieData['title']; ?>
+                    </div>
+                    <div class="col-6">
+                        <?php
+                        // On récupère les infos de location du film.
+                        $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
+                        $locationData->execute([
+                            nettoyage($_GET['movie']),
+                            $_SESSION['id']
+                        ]);
+                        $locations = $locationData->fetchAll();
+
+                        // On vérifie si le film est déjà présent dans la table des location, sinon on met is_loc à 0.
+                        if (count($locations) > 0) {
+                            foreach ($locations as $location) {
+                                $is_loc = $location['is_loc'];
+                            }
+                        } else {
+                            $is_loc = 0;
+                        }
+
+                        if ($is_loc === 1) {
+
+                            // On check la date de location.
+                            $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
+                            $locationData->execute([
+                                nettoyage($_GET['movie']),
+                                $_SESSION['id']
+                            ]);
+                            $location = $locationData->fetch();
+
+                            $location_date_end = $location['date_location_end'];
+
+                            $now = new DateTime();
+                            $date_end = new DateTime( "$location_date_end" );
+                            $diff = $now->getTimestamp() - $date_end->getTimestamp();
+
+                            if($diff < 0)
+                            {
+                                ?>
+                                <div id="countdown_<?= $movieData['id'] ?>" class="d-flex align-items-center countdown_movie">
+                                    <div class="days"></div>
+                                    <div class="separator">J</div>
+                                    <div class="hours"></div>
+                                    <div class="separator">H :</div>
+                                    <div class="minutes"></div>
+                                    <div class="separator">m :</div>
+                                    <div class="seconds"></div>
+                                    <div class="separator">s</div>
+                                    <i class='bx bx-timer ml-2 timer_icon'></i>
+                                </div>
+                                <script>
+                                    function getTime(dateEnd) {
+                                        let total = Date.parse(dateEnd) - Date.parse(new Date());
+                                        let seconds = Math.floor((total / 1000) % 60);
+                                        let minutes = Math.floor((total / 1000 / 60) % 60);
+                                        let hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+                                        let days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+                                        return {
+                                            total,
+                                            days,
+                                            hours,
+                                            minutes,
+                                            seconds
+                                        };
+                                    }
+
+                                    function Countdown(id, dateEnd) {
+                                        let clock = document.getElementById(id);
+                                        let daysZone = clock.querySelector('.days');
+                                        let hoursZone = clock.querySelector('.hours');
+                                        let minutesZone = clock.querySelector('.minutes');
+                                        let secondsZone = clock.querySelector('.seconds');
+
+                                        function updateTime() {
+                                            let t = getTime(dateEnd);
+
+                                            daysZone.innerHTML = t.days;
+                                            hoursZone.innerHTML = ('0' + t.hours).slice(-2);
+                                            minutesZone.innerHTML = ('0' + t.minutes).slice(-2);
+                                            secondsZone.innerHTML = ('0' + t.seconds).slice(-2);
+
+                                            if (t.total <= 0) {
+
+                                                let movie_id = <?= nettoyage($_GET['movie']) ?>;
+
+                                                $.ajax({
+                                                    url: "php_assets/update_movie_countdown.php?id=<?= $_SESSION['id'] ?>", // URL de la page
+                                                    type: "POST", // GET ou POST
+                                                    data: {
+                                                        movie_id:movie_id
+                                                    }, // Paramètres envoyés à php
+                                                    dataType: "json", // Données en retour
+                                                    success: function(reponse) {
+                                                        console.log(reponse)
+
+                                                        if(reponse.status == "success"){
+                                                            window.location.href = 'catalogue.php?movie=<?= $_GET['movie'] ?>';
+                                                        }
+                                                    },
+                                                    error:function(error){
+                                                        console.log(error)
+                                                    }
+                                                });
+
+                                                clearInterval(timeinterval);
+                                            }
+                                        }
+
+                                        updateTime();
+                                        let timeinterval = setInterval(updateTime, 1000);
+                                    }
+                                    let dateEnd<?= $movieData['id'] ?> = new Date(Date.parse(new Date("<?= $location_date_end; ?>")));
+                                    Countdown('countdown_<?= $movieData['id'] ?>', dateEnd<?= $movieData['id'] ?>);
+                                </script>
+                            <?php
+                            }else{
+
+                            ?>
+                                <script>
+
+                                    let movie_id = <?= $movieData['id'] ?>;
+
+                                    $.ajax({
+                                        url: "php_assets/update_movie_countdown.php?id=<?= $_SESSION['id'] ?>", // URL de la page
+                                        type: "POST", // GET ou POST
+                                        data: {
+                                            movie_id:movie_id
+                                        }, // Paramètres envoyés à php
+                                        dataType: "json", // Données en retour
+                                        success: function(reponse) {
+                                            console.log(reponse)
+
+                                            if(reponse.status == "success"){
+                                                window.location.href = 'catalogue.php?movie=<?= $_GET['movie'] ?>';
+                                            }
+                                        },
+                                        error:function(error){
+                                            console.log(error)
+                                        }
+                                    });
+                                </script>
+                                <?php
+                            }
+                            ?>
+                        <?php } ?>
+                    </div>
+                </h5>
                 <div class="card-body" id="movie-details">
                     <?php
 
@@ -232,23 +384,6 @@ $soldeUser = $data['solde'];
                         $is_bookmark = true;
                     } else {
                         $is_bookmark = false;
-                    }
-
-                    // On récupère les infos de location du film.
-                    $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
-                    $locationData->execute([
-                        nettoyage($_GET['movie']),
-                        $_SESSION['id']
-                    ]);
-                    $locations = $locationData->fetchAll();
-
-                    // On vérifie si le film est déjà présent dans la table des location, sinon on met is_loc à 0.
-                    if (count($locations) > 0) {
-                        foreach ($locations as $location) {
-                            $is_loc = $location['is_loc'];
-                        }
-                    } else {
-                        $is_loc = 0;
                     }
                     ?>
                     <a href="php_assets/add-bookmark.php?movie=<?= $movie_id; ?>&page=film_details">
@@ -291,133 +426,6 @@ $soldeUser = $data['solde'];
                                         ?>
                                     </p>
                                 </div>
-                                <?php if ($is_loc === 1) { ?>
-                                    <?php
-
-                                    // On check la date de location.
-                                    $locationData = $conn->prepare('SELECT * FROM movies_location WHERE movie_id = ? AND user_id = ?');
-                                    $locationData->execute([
-                                        nettoyage($_GET['movie']),
-                                        $_SESSION['id']
-                                    ]);
-                                    $location = $locationData->fetch();
-
-                                    $location_date_end = $location['date_location_end'];
-
-                                    $now = new DateTime();
-                                    $date_end = new DateTime( "$location_date_end" );
-                                    $diff = $now->getTimestamp() - $date_end->getTimestamp();
-
-                                    if($diff < 0)
-                                    {
-                                        ?>
-                                        <div id="countdown_<?= $movieData['id'] ?>" class="d-flex align-items-center countdown_movie">
-                                            <div class="days"></div>
-                                            <div class="separator">J</div>
-                                            <div class="hours"></div>
-                                            <div class="separator">H :</div>
-                                            <div class="minutes"></div>
-                                            <div class="separator">m :</div>
-                                            <div class="seconds"></div>
-                                            <div class="separator">s</div>
-                                            <i class='bx bx-timer ml-2 timer_icon'></i>
-                                        </div>
-                                    <script>
-                                        function getTime(dateEnd) {
-                                            let total = Date.parse(dateEnd) - Date.parse(new Date());
-                                            let seconds = Math.floor((total / 1000) % 60);
-                                            let minutes = Math.floor((total / 1000 / 60) % 60);
-                                            let hours = Math.floor((total / (1000 * 60 * 60)) % 24);
-                                            let days = Math.floor(total / (1000 * 60 * 60 * 24));
-
-                                            return {
-                                                total,
-                                                days,
-                                                hours,
-                                                minutes,
-                                                seconds
-                                            };
-                                        }
-
-                                        function Countdown(id, dateEnd) {
-                                            let clock = document.getElementById(id);
-                                            let daysZone = clock.querySelector('.days');
-                                            let hoursZone = clock.querySelector('.hours');
-                                            let minutesZone = clock.querySelector('.minutes');
-                                            let secondsZone = clock.querySelector('.seconds');
-
-                                            function updateTime() {
-                                                let t = getTime(dateEnd);
-
-                                                daysZone.innerHTML = t.days;
-                                                hoursZone.innerHTML = ('0' + t.hours).slice(-2);
-                                                minutesZone.innerHTML = ('0' + t.minutes).slice(-2);
-                                                secondsZone.innerHTML = ('0' + t.seconds).slice(-2);
-
-                                                if (t.total <= 0) {
-
-                                                    let movie_id = <?= nettoyage($_GET['movie']) ?>;
-
-                                                    $.ajax({
-                                                        url: "php_assets/update_movie_countdown.php?id=<?= $_SESSION['id'] ?>", // URL de la page
-                                                        type: "POST", // GET ou POST
-                                                        data: {
-                                                            movie_id:movie_id
-                                                        }, // Paramètres envoyés à php
-                                                        dataType: "json", // Données en retour
-                                                        success: function(reponse) {
-                                                            console.log(reponse)
-
-                                                            if(reponse.status == "success"){
-                                                                window.location.href = 'catalogue.php?movie=<?= $_GET['movie'] ?>';
-                                                            }
-                                                        },
-                                                        error:function(error){
-                                                            console.log(error)
-                                                        }
-                                                    });
-
-                                                    clearInterval(timeinterval);
-                                                }
-                                            }
-
-                                            updateTime();
-                                            let timeinterval = setInterval(updateTime, 1000);
-                                        }
-                                        let dateEnd<?= $movieData['id'] ?> = new Date(Date.parse(new Date("<?= $location_date_end; ?>")));
-                                        Countdown('countdown_<?= $movieData['id'] ?>', dateEnd<?= $movieData['id'] ?>);
-                                    </script>
-                                <?php
-                                }else{
-
-                                ?>
-                                    <script>
-
-                                        let movie_id = <?= $movieData['id'] ?>;
-
-                                        $.ajax({
-                                            url: "php_assets/update_movie_countdown.php?id=<?= $_SESSION['id'] ?>", // URL de la page
-                                            type: "POST", // GET ou POST
-                                            data: {
-                                                movie_id:movie_id
-                                            }, // Paramètres envoyés à php
-                                            dataType: "json", // Données en retour
-                                            success: function(reponse) {
-                                                console.log(reponse)
-
-                                                if(reponse.status == "success"){
-                                                    window.location.href = 'catalogue.php?movie=<?= $_GET['movie'] ?>';
-                                                }
-                                            },
-                                            error:function(error){
-                                                console.log(error)
-                                            }
-                                        });
-                                    </script>
-                                    <?php
-                                        }
-                                    ?>
-                                <?php } ?>
                                 <div class="col-12 d-flex">
                                     <label>Acteurs:</label>
                                     <p class="details">
@@ -667,18 +675,20 @@ $soldeUser = $data['solde'];
                             <div class="card-footer d-flex flex-column justify-content-between">
                                 <a href="catalogue.php?movie=<?= $movie['id'] ?>"><h4><?= $movie['title']; ?></h4></a>
                                 <small>De <?= $movie['director'] ?></small>
-                                <?php
-                                $id_movie = $movie['id'];
+                                <div>
+                                    <?php
+                                    $id_movie = $movie['id'];
 
-                                if($is_admin == 1 && $permission >= 1){
+                                    if($is_admin == 1 && $permission >= 1){
 
-                                    echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
+                                        echo "<a href='edit-movie.php?movie=$id_movie'><button class='btn btn-warning mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Modifier</span><i class='bx bx-edit-alt ml-2' ></i></button></a>";
 
-                                    if($permission >= 2){
-                                        echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
+                                        if($permission >= 2){
+                                            echo "<a href='delete-movie.php?id=$id_movie'><button class='btn btn-danger mt-1 align-items-center justify-content-center d-flex' style='width:100%'><span>Supprimer</span><i class='bx bx-trash ml-2'></i></button></a>";
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
