@@ -43,16 +43,17 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             $nbMovies = (int)$result['nb_movies'];
 
             // On determine le nombre de film par page.
-            $parPage = 6;
+            $parPage = 12;
             $pages = ceil($nbMovies / $parPage);
             $premier = ($currentPage * $parPage) - $parPage;
 
             // On sécurise l'accès au pages qui n'existe pas.
             $id_user = nettoyage($_GET['id']);
 
-            if($currentPage > $pages){
+            if($currentPage > $pages && $pages > 0){
                 header("location: liste.php?id=$id_user&page=1");
             }
+
 
             //Requête pour recupérer les films favoris de l'utilisateur.
             $fav_movies_req = $conn->prepare('

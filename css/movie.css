@@ -63,12 +63,14 @@ input{
     align-items: center;
     font-size: 20pt;
     cursor: pointer;
+    z-index: 10 !important;
 }
 
 .bookmark-right{
     left: 80%;
     top: 0;
     background: #ffc107;
+    z-index: 10 !important;
 }
 
 .movie_picture{
@@ -86,7 +88,16 @@ input{
     display: none !important;
 }
 
+.picure_add{
+    font-size: 50pt;
+    display: none !important;
+}
+
 .movie_picture:hover .play-ba{
+    display: block !important;
+}
+
+.movie_picture:hover .picure_add{
     display: block !important;
 }
 
@@ -187,4 +198,43 @@ input{
     display: flex;
     justify-content: space-between;
     color: #fff;
+}
+
+.error-img{
+    font-size: 50pt !important;
+    color: red;
+}
+
+.valid-img{
+    font-size: 50pt !important;
+    color: green;
+}
+
+.countdown_movie{
+    position: absolute;
+    display: flex;
+    top: 0px;
+    right: 0;
+    padding: 8px;
+    background: #09172a;
+    -moz-border-radius-bottomleft: 10px;
+    color: #e7af08;
+    z-index: 11;
+}
+
+.countdown_movie .timer_icon{
+    color: #e7af08 !important;
+}
+
+.label-movie-admin{
+    text-align: right;
+    padding-right: 20px;
+}
+
+#trailerModal .card, .modal-dialog{
+    opacity: 1 !important;
+}
+
+#movieModal .card, .modal-dialog{
+    opacity: 1 !important;
 }

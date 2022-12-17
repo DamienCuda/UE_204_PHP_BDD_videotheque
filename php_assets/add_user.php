@@ -4,6 +4,10 @@ require ("verif_session_connect.php");
 require("fonctions.php");
 require("permission.php");
 
+if($is_admin === false){
+    exit();
+}
+
 // On vérifie si les champs ne sont pas vide.
 if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email"]) && $_POST["email"] != "" && isset($_POST["pass"]) && $_POST["pass"] != "") {
 

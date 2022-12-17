@@ -26,7 +26,7 @@
                 $_SESSION['login'] = $user[0]['login'];
                 $_SESSION['id'] = $user[0]['id'];
 
-                if($user[0]['is_admin'] == 0){
+                if($user[0]['is_admin'] == 0 && $user[0]['rang'] != "Owner" && $user[0]['rang'] != "Administrateur" && $user[0]['rang'] != "Modérateur"){
                     $_SESSION['is_admin'] = false;
                 }else{
                     $_SESSION['is_admin'] = true;

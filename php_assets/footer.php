@@ -1,10 +1,11 @@
 <!-- BEGIN: Utilitaire -->
+<script src="app-assets/popper.min.js"></script>
 <script src="app-assets/jquery.dataTables.min.js"></script>
 <script src="app-assets/dataTables.bootstrap5.min.js"></script>
 <script src="app-assets/dataTables.select.min.js"></script>
 <script src="app-assets/dataTables.responsive.min.js"></script>
-<script src="app-assets/popper.min.js"></script>
 <script src="app-assets/bootstrap.min.js"></script>
+<script src="app-assets/inputTags.js"></script>
 <!-- END: Utilitaire -->
 
 <footer class="bg-light">
