@@ -18,7 +18,7 @@ if($is_admin === false && $_SESSION['id'] != $_GET['user_id']){
 <main>
     <?php
     //ON récupère l'id de l'utilisateur depuis la variable GET
-    $user_id = $_GET['user_id'];
+    $user_id = nettoyage($_GET['user_id']);
 
     // Requête d'info sur l'utilisateur
     $user_req = $conn->prepare('SELECT * FROM utilisateurs WHERE id = ?');
