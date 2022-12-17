@@ -24,7 +24,7 @@ if($is_admin === false){
                     class='bx bx-left-arrow-alt'></i><span>Retour</span></button>
         <div class="card mt-3">
             <h5 class="card-header"><input type="text" class="form-control" name="movie_title" id="movie_title"
-                                           placeholder="Titre du film"></h5>
+                                           placeholder="Titre du film" autocomplete="off"></h5>
             <div class="card-body" id="movie-details">
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 justify-content-sm-center justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-start">
@@ -40,7 +40,7 @@ if($is_admin === false){
                                     <label>Genre:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
-                                    <input type="text" class="form-control" name="movie_genre" id="movie_genre" placeholder="Genres">
+                                    <input type="text" class="form-control" name="movie_genre" id="movie_genre" placeholder="Genres" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
@@ -48,7 +48,7 @@ if($is_admin === false){
                                     <label>Acteurs:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
-                                    <input type="text" class="form-control" name="movie_actor" id="movie_actor" placeholder="Acteurs">
+                                    <input type="text" class="form-control" name="movie_actor" id="movie_actor" placeholder="Acteurs" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
@@ -56,7 +56,7 @@ if($is_admin === false){
                                     <label>Réalisateur:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
-                                    <input type="text" class="form-control" name="movie_director" id="movie_director" placeholder="Réalisateurs">
+                                    <input type="text" class="form-control" name="movie_director" id="movie_director" placeholder="Réalisateurs" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
@@ -64,7 +64,7 @@ if($is_admin === false){
                                     <label>Année de sortie:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
-                                    <input type="number" class="form-control" name="annee_sortie" id="annee_sortie" placeholder="Année de sortie" value="2022">
+                                    <input type="number" class="form-control" name="annee_sortie" id="annee_sortie" placeholder="Année de sortie" value="2022" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-center mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
@@ -72,7 +72,7 @@ if($is_admin === false){
                                     <label>Durée:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
-                                    <input type="text" class="form-control" name="movie_duration" id="movie_duration" placeholder="Durée" value="1">
+                                    <input type="text" class="form-control" name="movie_duration" id="movie_duration" placeholder="Durée" value="1" autocomplete="off">
                                     <script>
                                         $('#movie_duration').datetimepicker({
                                             format: 'hh:mm'
@@ -85,7 +85,7 @@ if($is_admin === false){
                                     <label>Synopsis:</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
-                                    <textarea class="form-control" name="movie_synopsis" id="movie_synopsis" placeholder="Synopsis (minimum 20 caractères)" rows="4"></textarea>
+                                    <textarea class="form-control" name="movie_synopsis" id="movie_synopsis" placeholder="Synopsis (minimum 20 caractères)" rows="4" autocomplete="off"></textarea>
                                 </div>
                             </div>
                             <div class="col-12 d-flex align-items-start mb-3 flex-column flex-sm-column flex-md-column flex-lg-row flex-xl-row">
@@ -93,7 +93,7 @@ if($is_admin === false){
                                     <label>Prix (en jeton):</label>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
-                                    <input type="number" class="form-control" name="price_movie" id="price_movie" placeholder="Prix de la location" value="3">
+                                    <input type="number" class="form-control" name="price_movie" id="price_movie" placeholder="Prix de la location" value="3" autocomplete="off">
                                 </div>
                             </div>
                         </div>

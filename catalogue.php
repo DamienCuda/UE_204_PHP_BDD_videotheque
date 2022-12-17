@@ -67,7 +67,7 @@ $soldeUser = $data['solde'];
                 <?php if($is_admin == 1 && $permission >= 1){
                 ?>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 mb-3 mb-sm-3 mb-md-3 mb-lg-5 mb-xl-5">
-                        <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film...">
+                        <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film..." autocomplete="off">
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-5">
                         <a href="add-movie.php">
@@ -78,7 +78,7 @@ $soldeUser = $data['solde'];
                 }else{
                 ?>
                     <div class="col-12 mb-5">
-                        <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film...">
+                        <input type="text" class="form-control" id="search-movie" name="search-movie" placeholder="Rechercher un film..." autocomplete="off">
                     </div>
                     <?php
                 }

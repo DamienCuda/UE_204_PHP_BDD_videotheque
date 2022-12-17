@@ -27,7 +27,7 @@
                         <form action="" method="POST" id="registerForm">
                             <div class="col-12 mt-3">
                                 <label for="username">Nom d'utilisateur : </label>
-                                <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="username" id="username">
+                                <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="username" id="username" autocomplete="off">
                                 <div id="validationUsernameFeedback" class="invalid-feedback">
                                     Veuillez renseigner un nom d'utilisateur.
                                 </div>
@@ -37,18 +37,18 @@
                             </div>
                             <div class="col-12 mt-3">
                                 <label for="email">Email : </label>
-                                <input type="email" class="form-control" placeholder="Votre adresse email" name="email" id="email">
+                                <input type="email" class="form-control" placeholder="Votre adresse email" name="email" id="email" autocomplete="off">
                                 <div id="validationEmailFeedback" class="invalid-feedback">
                                     Veuillez renseigner une adresse email.
                                 </div>
                             </div>
                             <div class="col-12 mt-3">
                                 <label for="pass">Mot de passe : </label>
-                                <input type="password" class="form-control" placeholder="Votre mot de passe" name="pass" id="pass">
+                                <input type="password" class="form-control" placeholder="Votre mot de passe" name="pass" id="pass" autocomplete="off">
                             </div>
                             <div class="col-12 mt-3">
                                 <label for="passconfirm">Confirmez votre mot de passe : </label>
-                                <input type="password" class="form-control" placeholder="Confirmez votre mot de passe" name="passconfirm" id="passconfirm">
+                                <input type="password" class="form-control" placeholder="Confirmez votre mot de passe" name="passconfirm" id="passconfirm" autocomplete="off">
                                 <div id="validationPasswordFeedback" class="invalid-feedback">
                                     Le mot de passe doit contenir minimum 8 caractères, une majuscule, un chiffre et un caractère spécial.
                                 </div>
@@ -69,14 +69,14 @@
                         <form action="" method="POST" id="loginForm">
                             <div class="col-12 mt-3">
                                 <label for="username">Nom d'utilisateur : </label>
-                                <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="username" id="usernameLogin">
+                                <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="username" id="usernameLogin" autocomplete="off">
                                 <div id="validationUsernameFeedbackLogin" class="invalid-feedback">
                                     Le nom d'utilisateur doit être renseigner.
                                 </div>
                             </div>
                             <div class="col-12 mt-3">
                                 <label for="pass">Mot de passe : </label>
-                                <input type="password" class="form-control" placeholder="Votre mot de passe" name="pass" id="passLogin">
+                                <input type="password" class="form-control" placeholder="Votre mot de passe" name="pass" id="passLogin" autocomplete="off">
                                 <div id="validationPasswordFeedbackLogin" class="invalid-feedback">
                                     Le mot de passe doit être renseigner.
                                 </div>

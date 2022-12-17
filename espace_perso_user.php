@@ -79,7 +79,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 </div>
                 <div class="row <?php if(isset($_GET['id']) && $_GET['id'] != $_SESSION['id']){ echo "mt-3"; }else{ echo "mt-5"; } ?>">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center" id="container-search-user">
-                        <input type="text" name="search_user" id="search_user" placeholder="Rechercher un utilisateur" class="form-control">
+                        <input type="text" name="search_user" id="search_user" placeholder="Rechercher un utilisateur" class="form-control" autocomplete="off">
                         <label id="title-search" class="text-light mb-3">Rechercher un utilisateur:</label>
                         <div id="result-search-user"></div>
                     </div>
