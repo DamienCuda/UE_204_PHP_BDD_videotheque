@@ -43,7 +43,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             $nbMovies = (int)$result['nb_movies'];
 
             // On determine le nombre de film par page.
-            $parPage = 6;
+            $parPage = 12;
             $pages = ceil($nbMovies / $parPage);
             $premier = ($currentPage * $parPage) - $parPage;
 
