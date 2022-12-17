@@ -215,16 +215,15 @@ input{
     display: flex;
     top: 0px;
     right: 0;
-    padding: 10px;
+    padding: 8px;
     background: #09172a;
-    padding-left: 20px;
-    padding-right: 20px;
-    -webkit-border-bottom-left-radius: 10px;
     -moz-border-radius-bottomleft: 10px;
-    border-bottom-left-radius: 10px;
-    width: 200px;
-    color: #dc3545;
+    color: #e7af08;
     z-index: 11;
+}
+
+.countdown_movie .timer_icon{
+    color: #e7af08 !important;
 }
 
 .label-movie-admin{

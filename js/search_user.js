@@ -44,4 +44,21 @@ $(document).ready(function() {
         $("#result-search-user").css("display", "flex");
     });
 
+    // On détecte les clicks en dehors du champs de recherche pour le fermer.
+
+    $("#current_locations").click(function(){
+        $("#title-search").css("display", "none");
+        $("#result-search-user").css("display", "none");
+    });
+
+    $("#user_infos_container").click(function(){
+        $("#title-search").css("display", "none");
+        $("#result-search-user").css("display", "none");
+    });
+
+    $("#past_locations").click(function(){
+        $("#title-search").css("display", "none");
+        $("#result-search-user").css("display", "none");
+    });
+
 });
