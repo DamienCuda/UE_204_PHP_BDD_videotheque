@@ -88,3 +88,27 @@ table tr.even input{
 #transaction_user_table th{
     text-align: center !important;
 }
+
+.dataTables_length{
+    justify-content: start !important;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#transaction_user_table_filter label{
+    display: flex;
+    justify-content: start;
+    width: 100% !important;
+}
+
+#transaction_user_table_filter label input{
+    width: 100% !important;
+}
+
+#transaction_user select{
+    background: #ffc107;
+    border: 0;
+    cursor: pointer;
+}
+
+
