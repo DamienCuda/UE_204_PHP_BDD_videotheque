@@ -101,7 +101,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <p class="mb-2 d-none" id="password_line">Mot de passe: <span id="password_zone"></span></p>
                         <p class="mb-2">Rang : <?= $user_rank; ?></p>
                         <a href="liste.php?id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus'></i><span>Ma liste</span></p></a>
-                        <a href="user_transaction.php?user_id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-plus'></i><span>Mes transaction</span></p></a>
+                        <a href="user_transaction.php?user_id=<?= $_GET['id']; ?>" class="text-light"><p class="mb-2 d-flex align-items-center justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start"><i class='bx bx-euro'></i><span>Mes transaction</span></p></a>
                         <?php
                         if ($_GET['id'] == $_SESSION['id']) {
                         ?>
