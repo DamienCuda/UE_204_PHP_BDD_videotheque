@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\js",
+    "\\php_assets"
   ],
-  "SelectedNode": "\\C:\\xampp\\htdocs\\cours",
+  "SelectedNode": "\\js\\register.js",
   "PreviewInSolutionExplorer": false
 }
