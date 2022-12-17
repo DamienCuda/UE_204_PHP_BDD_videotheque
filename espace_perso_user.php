@@ -105,12 +105,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 if($user_profil_pic == null){
                                     ?>
                                     <img class="rounded-circle mb-3" src="img/profil_img/avatar.jpg" alt="Avatar"
-                                         style="height:150px;object-fit: cover;">
+                                         style="height:150px;width:150px;object-fit: cover;">
                             <?php
                                 }else{
                             ?>
                             <img class="rounded-circle mb-3" src="users/<?= $_GET['id']; ?>/avatar/<?= $user_profil_pic; ?>" alt="Avatar"
-                                 style="height:150px;object-fit: cover;">
+                                 style="height:150px;width:150px;object-fit: cover;">
                             <?php
                                 }
                             ?>
