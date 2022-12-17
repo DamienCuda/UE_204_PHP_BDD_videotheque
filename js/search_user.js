@@ -35,8 +35,13 @@ $(document).ready(function() {
             }else{
                 $("#title-search").hide();
                 $("#result-search-user").css("display", "none");
-                $("#container-search-user").css("min-height", "0px");
             }
         }, 100);
     });
+
+    $("#search_user").click(function(){
+        $("#title-search").css("display", "flex");
+        $("#result-search-user").css("display", "flex");
+    });
+
 });
