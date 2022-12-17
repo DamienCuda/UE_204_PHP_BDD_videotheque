@@ -14,6 +14,10 @@ a{
     margin-top: 200px !important;
 }
 
+textarea{
+    resize: none !important;
+}
+
 table button{
     border: 0 !important;
     background: transparent !important;
@@ -342,6 +346,33 @@ nav i{
     height: 2px;
     background: #ffc107;
     left: 0;
+}
+
+.video-responsive {
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+
+.video-responsive iframe {
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+.modal{
+    margin-top: 100px !important;
+}
+
+.modal-content{
+    margin: 0 !important;
+}
+
+.modal  .close{
+    margin-left: 10px !important;
 }
 
 @media only screen and (max-width: 1000px) {

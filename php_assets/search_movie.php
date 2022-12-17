@@ -65,7 +65,7 @@ if (isset($_GET['search'])) {
                     <?php
                 }else{
                     ?>
-                    <a href="#" class="btn_view_movie"><div id="view_btn"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></div></a>
+                    <a href="catalogue.php?movie=<?= $results['id']; ?>" class="btn_view_movie"><div id="view_btn"><span>Voir ce film</span><span class="d-flex align-items-center ml-2"><i class='bx bx-show'></i></span></div></a>
                     <?php
                 }
                 ?>

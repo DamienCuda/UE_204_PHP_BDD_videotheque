@@ -5,6 +5,10 @@ require("verif_session_connect.php");
 require("fonctions.php");
 require("permission.php");
 
+if($is_admin === false){
+    header("location: index.php");
+}
+
 if (isset($_GET['id']) && $_GET['id'] != "") {
 
 // On vérifie si l'utilistauer à un grade inférieur à nous

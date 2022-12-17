@@ -5,6 +5,10 @@ require("verif_session_connect.php");
 require("fonctions.php");
 require("permission.php");
 
+if($is_admin === false && $permission < 2){
+    exit();
+}
+
 if(isset($_POST['id']) && $_POST['id'] != ""){
 
     $id_not_delete = [];
