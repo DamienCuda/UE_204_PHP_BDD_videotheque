@@ -131,6 +131,8 @@ $(".edit_btn").click(function(){
                         }
                     },
                     error:function(error){
+                        console.log(error)
+                        window.location.href = 'gestion_user.php';
                     }
                 });
             }
