@@ -32,7 +32,7 @@ $(document).ready(function() {
         }
     });
 
-    // On définit un timout car la blibliothèque "datatable" doit d'abord générer l'html.
+    // On définit un timeout car la blibliothèque "datatable" doit d'abord générer l'html.
     setTimeout(() => {
         $("#multiDelete").click(function(){
 
