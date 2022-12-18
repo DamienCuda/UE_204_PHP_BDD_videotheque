@@ -11,7 +11,7 @@ if($is_admin === false){
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
 
-// On vérifie si l'utilistauer à un grade inférieur à nous
+    // On vérifie si l'utilistauer à un grade inférieur à nous
     $userData = $conn->prepare('SELECT * FROM utilisateurs WHERE id = ?');
     $userData->execute([
         nettoyage($_GET['id'])
@@ -28,7 +28,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         $user_rang = 3;
     }
 
-
+    // Si c'est le cas on downgrade son rang.
     if ($permission > $user_rang) {
 
         $user_rang--;

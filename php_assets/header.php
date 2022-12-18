@@ -75,4 +75,6 @@
         echo $header;
 ?>
 
+<!-- BEGIN: script JS -->
 <script src="js/menu.js"></script>
+<!-- END: script JS -->

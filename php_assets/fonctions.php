@@ -8,5 +8,4 @@ function nettoyage($valeur){
     return ($valeur);
 }
 
-
 ?>

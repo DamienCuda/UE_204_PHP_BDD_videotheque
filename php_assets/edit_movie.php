@@ -75,7 +75,7 @@ if (count($datas) > 0) {
         // On modifie le string de la durée pour le stocker dans la BDD (ex: 01:35 -> 01h35).
         $movie_duration_changed = str_replace(":", "h", $movie_duration);
 
-        if (isset($_FILES['movie_img']['tmp_name']) && $_FILES['movie_img']['tmp_name'] == "") {
+        if (isset($_FILES['movie_img']['tmp_name']) && $_FILES['movie_img']['tmp_name'] != "") {
             $movie_img = $_FILES['movie_img']['tmp_name'];
 
             // On détermine nos spécifications autorisé pour l'image.
@@ -86,9 +86,15 @@ if (count($datas) > 0) {
 
             if (!in_array($extension, $extensions)) {
                 $error = 'Vous devez uploader un fichier de type png, jpg ou jpeg';
+                $array = array("status" => "errorIMG");
+                echo json_encode($array);
+                exit();
             }
             if ($taille > $taille_maxi) {
                 $error = 'Le fichier est supérieur à 2 Mo';
+                $array = array("status" => "errorIMG");
+                echo json_encode($array);
+                exit();
             }
 
             // On détermine l'identifiant du film pour lui passer dans le nom afin d'avoir toujours un nom unique et de ne pas écraser une autres.
@@ -100,6 +106,7 @@ if (count($datas) > 0) {
             $id_user = $_SESSION['id'];
             $id_film = $newID;
 
+            // Si tout va bien on upload l'image.
             if (!isset($error)) {
 
                 $name = $id_user . '_' . $id_film . '_' . $_FILES['movie_img']['name'] . '';
@@ -115,6 +122,11 @@ if (count($datas) > 0) {
                         $movie_img_name,
                         $movie_id
                     ));
+
+                    // On retourn un status de succès à JSON.
+                    $array = array("status" => "success");
+                    echo json_encode($array);
+                    exit();
                 }
             } else {
                 $array = array("status" => "errorIMG");
@@ -123,75 +135,122 @@ if (count($datas) > 0) {
             }
         }
 
+        // On vérifie si un changement à eu lieu sur le titre si c'est le cas on le modifie.
         if ($movie_title != $movie_title_last) {
             $update = $conn->prepare('UPDATE catalogue SET title = ? WHERE id = ?');
             $update->execute(array(
                 $movie_title,
                 $movie_id
             ));
+
+            // On retourn un status de succès à JSON.
+            $array = array("status" => "success");
+            echo json_encode($array);
+            exit();
         }
 
+        // On vérifie si un changement à eu lieu sur le réalisateur si c'est le cas on le modifie.
         if ($movie_director != $movie_director_last) {
             $update = $conn->prepare('UPDATE catalogue SET director = ? WHERE id = ?');
             $update->execute(array(
                 $movie_director,
                 $movie_id
             ));
+
+            // On retourn un status de succès à JSON.
+            $array = array("status" => "success");
+            echo json_encode($array);
+            exit();
         }
 
+        // On vérifie si un changement à eu lieu sur les acteurs si c'est le cas on les modifie.
         if ($acteurs_format_string != $movie_actor_last) {
             $update = $conn->prepare('UPDATE catalogue SET acteurs = ? WHERE id = ?');
             $update->execute(array(
                 $acteurs_format_string,
                 $movie_id
             ));
+
+            // On retourn un status de succès à JSON.
+            $array = array("status" => "success");
+            echo json_encode($array);
+            exit();
         }
 
+        // On vérifie si un changement à eu lieu sur les genres si c'est le cas on les modifie.
         if ($genres_format_string != $movie_genre_last) {
             $update = $conn->prepare('UPDATE catalogue SET genre = ? WHERE id = ?');
             $update->execute(array(
                 $genres_format_string,
                 $movie_id
             ));
+
+            // On retourn un status de succès à JSON.
+            $array = array("status" => "success");
+            echo json_encode($array);
+            exit();
         }
 
+        // On vérifie si un changement à eu lieu sur l'année si c'est le cas on la modifie.
         if ($annee_sortie != $annee_sortie_last) {
             $update = $conn->prepare('UPDATE catalogue SET release_year = ? WHERE id = ?');
             $update->execute(array(
                 $annee_sortie,
                 $movie_id
             ));
+
+            // On retourn un status de succès à JSON.
+            $array = array("status" => "success");
+            echo json_encode($array);
+            exit();
         }
 
+        // On vérifie si un changement à eu lieu sur la durée si c'est le cas on la modifie.
         if ($movie_duration_changed != $movie_duration_last) {
             $update = $conn->prepare('UPDATE catalogue SET duration = ? WHERE id = ?');
             $update->execute(array(
                 $movie_duration_changed,
                 $movie_id
             ));
+
+            // On retourn un status de succès à JSON.
+            $array = array("status" => "success");
+            echo json_encode($array);
+            exit();
         }
 
+        // On vérifie si un changement à eu lieu sur le synopsis si c'est le cas on le modifie.
         if ($movie_synopsis != $movie_synopsis_last) {
             $update = $conn->prepare('UPDATE catalogue SET synopsis = ? WHERE id = ?');
             $update->execute(array(
                 $movie_synopsis,
                 $movie_id
             ));
+
+            // On retourn un status de succès à JSON.
+            $array = array("status" => "success");
+            echo json_encode($array);
+            exit();
         }
 
+        // On vérifie si un changement à eu lieu sur le prix si c'est le cas on le modifie.
         if ($price_movie != $price_movie_last) {
             $update = $conn->prepare('UPDATE catalogue SET price = ? WHERE id = ?');
             $update->execute(array(
                 $price_movie,
                 $movie_id
             ));
+
+            // On retourn un status de succès à JSON.
+            $array = array("status" => "success");
+            echo json_encode($array);
+            exit();
         }
 
-        $array = array("status" => "success");
-        echo json_encode($array);
-        exit();
-
     } else {
+
+        // On vérifie quels sont les champs vides.
+
         if (!isset($_POST['movie_title']) || $_POST['movie_title'] != "") {
             $array = array("status" => "emptyTitle");
             echo json_encode($array);

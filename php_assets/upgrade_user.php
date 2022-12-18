@@ -1,5 +1,4 @@
 <?php
-
 require_once("connectdb.php");
 require("verif_session_connect.php");
 require("fonctions.php");

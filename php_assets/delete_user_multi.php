@@ -11,6 +11,7 @@ if($is_admin === false && $permission < 2){
 
 if(isset($_POST['id']) && $_POST['id'] != ""){
 
+    // On créer un tableau vide pour stocker les utilisateur sur les quel on ne peut pas agir.
     $id_not_delete = [];
 
     // On vérifie si l'utilisateur est bien administrateur.
@@ -36,14 +37,15 @@ if(isset($_POST['id']) && $_POST['id'] != ""){
                 $rang = 0;
             }
 
+            // Si l'utilisateur à un rang inférieur au notre et qu'il n'est pas Owner on peut le supprimer.
             if($rang < 3 && $permission > $rang){
                 $pdoDe = $conn->prepare('DELETE FROM utilisateurs WHERE id = ? LIMIT 1');
                 $pdoDe->execute([
                     nettoyage($_POST['id'][$i])
                 ]);
             }else{
+                // Sinon on stock son ID dans le tableau créer plus haut.
                 array_push($id_not_delete, $_POST['id'][$i]);
-
             }
         }
         if(count($id_not_delete) === 0){
@@ -51,6 +53,7 @@ if(isset($_POST['id']) && $_POST['id'] != ""){
             echo json_encode($response_array);
             exit();
         }else{
+            // ICI on pourrait aussi retourner un array avec les ID pour mettre en évidences les utilisateurs sur les quels on a pas les accès.
             $response_array['status'] = 'permissionError';
             echo json_encode($response_array);
             exit();
