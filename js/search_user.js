@@ -23,11 +23,9 @@ $(document).ready(function() {
                     url: 'php_assets/search_user.php',
                     data: 'search=' + encodeURIComponent(search),
                     success: function (data) {
-                        console.log(data)
                         if (data.trim() != "") {
                             $("#result-search-user").append(data);
                         } else {
-                            console.log("rien")
                             $("#result-search-user").html("<small class='text-light'>Aucun résultat</small>");
                         }
                     }

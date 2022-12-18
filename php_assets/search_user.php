@@ -10,7 +10,6 @@ if (isset($_GET['search'])) {
     $query = $conn->prepare('SELECT * FROM utilisateurs WHERE login LIKE ? OR email LIKE ? OR rang LIKE ? LIMIT 10');
     $query->execute(array("%$search%", "%$search%", "%$search%"));
 
-
     while ($results = $query->fetch()) {
         ?>
         <div class="col-12 d-flex justify-content-start align-items-center mb-3 flex-row">

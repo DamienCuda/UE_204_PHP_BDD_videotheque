@@ -5,13 +5,13 @@ require("fonctions.php");
 // On vérifie si les champs ne sont pas vide.
 if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email"]) && $_POST["email"] != "" && isset($_POST["pass"]) && $_POST["pass"] != "" && isset($_POST["passconfirm"]) && $_POST["passconfirm"] != "") {
 
-    // On vérifie si l'utilistauer n'existe pas.
+    // On vérifie si l'utilisteur n'existe pas.
     $usernameReq = $conn->prepare('SELECT * FROM utilisateurs WHERE login =:login');
     $usernameReq->bindValue(':login', nettoyage($_POST['username']));
     $usernameReq->execute();
     $usernames = $usernameReq->fetchAll();
 
-    // Si l'utilistauer n'existe pas on continue.
+    // Si l'utilisateur n'existe pas on continue.
     if (count($usernames) === 0) {
 
         // On vérifie que l'email est correct.
@@ -53,7 +53,7 @@ if (isset($_POST["username"]) && $_POST["username"] != "" && isset($_POST["email
                     $userFolder = "../users/$new_user_id";
                     $avatarFolder = "../users/$new_user_id/avatar";
 
-                    // On attrivue les permission au dossier.
+                    // On attribue les permission au dossier.
                     if (!file_exists($userFolder)) {
                         mkdir($userFolder, 0777, true);
                         mkdir($avatarFolder, 0777, true);

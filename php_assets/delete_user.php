@@ -9,6 +9,7 @@ if($is_admin === false && $permission < 2){
     header("location: index.php");
 }
 
+// On vérifie si l'id n'est pas vide.
 if(isset($_GET['id']) && $_GET['id'] != ""){
 
     // On vérifie si l'utilisateur est bien administrateur.

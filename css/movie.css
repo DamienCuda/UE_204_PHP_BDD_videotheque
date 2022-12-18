@@ -88,7 +88,7 @@ input{
     display: none !important;
 }
 
-.picure_add{
+.picture_add{
     font-size: 50pt;
     display: none !important;
 }
@@ -97,7 +97,7 @@ input{
     display: block !important;
 }
 
-.movie_picture:hover .picure_add{
+.movie_picture:hover .picture_add{
     display: block !important;
 }
 

@@ -54,6 +54,7 @@ if (isset($_POST["password"]) && $_POST["password"]) {
         $options = array("cost" => 4);
         $passwordHashed = password_hash($password, PASSWORD_DEFAULT, $options);
 
+        // On vérifie que le nouveau mot de passe est bien différent de l'ancien.
         if (!password_verify($password, $lastPassword)) {
             $update = $conn->prepare('UPDATE utilisateurs SET password = ? WHERE id = ?');
             $update->execute(array(
@@ -92,9 +93,15 @@ if(isset($_FILES['avatar']['tmp_name']) && $_FILES['avatar']['tmp_name'] != "") 
 
     if (!in_array($extension, $extensions)) {
         $error = 'Vous devez uploader un fichier de type png, jpg ou jpeg';
+        $array = array("status" => "errorIMG");
+        echo json_encode($array);
+        exit();
     }
     if ($taille > $taille_maxi) {
         $error = 'Le fichier est supérieur à 2 Mo';
+        $array = array("status" => "errorIMG");
+        echo json_encode($array);
+        exit();
     }
 
     if (!isset($error)) {
@@ -115,7 +122,8 @@ if(isset($_FILES['avatar']['tmp_name']) && $_FILES['avatar']['tmp_name'] != "") 
         echo json_encode($array);
         exit();
     } else {
-        echo "Le fichier déposé n'est pas au format accepté (jpg, jpeg ou png) ou est supérieur à 2 Mo.";
+        $array = array("status" => "errorIMG");
+        echo json_encode($array);
         exit();
     }
 
