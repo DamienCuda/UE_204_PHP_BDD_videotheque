@@ -1,4 +1,4 @@
-<!-- BEGIN: Utilitaire -->
+<!-- BEGIN: Utilitaires -->
 <script src="app-assets/popper.min.js"></script>
 <script src="app-assets/jquery.dataTables.min.js"></script>
 <script src="app-assets/dataTables.bootstrap5.min.js"></script>
@@ -6,7 +6,7 @@
 <script src="app-assets/dataTables.responsive.min.js"></script>
 <script src="app-assets/bootstrap.min.js"></script>
 <script src="app-assets/inputTags.js"></script>
-<!-- END: Utilitaire -->
+<!-- END: Utilitaires -->
 
 <footer class="bg-light">
     <div class="container mt-auto">

@@ -1,8 +1,8 @@
 <?php
-require_once("connectdb.php");
-require("verif_session_connect.php");
-require("fonctions.php");
-require("permission.php");
+    require_once("connectdb.php");
+    require("verif_session_connect.php");
+    require("fonctions.php");
+    require("permission.php");
 
 if (isset($_GET['search'])) {
 

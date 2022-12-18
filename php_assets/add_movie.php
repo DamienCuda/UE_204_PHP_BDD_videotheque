@@ -64,9 +64,15 @@ if(
 
     if (!in_array($extension, $extensions)) {
         $error = 'Vous devez uploader un fichier de type png, jpg ou jpeg';
+        $array = array("status" => "errorIMG");
+        echo json_encode($array);
+        exit();
     }
     if ($taille > $taille_maxi) {
         $error = 'Le fichier est supérieur à 2 Mo';
+        $array = array("status" => "errorIMG");
+        echo json_encode($array);
+        exit();
     }
 
     // On détermine l'identifiant du film pour lui passer dans le nom afin d'avoir toujours un nom unique et de ne pas écraser une autres.

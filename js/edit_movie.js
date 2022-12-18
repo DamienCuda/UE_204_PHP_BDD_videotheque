@@ -20,6 +20,7 @@ $(document).ready(function () {
     let movie_duration_verif = false;
     let movie_synopsis_verif = false;
     let price_movie_verif = false;
+    let movie_img_verif = false;
 
     let regexTime = new RegExp("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
 
@@ -117,6 +118,16 @@ $(document).ready(function () {
     $("#edit_movie_btn").click(function () {
 
         // On verifie tout les champs
+        if ($("#movie_img").attr("value") != "") {
+            $("#overlay").css("border", "solid 3px green");
+            $("#overlay").html("<i class='bx bx-check-circle valid-img'></i>");
+            movie_img_verif = true;
+        } else {
+            $("#overlay").css("border", "solid 3px red");
+            $("#overlay").html("<i class='bx bx-error-circle error-img'></i>");
+            movie_img_verif = false;
+        }
+
         if (movie_title.val() != "") {
             movie_title.addClass("is-valid");
             movie_title.removeClass("is-invalid");
@@ -197,7 +208,7 @@ $(document).ready(function () {
             price_movie_verif = false;
         }
 
-        if(movie_title_verif && movie_actor_verif && movie_director_verif && annee_sortie_verif && movie_duration_verif && movie_synopsis_verif && price_movie_verif){
+        if(movie_img_verif && movie_title_verif && movie_actor_verif && movie_director_verif && annee_sortie_verif && movie_duration_verif && movie_synopsis_verif && price_movie_verif){
 
             let fd = new FormData();
 

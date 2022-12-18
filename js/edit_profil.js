@@ -101,6 +101,13 @@ $(document).ready(function() {
                         console.log(reponse)
 
                         // On affiche le resultat
+
+                        if(reponse.status == "errorIMG"){
+                            $("#edit_zone_img").css("border", "solid 3px red");
+                            $("#edit_zone_img").css("border-radius", "150px");
+                            $("#edit_zone_img label").html("<i class='bx bx-error-circle error-img'></i>");
+                        }
+
                         if(reponse.status == "emailInvalid"){
                             $("#email_user").addClass("is-invalid")
                             $("#email_user").removeClass("is-valid")
