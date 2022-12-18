@@ -97,7 +97,6 @@ $(".edit_btn").click(function(){
                     }, // Paramètres envoyés à php
                     dataType: "json", // Données en retour
                     success: function(reponse) {
-                        console.log(reponse)
 
                         // On affiche le traitement des erreurs côté PHP même si normalement on ne peut rien envoyer à PHP si tout n'est pas bon
                         // mais on les traites quand même au cas où.
@@ -127,13 +126,11 @@ $(".edit_btn").click(function(){
                         }
 
                         if(reponse.status == "success"){
-                            console.log(reponse.status)
                             is_edit = false;
                             window.location.href = 'gestion_user.php';
                         }
                     },
                     error:function(error){
-                        console.log(error)
                     }
                 });
             }
@@ -163,7 +160,6 @@ $(".edit_btn").click(function(){
                     }, // Paramètres envoyés à php
                     dataType: "json", // Données en retour
                     success: function(reponse) {
-                        console.log(reponse)
 
                         // On affiche le resultat
                         if(reponse.status == "usernameExiste"){
@@ -175,7 +171,6 @@ $(".edit_btn").click(function(){
                         }
                     },
                     error:function(error){
-                        console.log(error)
                     }
                 });
 
