@@ -10,8 +10,7 @@ Login et mot de passe connexion service
 
 Login	    Mot de passe   rang
 
-admin	    Cvtic2022@	   Owner
-baptiste    Cvtic2022@	   Administrateur
-guillaume   Cvtic2022@	   Administrateur
-olivier     Cvtic2022@	   Modérateur
-user        Cvtic2022@	   Membre
+owner	       Cvtic2022@	   Owner
+admin        Cvtic2022@	   Administrateur
+modo         Cvtic2022@	   Modérateur
+user         Cvtic2022@	   Membre
