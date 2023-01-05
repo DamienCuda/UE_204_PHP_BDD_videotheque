@@ -211,7 +211,7 @@ CREATE TABLE `utilisateurs` (
 INSERT INTO `utilisateurs` (`id`, `login`, `email`, `password`, `profile_picture`, `is_admin`, `rang`, `solde`) VALUES
 (1, 'owner', 'owner@owner.fr', '$2y$04$0E0.NfX08Vye7qcv.ElmcuLzII80kz.FHpGmgxFroqGDtx3Vd9jPe', NULL, 1, 'Owner', 50),
 (2, 'admin', 'admin@admin.fr', '$2y$04$0E0.NfX08Vye7qcv.ElmcuLzII80kz.FHpGmgxFroqGDtx3Vd9jPe', NULL, 1, 'Administrateur', 50),
-(3, 'moderateur', 'moderateur@moderateur.fr', '$2y$04$Wxb2qNNgVPBZpPry3Bg1x.VrhzQgJtk.5z5MEn.LzhyiJpfXEP..m', NULL, 1, 'Modérateur', 44),
+(3, 'modo', 'moderateur@moderateur.fr', '$2y$04$Wxb2qNNgVPBZpPry3Bg1x.VrhzQgJtk.5z5MEn.LzhyiJpfXEP..m', NULL, 1, 'Modérateur', 44),
 (4, 'user', 'user@user.fr', '$2y$04$nPkUlvlkdf7LyrRXdBlLxei27mmiGmYksw9N5l32cnIzruoozQtU6', NULL, 0, 'Membre', 11);
 
 --
